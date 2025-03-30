@@ -14,19 +14,13 @@
     boot.loader.efi.canTouchEfiVariables = true;
 
     networking.networkmanager.enable = true;
+    environment.systemPackages = with pkgs; [
+        networkmanagerapplet
+    ];
 
     services.xserver.xkb = {
         layout = "us";
         variant = "";
     };
-
-    #services.actkbd = {
-    #    enable = true;
-    #    bindings = [
-    #        { keys = [ 113 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l tomas -c 'amixer -q set Master toggle'"; }
-    #        { keys = [ 114 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l tomas -c 'amixer -q set Master 5%- unmute'"; }
-    #        { keys = [ 115 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l tomas -c 'amixer -q set Master 5%+ unmute'"; }
-    #    ];
-    #};
 
 }
