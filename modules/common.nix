@@ -4,6 +4,7 @@
   imports = [
     ./locale.nix
     ./fonts.nix
+    ./users.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -17,13 +18,6 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-  };
-
-  users.users.tomas = {
-    isNormalUser = true;
-    description = "tomas";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
   };
 
   nixpkgs.config.allowUnfree = true;
