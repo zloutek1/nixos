@@ -1,48 +1,68 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, inputs, ... }: {
     
+    imports = [
+        inputs.nixos-hardware.nixosModules.common-cpu-intel
+        inputs.nixos-hardware.nixosModules.common-gpu-intel
+        inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+        inputs.nixos-hardware.nixosModules.common-pc-laptop
+    ];
+
+    hardware.nvidia = {
+        open = true;
+
+        # Info: <https://wiki.nixos.org/wiki/NVIDIA#Common_setup>
+        prime = {
+            intelBusId = "PCI:0:2:0";
+            nvidiaBusId = "PCI:1:0:0";
+        };
+
+        # Info: <https://download.nvidia.com/XFree86/Linux-x86_64/460.73.01/README/dynamicpowermanagement.html>
+        powerManagement.enable = lib.mkDefault true;
+    };
+
     systemd = {
-      services.turn-on-speakers = let
-        turn-on-speakers = pkgs.writeShellApplication {
-          name = "turn-on-speakers";
+        services.turn-on-speakers = let
+            turn-on-speakers = pkgs.writeShellApplication {
+                name = "turn-on-speakers";
 
-          runtimeInputs = with pkgs; [
-            alsa-utils
-            gawk
-            gnugrep
-            gnused
-            i2c-tools
-            kmod
-            uutils-coreutils-noprefix
-          ];
+                runtimeInputs = with pkgs; [
+                alsa-utils
+                gawk
+                gnugrep
+                gnused
+                i2c-tools
+                kmod
+                uutils-coreutils-noprefix
+                ];
 
-          text = builtins.readFile ./turn-on-speakers.sh;
+                text = builtins.readFile ./turn-on-speakers.sh;
+            };
+        in {
+            # Due to bugs in the snd_hda_scodec_tas2781_i2c module, the best way to have functional speakers is to run a small script to turn the bass speakers on via i2c.
+            enable = true;
+
+            after = [
+                "graphical.target"
+                "sound.target"
+            ];
+
+            requires = ["sound.target"];
+
+            serviceConfig = {
+                Type = "oneshot";
+                ExecStart = "${lib.getExe turn-on-speakers}";
+            };
+
+            wantedBy = ["graphical.target"];
         };
-      in {
-        # Due to bugs in the snd_hda_scodec_tas2781_i2c module, the best way to have functional speakers is to run a small script to turn the bass speakers on via i2c.
-        enable = true;
 
-        after = [
-          "graphical.target"
-          "sound.target"
-        ];
-
-        requires = ["sound.target"];
-
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${lib.getExe turn-on-speakers}";
+        timers = {
+            yoga-speakers = {
+                enable = true;
+                timerConfig.OnBootSec = "30s"; # Runs 30 seconds after boot
+                wantedBy = ["timers.target"];
+            };
         };
-
-        wantedBy = ["graphical.target"];
-      };
-
-      timers = {
-        yoga-speakers = {
-          enable = true;
-          timerConfig.OnBootSec = "30s"; # Runs 30 seconds after boot
-          wantedBy = ["timers.target"];
-        };
-      };
     };
 
 }
