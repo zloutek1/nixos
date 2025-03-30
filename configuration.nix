@@ -65,8 +65,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-git
-       waybar
+     git
+     waybar
      dunst
      libnotify
      swww
@@ -110,6 +110,9 @@ git
     # Most wayland compositors need this
     nvidia.modesetting.enable = true;
   };
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
