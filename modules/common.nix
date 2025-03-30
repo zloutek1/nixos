@@ -37,4 +37,11 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   system.stateVersion = "24.11";
+
+  nix.gc = { 
+    automatic = true; 
+    persistent = true; 
+    dates = "05:00:00"; 
+    options = "--delete-older-than 7d"; 
+  };
 }
