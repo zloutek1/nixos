@@ -15,6 +15,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          { networking.hostName = "yoga"; }
           ./hosts/yoga
         ];
       };
