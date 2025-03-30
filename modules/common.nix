@@ -29,6 +29,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    brave
     neovim
     git
     zoxide
