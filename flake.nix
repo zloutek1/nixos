@@ -17,7 +17,6 @@
         modules = [
           ./configuration.nix
           ./hosts/yoga
-          ./modules/hardware/lenovo/yoga/16IMH9
         ];
       };
     };
