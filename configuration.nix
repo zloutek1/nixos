@@ -6,8 +6,7 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ 
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -74,6 +73,7 @@
      rofi-wayland
      brave
      zoxide
+     vscode
   ];
 
   xdg.portal.enable = true;
