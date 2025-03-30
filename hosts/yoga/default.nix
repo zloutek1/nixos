@@ -9,6 +9,4 @@
         ../../modules/hyprland
     ];
 
-    networking.hostName = "yoga";
-
 }
