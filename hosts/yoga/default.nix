@@ -3,7 +3,8 @@
     imports = [
         ./hardware.nix
         ../../modules/hardware/lenovo/yoga/16IMH9
-        ../../modules/hyprland
+        ../../modules/greetd.nix
+        ../../modules/hyprland.nix
     ];
 
 }

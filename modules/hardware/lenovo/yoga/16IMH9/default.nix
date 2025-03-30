@@ -1,7 +1,7 @@
 { lib, pkgs, inputs, ... }: {
 
     imports = [
-        ../../../../nvidia
+        ../../../../nvidia.nix
     ];
 
     hardware.nvidia = {

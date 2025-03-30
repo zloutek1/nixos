@@ -74,8 +74,16 @@
      brave
      zoxide
      vscode
+     sddm-astronaut
   ];
 
+
+  #services.xserver = {
+  #  enable = true;
+  #  displayManager.sddm.enable = true;
+  #  displayManager.sddm.wayland.enable = true;
+  #  displayManager.sddm.theme = "sddm-astronaut-theme";
+  #};
   
 
   # Enable sound with pipewire
