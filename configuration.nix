@@ -74,7 +74,6 @@
      rofi-wayland
      brave
      zoxide
-  #  wget
   ];
 
   xdg.portal.enable = true;
