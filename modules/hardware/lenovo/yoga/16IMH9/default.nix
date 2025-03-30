@@ -1,23 +1,15 @@
 { lib, pkgs, inputs, ... }: {
-    
+
     imports = [
-        inputs.nixos-hardware.nixosModules.common-cpu-intel
-        inputs.nixos-hardware.nixosModules.common-gpu-intel
-        inputs.nixos-hardware.nixosModules.common-gpu-nvidia
-        inputs.nixos-hardware.nixosModules.common-pc-laptop
+        ../../../../nvidia
     ];
 
     hardware.nvidia = {
-        open = true;
-
         # Info: <https://wiki.nixos.org/wiki/NVIDIA#Common_setup>
         prime = {
             intelBusId = "PCI:0:2:0";
             nvidiaBusId = "PCI:1:0:0";
         };
-
-        # Info: <https://download.nvidia.com/XFree86/Linux-x86_64/460.73.01/README/dynamicpowermanagement.html>
-        powerManagement.enable = lib.mkDefault true;
     };
 
     systemd = {

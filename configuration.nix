@@ -76,8 +76,7 @@
      vscode
   ];
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  
 
   # Enable sound with pipewire
   security.rtkit.enable = true;
@@ -89,30 +88,13 @@
     jack.enable = true;
   };
 
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-
-  environment.sessionVariables = {
-    # If your cursor becomes invisible
-    WLR_NO_HARDWARE_CURSORS = "1";
-  
-    # Hint electron apps to use wayland
-    NIXOS_OZONE_WL = "1";
-  };
-
   hardware = {
     # Opengl
     graphics.enable = true;
-   
-    # Most wayland compositors need this
-    nvidia.modesetting.enable = true;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
-
+  
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
