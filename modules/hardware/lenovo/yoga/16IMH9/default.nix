@@ -18,13 +18,13 @@
                 name = "turn-on-speakers";
 
                 runtimeInputs = with pkgs; [
-                alsa-utils
-                gawk
-                gnugrep
-                gnused
-                i2c-tools
-                kmod
-                uutils-coreutils-noprefix
+                    alsa-utils
+                    gawk
+                    gnugrep
+                    gnused
+                    i2c-tools
+                    kmod
+                    uutils-coreutils-noprefix
                 ];
 
                 text = builtins.readFile ./turn-on-speakers.sh;
@@ -52,7 +52,7 @@
             yoga-speakers = {
                 enable = true;
                 timerConfig.OnBootSec = "30s"; # Runs 30 seconds after boot
-                wantedBy = ["timers.target"];
+                partOf = ["turn-on-speakers.service"];
             };
         };
     };

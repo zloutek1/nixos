@@ -6,7 +6,7 @@
 
         packages = with pkgs; [
             noto-fonts
-            nerdfonts #(nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+            (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         ];
     };
 

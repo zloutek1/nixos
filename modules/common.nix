@@ -26,6 +26,7 @@
     unzip
     fastfetch   # neofetch alternative
     zoxide      # better cd
+    nsxiv       # image viewer
 
     # Networking
     wget
