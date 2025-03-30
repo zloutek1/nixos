@@ -9,11 +9,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
