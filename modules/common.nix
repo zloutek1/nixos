@@ -42,13 +42,6 @@
   environment.systemPackages = with pkgs; [
      neovim
      git
-     waybar
-     dunst
-     libnotify
-     swww
-     kitty
-     rofi-wayland
-     brave
      zoxide
      vscode
      sddm-astronaut

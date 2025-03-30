@@ -6,7 +6,7 @@
         ../../modules/common.nix
         ../../modules/greetd.nix
         ../../modules/pipewire.nix
-        ../../modules/hyprland.nix
+        ../../modules/hyprland
     ];
 
     networking.hostName = "yoga";
