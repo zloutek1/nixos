@@ -12,12 +12,24 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    # Applications
     brave
-    neovim
+
+    # Development
     git
-    zoxide
     vscode
-    sddm-astronaut
+
+    # Utilities
+    neovim
+    tree
+    zip
+    unzip
+    fastfetch   # neofetch alternative
+    zoxide      # better cd
+
+    # Networking
+    wget
+    curl
   ];
 
   hardware.graphics.enable = true;
