@@ -33,34 +33,14 @@
         dynamicBoost.enable = lib.mkDefault true;
 
         powerManagement = {
-          enable = true;
-          finegrained = true;
+          enable = lib.mkForce true;
+          finegrained = lib.mkForce true;
         };
 
         prime.offload = {
           # Remember to define nvidiaBusId and intelBusId/amdBusId in config.hardware.nvidia.prime.
           enable = true;
           enableOffloadCmd = true;
-        };
-      };
-
-      specialisation.nvidia-sync.configuration = {
-        environment.etc."specialisation".text = "nvidia-sync";
-
-        hardware.nvidia = {
-          powerManagement = {
-            enable = lib.mkForce false;
-            finegrained = lib.mkForce false;
-          };
-
-          prime = {
-            offload = {
-              enable = lib.mkForce false;
-              enableOffloadCmd = lib.mkForce false;
-            };
-
-            sync.enable = lib.mkForce true;
-          };
         };
       };
     })

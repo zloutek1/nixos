@@ -1,25 +1,30 @@
-{config, ...}: {
-  config = {
+{config, lib, ...}: {
+
     boot = {
-      extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
-      initrd.kernelModules = ["nvidia"];
-      kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
+        extraModulePackages = [];
+        initrd.kernelModules = ["nvidia"];
+        kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
     };
 
-    hardware = {
-      graphics = {
+    # Enable opengl
+    hardware.opengl = {
         enable = true;
-        enable32Bit = true;
-      };
-
-      nvidia = {
-        modesetting.enable = true;
-        nvidiaSettings = true;
-        open = false;
-        powerManagement.enable = true;
-      };
     };
 
-    services.xserver.videoDrivers = ["nvidia"];
-  };
+    # Load nvidia driver for xorg and wayland
+    services.xserver.videoDrivers = [ "nvidia" ];
+
+    hardware.nvidia = {
+        open = false;
+
+        modesetting.enable = true;
+        
+        powerManagement.enable = lib.mkDefault false;
+        powerManagement.finegrained = lib.mkDefault false;
+        
+        nvidiaSettings = true;
+        
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
 }
