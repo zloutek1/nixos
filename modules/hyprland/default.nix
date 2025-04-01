@@ -9,16 +9,16 @@
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     environment.systemPackages = with pkgs; [
-     waybar
+        waybar
      
-     dunst
-     libnotify
+        dunst
+        libnotify
      
-     swww
+        swww
      
-     kitty
+        kitty
      
-     rofi-wayland
+        wofi
   ];
 
 
