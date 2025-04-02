@@ -6,6 +6,7 @@
         ../../modules/common.nix
         ../../modules/greetd.nix
         ../../modules/pipewire.nix
+        ../../modules/bluetooth.nix
         ../../modules/hyprland
     ];
 
