@@ -26,7 +26,7 @@
                 gfxmodeEfi              = "auto";
                 gfxmodeBios             = "auto";
 
-                theme = import ../pkgs/elegant-grub-theme.nix { inherit pkgs; };
+                theme = import ../pkgs/matrix-grub-theme.nix { inherit pkgs; };
 
                 extraEntries = ''
                     submenu "Power Options" {
