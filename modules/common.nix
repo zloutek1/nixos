@@ -10,6 +10,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config.allowUnfree = true;
+  hardware.enableRedistributableFirmware = true;
 
   environment.systemPackages = with pkgs; [
     # Applications
