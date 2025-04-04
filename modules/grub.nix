@@ -9,9 +9,10 @@
         
             efi = {
                 canTouchEfiVariables = true;
-                efiSysMountPoint = "/boot/efi";
             };
             
+            systemd-boot.enable = false; 
+
             grub = {
                 enable = true;
                 efiSupport = true;
