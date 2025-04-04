@@ -9,4 +9,6 @@
         jack.enable = true;
     };
 
+    hardware.pulseaudio.supportSOF = true;
+
 }
