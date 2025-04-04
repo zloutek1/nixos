@@ -18,6 +18,9 @@
         networkmanagerapplet
     ];
 
+    # since laptop has dualboot with windows
+    time.hardwareClockInLocalTime = true;
+
     services.xserver.xkb = {
         layout = "us";
         variant = "";
