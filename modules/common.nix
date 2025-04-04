@@ -42,10 +42,13 @@
 
   system.stateVersion = "24.11";
 
-  nix.gc = { 
-    automatic = true; 
-    persistent = true; 
-    dates = "05:00:00"; 
-    options = "--delete-older-than 7d"; 
+  nix = {
+    settings.auto-optimise-store = true;
+    gc = { 
+      automatic = true; 
+      persistent = true; 
+      dates = "daily"; 
+      options = "--delete-older-than 1d"; 
+    };
   };
 }
