@@ -1,8 +1,8 @@
-{ config, lib, modulesPath, ... }: {
+{ config, lib, modulesPath, self, ... }: {
 
     imports = [ 
-        (modulesPath + "/installer/scan/not-detected.nix")
-        ../../modules/hardware/lenovo/yoga/16IMH9
+        "${modulesPath}/installer/scan/not-detected.nix"
+        "${self}/modules/hardware/lenovo/yoga/16IMH9"
     ];
 
     boot = {

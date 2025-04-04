@@ -1,13 +1,13 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, self, ... }: {
 
     imports = [
         ./hardware.nix
-        ../../modules/common.nix
-        ../../modules/grub.nix
-        ../../modules/greetd.nix
-        ../../modules/pipewire.nix
-        ../../modules/bluetooth.nix
-        ../../modules/hyprland.nix
+        "${self}/modules/common.nix"
+        "${self}/modules/grub.nix"
+        "${self}/modules/greetd.nix"
+        "${self}/modules/pipewire.nix"
+        "${self}/modules/bluetooth.nix"
+        "${self}/modules/hyprland.nix"
     ];
 
 

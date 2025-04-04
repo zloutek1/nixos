@@ -13,7 +13,7 @@
     nixosConfigurations = {
       yoga = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs self; };
         modules = [
           { networking.hostName = "yoga"; }
           ./hosts/yoga
@@ -24,7 +24,7 @@
     homeConfigurations = {
       "tomas@yoga" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit inputs self; };
         modules = [
           
         ];

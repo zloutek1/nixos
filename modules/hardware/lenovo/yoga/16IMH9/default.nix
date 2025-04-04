@@ -1,10 +1,10 @@
-{ lib, pkgs, inputs, ... }: {
+{ lib, pkgs, inputs, self, ... }: {
 
     imports = [
-        ../../../cpu/intel.nix
-        ../../../gpu/intel.nix
-        ../../../gpu/nvidia.nix
-        ../../../profiles/laptop.nix
+        "${self}/modules/hardware/cpu/intel.nix"
+        "${self}/modules/hardware/gpu/intel.nix"
+        "${self}/modules/hardware/gpu/nvidia.nix"
+        "${self}/modules/hardware/profiles/laptop.nix"
     ];
 
     boot = {
