@@ -2,6 +2,7 @@
 
     imports = [ 
         (modulesPath + "/installer/scan/not-detected.nix")
+        ../../modules/hardware/lenovo/yoga/16IMH9
     ];
 
     boot = {

@@ -28,6 +28,7 @@
     fastfetch   # neofetch alternative
     zoxide      # better cd
     nsxiv       # image viewer
+    stow        # dotfiles manager
 
     # Networking
     wget
