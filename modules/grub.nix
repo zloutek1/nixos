@@ -17,6 +17,7 @@
                 enable = true;
                 efiSupport = true;
                 device = "nodev";
+                default = "saved";
                 
                 useOSProber = true;
                 
