@@ -4,7 +4,7 @@
         ./hardware.nix
         "${self}/modules/common.nix"
         "${self}/modules/grub.nix"
-        "${self}/modules/greetd.nix"
+        "${self}/modules/sddm.nix"
         "${self}/modules/pipewire.nix"
         "${self}/modules/bluetooth.nix"
         "${self}/modules/hyprland.nix"
