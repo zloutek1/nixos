@@ -8,7 +8,7 @@
         "${self}/modules/pipewire.nix"
         "${self}/modules/bluetooth.nix"
         "${self}/modules/hyprland.nix"
-        "${self}/modules/dark-theme.nix"
+        #"${self}/modules/dark-theme.nix"
     ];
 
 

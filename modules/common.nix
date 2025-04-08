@@ -13,19 +13,15 @@
   hardware.enableRedistributableFirmware = true;
 
   environment.systemPackages = with pkgs; [
-    # Applications
-    brave
-    obsidian
-
     # Development
     git
-    vscode
-
+    
     # Utilities
     neovim
     tree
     zip
     unzip
+    jq          # A lightweight and flexible command-line JSON processor
     fastfetch   # neofetch alternative
     zoxide      # better cd
     nsxiv       # image viewer
