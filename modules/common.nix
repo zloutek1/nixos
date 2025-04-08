@@ -7,8 +7,6 @@
     ./users.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   nixpkgs.config.allowUnfree = true;
   hardware.enableRedistributableFirmware = true;
 
@@ -26,6 +24,7 @@
     zoxide      # better cd
     nsxiv       # image viewer
     stow        # dotfiles manager
+    bat         # better cat
 
     # Networking
     wget
@@ -45,6 +44,17 @@
       persistent = true; 
       dates = "daily"; 
       options = "--delete-older-than 1d"; 
+    };
+  };
+
+  # Nix settings
+  nix = {
+    package = pkgs.nixFlakes;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 1d";
     };
   };
 }

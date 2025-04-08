@@ -2,7 +2,6 @@
 
     imports = [
         ./hardware.nix
-        "${self}/modules/common.nix"
         "${self}/modules/grub.nix"
         "${self}/modules/sddm.nix"
         "${self}/modules/pipewire.nix"
@@ -11,9 +10,9 @@
         #"${self}/modules/dark-theme.nix"
     ];
 
-
-
+    networking.hostName = "yoga";
     networking.networkmanager.enable = true;
+    
     environment.systemPackages = with pkgs; [
         networkmanagerapplet
     ];

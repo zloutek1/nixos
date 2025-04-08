@@ -9,20 +9,14 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: let
+    lib = import ./lib/default.nix { inherit inputs system; };
+  in {
     nixosConfigurations = {
-      yoga = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [
-          ./hosts/yoga
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.tomas = import ./homes/tomas;
-          }
-        ];
-      };
+      yoga = lim.mkSystem {
+        hostName = "yoga";
+        userName = "tomas";
+      }
     };
   };
 }
