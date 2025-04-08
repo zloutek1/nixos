@@ -10,13 +10,14 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: let
-    lib = import ./lib/default.nix { inherit inputs system; };
+    lib = import ./lib/default.nix { inherit inputs; };
   in {
     nixosConfigurations = {
-      yoga = lim.mkSystem {
+      yoga = lib.mkSystem {
+        system = "x86_64-linux";
         hostName = "yoga";
         userName = "tomas";
-      }
+      };
     };
   };
 }
