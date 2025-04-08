@@ -10,8 +10,11 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: let
+    
     lib = import ./lib/default.nix { inherit inputs self; };
+  
   in {
+    
     nixosConfigurations = {
       yoga = lib.mkSystem {
         system = "x86_64-linux";
@@ -19,5 +22,6 @@
         userName = "tomas";
       };
     };
+    
   };
 }

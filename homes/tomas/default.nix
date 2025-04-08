@@ -33,7 +33,7 @@
         enableCompletion = true;
         
         bashrcExtra = ''
-        
+            
         '';
 
         shellAliases = {
