@@ -1,11 +1,10 @@
-{ inputs }:
+{ inputs, self }:
 
 {
     # Helper function to create systems with home-manager modules
     mkSystem = { system, hostName, userName, extraModules ? [] }:
         inputs.nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = { inherit inputs system; };
+            specialArgs = { inherit inputs self; };
             modules = [
                 # Host-specific configuration
                 ../hosts/${hostName}/default.nix
@@ -18,7 +17,8 @@
                 {
                     home-manager.useGlobalPkgs = true;
                     home-manager.useUserPackages = true;
-                    home-manager.extraSpecialArgs = { inherit inputs system; };
+                    home-manager.backupFileExtension = "hm-backup";
+                    home-manager.extraSpecialArgs = { inherit inputs self; };
                     home-manager.users.${userName} = import ../homes/${userName}/default.nix;
                 }
         

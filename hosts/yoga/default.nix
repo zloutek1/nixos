@@ -11,6 +11,8 @@
     ];
 
     networking.hostName = "yoga";
+    system.stateVersion = "24.11";
+
     networking.networkmanager.enable = true;
     
     environment.systemPackages = with pkgs; [

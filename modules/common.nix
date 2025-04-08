@@ -35,22 +35,12 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  system.stateVersion = "24.11";
-
-  nix = {
-    settings.auto-optimise-store = true;
-    gc = { 
-      automatic = true; 
-      persistent = true; 
-      dates = "daily"; 
-      options = "--delete-older-than 1d"; 
-    };
-  };
-
   # Nix settings
   nix = {
-    package = pkgs.nixFlakes;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+    };
     gc = {
       automatic = true;
       dates = "daily";
