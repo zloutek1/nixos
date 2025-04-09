@@ -17,9 +17,9 @@
 
     # 4. Define the systemd service to run the fix script
     systemd = {
-        services.turn-on-speakers = let
-            turn-on-speakers = pkgs.writeShellApplication {
-                name = "turn-on-speakers";
+        services.yoga-speakers-fix = let
+            yoga-speakers-fix = pkgs.writeShellApplication {
+                name = "yoga-speakers-fix";
 
                 runtimeInputs = with pkgs; [
                     alsa-utils
@@ -31,7 +31,7 @@
                     uutils-coreutils-noprefix
                 ];
 
-                text = builtins.readFile ./turn-on-speakers.sh;
+                text = builtins.readFile ./yoga-speakers-fix.sh;
             };
         in {
             enable = true;
@@ -43,7 +43,7 @@
 
             serviceConfig = {
                 Type = "oneshot";
-                ExecStart = "${lib.getExe turn-on-speakers}";
+                ExecStart = "${lib.getExe yoga-speakers-fix}";
                 StandardOutput = "journal"; # Log script output to systemd journal
                 StandardError = "journal";
                 User = "root"; # I2C access requires root privileges 
@@ -54,7 +54,7 @@
             yoga-speakers = {
                 enable = true;
                 timerConfig.OnBootSec = "30s"; # Runs 30 seconds after boot
-                partOf = ["turn-on-speakers.service"];
+                partOf = ["yoga-speakers-fix.service"];
             };
         };
     };
