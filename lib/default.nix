@@ -1,6 +1,6 @@
 { inputs, self }:
 
 {
-    mkNixosSystem = import ./mkNixosSystem.nix;
-    getHomeDirectory = import ./getHomeDirectory.nix { inherit inputs self; };
+    mkNixosSystem = import ./mkNixosSystem.nix { inherit inputs self; };
+    getHomeDirectory = import ./getHomeDirectory.nix;
 }

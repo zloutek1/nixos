@@ -1,4 +1,4 @@
-{ config, pkgs, lib, username, ... }: {
+{ config, pkgs, lib, self, username, ... }: {
 
     home.username = username;
     home.homeDirectory = self.lib.getHomeDirectory { inherit pkgs username; };
