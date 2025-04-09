@@ -15,11 +15,13 @@
   
   in {
     
+    lib = lib;
+
     nixosConfigurations = {
       yoga = lib.mkNixosSystem {
         system = "x86_64-linux";
-        hostName = "yoga";
-        userName = "tomas";
+        hostname = "yoga";
+        username = "tomas";
       };
     };
     

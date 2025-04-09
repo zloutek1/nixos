@@ -1,11 +1,7 @@
-{ config, pkgs, lib, userName, ... }: {
+{ config, pkgs, lib, username, ... }: {
 
-    home.username = userName;
-    home.homeDirectory = lib.mkForce (
-        if pkgs.stdenv.isDarwin then "/Users/${userName}"
-        else if pkgs.stdenv.isLinux then "/home/${userName}"
-        else throw "Unsupported system type: Cannot determine home directory."
-    );
+    home.username = username;
+    home.homeDirectory = self.lib.getHomeDirectory { inherit pkgs username; };
     home.stateVersion = "24.11";
 
     # Let Home Manager manage itself
