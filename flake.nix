@@ -14,8 +14,7 @@
         lib = import ./lib/default.nix { inherit inputs self; };
     
     in {
-        
-        lib = lib;
+        inherit lib;
 
         nixosConfigurations = {
         yoga = lib.mkNixosSystem {
