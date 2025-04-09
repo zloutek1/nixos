@@ -23,7 +23,7 @@ inputs.nixpkgs.lib.nixosSystem {
         }
 
         # Common configuration
-        ../modules/common.nix
+        self.nixosModules.common
 
         # Host-specific configuration
         ../hosts/${hostname}/default.nix

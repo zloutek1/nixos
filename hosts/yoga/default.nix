@@ -2,12 +2,11 @@
 
     imports = [
         ./hardware.nix
-        "${self}/modules/grub.nix"
-        "${self}/modules/sddm.nix"
-        "${self}/modules/pipewire.nix"
-        "${self}/modules/bluetooth.nix"
-        "${self}/modules/hyprland.nix"
-        #"${self}/modules/dark-theme.nix"
+        self.nixosModules.grub
+        self.nixosModules.sddm
+        self.nixosModules.pipewire
+        self.nixosModules.bluetooth
+        self.nixosModules.hyprland
     ];
 
     networking.hostName = "yoga";

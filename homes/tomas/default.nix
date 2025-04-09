@@ -1,7 +1,7 @@
 { pkgs, self, username, ... }: {
 
     imports = [
-        "${self}/modules/home-manager/cursor.nix"
+        self.homeModules.cursor
     ];
 
     home.username = username;

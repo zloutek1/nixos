@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ self, pkgs, ... }: {
 
     # WHENEVER THIS FILE CHANGES, ADD THIS FLAG TO YOUR REBUILD COMMAND: --install-bootloader
 
@@ -27,7 +27,7 @@
                 gfxmodeEfi              = "auto";
                 gfxmodeBios             = "auto";
 
-                theme = import ../pkgs/matrix-grub-theme.nix { inherit pkgs; };
+                theme = import "${self}/pkgs/matrix-grub-theme.nix" { inherit pkgs; };
 
                 extraEntries = ''
                     submenu "Power Options" {
