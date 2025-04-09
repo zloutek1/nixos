@@ -15,9 +15,6 @@
         nixosModules = lib.discoverModules { path = ./modules/nixos; };
         homeModules = lib.discoverModules { path = ./modules/home-manager; };
         
-        debugNixosModules = (builtins.trace "Discovered nixosModule keys: ${builtins.toString (builtins.attrNames nixosModules)}") nixosModules;
-        debugHomeModules = (builtins.trace "Discovered homeModules keys: ${builtins.toString (builtins.attrNames homeModules)}") homeModules;
-    
     in {
         inherit lib nixosModules homeModules;
 
