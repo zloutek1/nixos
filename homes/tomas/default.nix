@@ -1,5 +1,9 @@
 { pkgs, self, username, ... }: {
 
+    imports = [
+        "${self}/modules/home-manager/cursor.nix"
+    ];
+
     home.username = username;
     home.homeDirectory = self.lib.getHomeDirectory { inherit pkgs username; };
     home.stateVersion = "24.11";
@@ -51,4 +55,5 @@
             workspace-names = [ "Main" "Code" "Web" "Media" ];
         };
     };
+
 }

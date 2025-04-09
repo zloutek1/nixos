@@ -23,19 +23,18 @@
         swww        # wallpaper app
         kitty       # terminal
         wofi        # app launcher
-        dunst       # notifications
-        libnotify   # ^
+        hyprcursor  # custor theme
+        
+        # Notifications
+        dunst       
+        libnotify
     ];
 
     environment.sessionVariables = {
         # Force Firefox to use Wayland
         MOZ_ENABLE_WAYLAND = "1";
         # Force Qt apps to use Wayland
-        QT_QPA_PLATFORM = "wayland";
-        # Variables below are often set automatically but can be explicit
-        # XDG_SESSION_TYPE = "wayland";
-        # XDG_CURRENT_DESKTOP = "Hyprland";
+        QT_QPA_PLATFORM = "wayland";              
     };
-
 
 }
