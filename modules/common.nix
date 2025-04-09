@@ -33,7 +33,7 @@
 
   hardware.graphics.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   # Nix settings
   nix = {
