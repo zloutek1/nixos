@@ -70,10 +70,12 @@
   environment.sessionVariables = {
     # Fix Nvidia cursor rendering issues in wlroots compositors (like Hyprland)
     WLR_NO_HARDWARE_CURSORS = "1";
+    
     # NixOS-specific helper to encourage Electron/Chromium apps to use Wayland
-    NIXOS_OZONE_WL = "1";
+    # NIXOS_OZONE_WL = "1";
+    
     # Force Nvidia GBM backend (Try removing if Hyprland crashes or is unstable)
-    GBM_BACKEND = "nvidia-drm";
+    # GBM_BACKEND = "nvidia-drm";
 
     #!! DO NOT set LIBVA_DRIVER_NAME globally for PRIME offload!!
     # It breaks acceleration for one of the GPUs.
