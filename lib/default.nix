@@ -21,6 +21,10 @@
                     home-manager.extraSpecialArgs = { inherit inputs self; };
                     home-manager.users.${userName} = import ../homes/${userName}/default.nix;
                 }
+
+                {
+                    nixpkgs.hostPlatform = system;
+                }
         
             # Additional modules if needed
             ] ++ extraModules;
