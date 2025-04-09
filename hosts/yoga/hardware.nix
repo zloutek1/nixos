@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, self, ... }: {
+{ config, pkgs, lib, modulesPath, self, ... }: {
 
     imports = [ 
         "${modulesPath}/installer/scan/not-detected.nix"
@@ -10,6 +10,7 @@
         initrd.kernelModules = [ ];
         kernelModules = [ "kvm-intel" ];
         extraModulePackages = [ ];
+        kernelPackages = pkgs.linuxPackages_6_12;
     };
 
     fileSystems."/" = { 

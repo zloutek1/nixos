@@ -2,9 +2,9 @@
 
 {
   imports = [
+    ./nix.nix
     ./locale.nix
     ./fonts.nix
-    ./users.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -33,19 +33,4 @@
   ];
 
   hardware.graphics.enable = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
-
-  # Nix settings
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 1d";
-    };
-  };
 }

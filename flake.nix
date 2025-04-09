@@ -16,7 +16,7 @@
   in {
     
     nixosConfigurations = {
-      yoga = lib.mkSystem {
+      yoga = lib.mkNixosSystem {
         system = "x86_64-linux";
         hostName = "yoga";
         userName = "tomas";

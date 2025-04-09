@@ -2,13 +2,11 @@
     
     # --- Speaker Fix (Hardware Quirk for Yoga Pro 9i Gen 9 / 16IMH9) ---
 
-    # Ensure I2C kernel module is loaded
     boot.kernelModules = [ "i2c-dev" ];
+    boot.blacklistedKernelModules = [ 
+        "snd_hda_scodec_tas2781_i2c"    # Blacklist the problematic default ALSA codec module
+    ];
 
-    # Blacklist the problematic default ALSA codec module
-    boot.blacklistedKernelModules = [ "snd_hda_scodec_tas2781_i2c" ];
-
-    # Define the systemd service to run the fix script
     systemd = {
         services.yoga-speaker-fix = let
             yoga-speaker-fix = pkgs.writeShellApplication {
