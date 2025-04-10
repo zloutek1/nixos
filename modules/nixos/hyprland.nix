@@ -1,40 +1,44 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
 
-    programs.hyprland = {
-        enable = true;
-        xwayland.enable = true; # Essential for running X11 apps
-    };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true; # Essential for running X11 apps
+  };
 
-    # Required for portals (screen sharing, file pickers, etc.) under Wayland
-    xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [
-            xdg-desktop-portal-hyprland
-            xdg-desktop-portal-gtk # Fallback for some apps
-        ];
-        # Ensure the Hyprland portal is the default
-        config.hyprland = {
-            default = [ "hyprland" "gtk" ];
-        };
-    };
-
-    environment.systemPackages = with pkgs; [
-        waybar      # navbar
-        swww        # wallpaper app
-        kitty       # terminal
-        wofi        # app launcher
-        hyprcursor  # custor theme
-        
-        # Notifications
-        dunst       
-        libnotify
+  # Required for portals (screen sharing, file pickers, etc.) under Wayland
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk # Fallback for some apps
     ];
-
-    environment.sessionVariables = {
-        # Force Firefox to use Wayland
-        MOZ_ENABLE_WAYLAND = "1";
-        # Force Qt apps to use Wayland
-        QT_QPA_PLATFORM = "wayland";              
+    # Ensure the Hyprland portal is the default
+    config.hyprland = {
+      default = [
+        "hyprland"
+        "gtk"
+      ];
     };
+  };
+
+  environment.systemPackages = with pkgs; [
+    waybar # navbar
+    swww # wallpaper app
+    kitty # terminal
+    wofi # app launcher
+    hyprcursor # custor theme
+
+    # Notifications
+    dunst
+    libnotify
+  ];
+
+  environment.sessionVariables = {
+    # Force Firefox to use Wayland
+    MOZ_ENABLE_WAYLAND = "1";
+    # Force Qt apps to use Wayland
+    QT_QPA_PLATFORM = "wayland";
+  };
 
 }

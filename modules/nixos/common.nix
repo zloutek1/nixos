@@ -19,17 +19,16 @@
         tree
         zip
         unzip
-        htop
-        jq          # A lightweight and flexible command-line JSON processor
-        fastfetch   # neofetch alternative
-        zoxide      # better cd
-        nsxiv       # image viewer
-        stow        # dotfiles manager
-        bat         # better cat
-
-        # Networking
         wget
         curl
+        htop
+        jq                  # A lightweight and flexible command-line JSON processor
+        fastfetch           # neofetch alternative
+        zoxide              # better cd
+        nsxiv               # image viewer
+        stow                # dotfiles manager
+        bat                 # better cat
+        nixfmt-rfc-style    # Nix formatter
     ];
 
     hardware.graphics.enable = true;

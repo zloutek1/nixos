@@ -1,51 +1,62 @@
-{ config, lib, pkgs,... }: {
-    
-    # --- Speaker Fix (Hardware Quirk for Yoga Pro 9i Gen 9 / 16IMH9) ---
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
-    boot.kernelModules = [ "i2c-dev" ];
-    boot.blacklistedKernelModules = [ 
-        "snd_hda_scodec_tas2781_i2c"    # Blacklist the problematic default ALSA codec module
-    ];
+  # --- Speaker Fix (Hardware Quirk for Yoga Pro 9i Gen 9 / 16IMH9) ---
 
-    systemd = {
-        services.yoga-speaker-fix = let
-            yoga-speaker-fix = pkgs.writeShellApplication {
-                name = "yoga-speaker-fix";
+  boot.kernelModules = [ "i2c-dev" ];
+  boot.blacklistedKernelModules = [
+    "snd_hda_scodec_tas2781_i2c" # Blacklist the problematic default ALSA codec module
+  ];
 
-                runtimeInputs = with pkgs; [
-                    alsa-utils
-                    gawk
-                    gnugrep
-                    gnused
-                    i2c-tools
-                    kmod
-                    uutils-coreutils-noprefix
-                ];
+  systemd = {
+    services.yoga-speaker-fix =
+      let
+        yoga-speaker-fix = pkgs.writeShellApplication {
+          name = "yoga-speaker-fix";
 
-                text = builtins.readFile ./yoga-speaker-fix.sh;
-            };
-        in {
-            enable = true;
-            description = "Apply I2C configuration for Yoga Pro 9i speakers";
-            after = [ "graphical.target" "sound.target" ];
-            wantedBy = [ "graphical.target" ];
-            requires = [ "sound.target" ];
+          runtimeInputs = with pkgs; [
+            alsa-utils
+            gawk
+            gnugrep
+            gnused
+            i2c-tools
+            kmod
+            uutils-coreutils-noprefix
+          ];
 
-            serviceConfig = {
-                Type = "oneshot";
-                ExecStart = "${lib.getExe yoga-speaker-fix}";
-                StandardOutput = "journal";
-                StandardError = "journal";
-            };
+          text = builtins.readFile ./yoga-speaker-fix.sh;
         };
+      in
+      {
+        enable = true;
+        description = "Apply I2C configuration for Yoga Pro 9i speakers";
+        after = [
+          "graphical.target"
+          "sound.target"
+        ];
+        wantedBy = [ "graphical.target" ];
+        requires = [ "sound.target" ];
 
-        timers = {
-            yoga-speaker-fix = {
-                enable = true;
-                timerConfig.OnBootSec = "30s"; # Runs 30 seconds after boot
-                partOf = [ "yoga-speaker-fix.service" ];
-            };
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${lib.getExe yoga-speaker-fix}";
+          StandardOutput = "journal";
+          StandardError = "journal";
         };
+      };
+
+    timers = {
+      yoga-speaker-fix = {
+        enable = true;
+        timerConfig.OnBootSec = "30s"; # Runs 30 seconds after boot
+        partOf = [ "yoga-speaker-fix.service" ];
+      };
     };
-    
+  };
+
 }

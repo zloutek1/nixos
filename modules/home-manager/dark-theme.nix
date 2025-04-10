@@ -1,5 +1,11 @@
-{ config, pkgs, lib, ... }: {
-  
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+
   # DConf settings (primarily for GNOME/GTK4 apps)
   # Apply only on Linux systems to avoid errors on Darwin
   dconf.settings = {
@@ -30,7 +36,7 @@
     enable = true;
     platformTheme.name = "adwaita";
     style = {
-      name = "adwaita-dark"; 
+      name = "adwaita-dark";
       package = pkgs.adwaita-qt;
     };
   };

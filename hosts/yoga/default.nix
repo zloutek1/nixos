@@ -1,29 +1,35 @@
-{ config, pkgs, self, ... }: {
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
+{
 
-    imports = [
-        ./hardware.nix
-        self.nixosModules.grub
-        self.nixosModules.sddm
-        self.nixosModules.pipewire
-        self.nixosModules.bluetooth
-        self.nixosModules.hyprland
-    ];
+  imports = [
+    ./hardware.nix
+    self.nixosModules.grub
+    self.nixosModules.sddm
+    self.nixosModules.pipewire
+    self.nixosModules.bluetooth
+    self.nixosModules.hyprland
+  ];
 
-    networking.hostName = "yoga";
-    system.stateVersion = "24.11";
+  networking.hostName = "yoga";
+  system.stateVersion = "24.11";
 
-    networking.networkmanager.enable = true;
-    
-    environment.systemPackages = with pkgs; [
-        networkmanagerapplet
-    ];
+  networking.networkmanager.enable = true;
 
-    # since laptop has dualboot with windows
-    time.hardwareClockInLocalTime = true;
+  environment.systemPackages = with pkgs; [
+    networkmanagerapplet
+  ];
 
-    services.xserver.xkb = {
-        layout = "us";
-        variant = "";
-    };
+  # since laptop has dualboot with windows
+  time.hardwareClockInLocalTime = true;
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
 }
