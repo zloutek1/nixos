@@ -2,6 +2,7 @@
 
     imports = [
         self.homeModules.cursor
+        self.homeModules.dark-theme
     ];
 
     home.username = username;
@@ -41,18 +42,6 @@
 
         shellAliases = {
         
-        };
-    };
-
-    dconf.settings = {
-        "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-            enable-hot-corners = false;
-            clock-show-weekday = true;
-        };
-        "org/gnome/desktop/wm/preferences" = {
-            button-layout = "appmenu:minimize,maximize,close";
-            workspace-names = [ "Main" "Code" "Web" "Media" ];
         };
     };
 
