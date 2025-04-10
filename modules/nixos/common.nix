@@ -11,6 +11,9 @@
     hardware.enableRedistributableFirmware = true;
 
     environment.systemPackages = with pkgs; [
+        # Applications
+        nautilus            # file manager
+
         # Development
         git
         
