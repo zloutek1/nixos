@@ -2,6 +2,7 @@
   config,
   pkgs,
   self,
+  username,
   ...
 }:
 {
@@ -13,6 +14,7 @@
     self.nixosModules.pipewire
     self.nixosModules.bluetooth
     self.nixosModules.hyprland
+    self.nixosModules.users
   ];
 
   networking.hostName = "yoga";

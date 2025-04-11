@@ -19,16 +19,6 @@ inputs.nixpkgs.lib.nixosSystem {
     # Host-specific variables
     {
       nixpkgs.hostPlatform = system;
-
-      users.users.${username} = {
-        isNormalUser = true;
-        description = "${username}";
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-          "video"
-        ];
-      };
     }
 
     # Common configuration
