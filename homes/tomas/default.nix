@@ -6,12 +6,13 @@
 }:
 {
 
-  imports = [
-    self.homeModules.cursor
-    self.homeModules.dark-theme
-    self.homeModules.xdg
-    self.homeModules.zsh
-    self.homeModules.zoxide
+  imports = with self.homeModules; [
+    cursor
+    dark-theme
+    xdg
+    zsh
+    zoxide
+    git
   ];
 
   home.username = username;
@@ -21,6 +22,9 @@
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 
+  # Enable numlock
+  xsession.numlock.enable = true;
+
   home.packages = with pkgs; [
     # Applications
     chromium
@@ -29,16 +33,5 @@
     # Coding
     vscode
   ];
-
-  programs.git = {
-    enable = true;
-    userName = "Tomas Ljutenko";
-    userEmail = "tomas.ljutenko@gmail.com";
-    extraConfig = {
-      init.defaultBranch = "main";
-      pull.rebase = true;
-      rebase.autoStash = true;
-    };
-  };
 
 }

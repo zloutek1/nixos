@@ -7,14 +7,14 @@
 }:
 {
 
-  imports = [
+  imports = with self.nixosModules; [
     ./hardware.nix
-    self.nixosModules.grub
-    self.nixosModules.sddm
-    self.nixosModules.pipewire
-    self.nixosModules.bluetooth
-    self.nixosModules.hyprland
-    self.nixosModules.users
+    grub
+    sddm
+    pipewire
+    bluetooth
+    hyprland
+    users
   ];
 
   networking.hostName = "yoga";
