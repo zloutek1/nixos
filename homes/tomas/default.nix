@@ -13,6 +13,7 @@
     zsh
     zoxide
     git
+    kitty
   ];
 
   home.username = username;

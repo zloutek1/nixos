@@ -1,0 +1,25 @@
+{ pkgs, ... }:
+{
+
+  xdg.configFile."kitty/theme.conf" = {
+    source = ./theme.conf;
+  };
+
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "FiraCode Nerd Font Mono";
+      size = 16;
+    };
+    settings = {
+      confirm_os_window_close = 0;
+      enable_audio_bell = false;
+      mouse_hide_wait = "0.0";
+      background_opacity = "0.9";
+      background_blur = 5;
+    };
+    extraConfig = ''
+      include ./theme.conf
+    '';
+  };
+}
