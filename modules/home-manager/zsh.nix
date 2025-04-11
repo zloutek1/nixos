@@ -11,6 +11,7 @@
       ll = "ls -lah";
       grep = "grep --color=auto";
       cat = "bat";
+      vim = "nvim";
       ".." = "cd ..";
       "..." = "cd ../..";
       nix-switch = "sudo nixos-rebuild switch --flake ~/.config/nix";
