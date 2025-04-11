@@ -9,6 +9,9 @@
   imports = [
     self.homeModules.cursor
     self.homeModules.dark-theme
+    self.homeModules.xdg
+    self.homeModules.zsh
+    self.homeModules.zoxide
   ];
 
   home.username = username;
@@ -35,19 +38,6 @@
       init.defaultBranch = "main";
       pull.rebase = true;
       rebase.autoStash = true;
-    };
-  };
-
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-
-    bashrcExtra = ''
-
-    '';
-
-    shellAliases = {
-
     };
   };
 
