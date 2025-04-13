@@ -6,8 +6,9 @@
     fontconfig.enable = true;
 
     packages = with pkgs; [
-      noto-fonts
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      jetbrains-mono
+      nerd-font-patcher
+      noto-fonts-color-emoji
     ];
   };
 
