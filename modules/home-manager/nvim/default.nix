@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
+
+  imports = [
+    inputs.nvchad4nix.homeManagerModule
+  ];
 
   home.file.".config/nvim/lua/custom/kitty_padding.lua" = {
     source =./kitty_padding.lua;

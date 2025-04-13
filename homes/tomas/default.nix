@@ -7,16 +7,16 @@
 }:
 {
 
-  imports = [
-    inputs.nvchad4nix.homeManagerModule
-    self.homeModules.cursor
-    self.homeModules.dark-theme
-    self.homeModules.xdg
-    self.homeModules.zsh
-    self.homeModules.zoxide
-    self.homeModules.git
-    self.homeModules.kitty
-    self.homeModules.nvim
+  imports = with self.homeModules; [
+    cursor
+    dark-theme
+    xdg
+    zsh
+    zoxide
+    git
+    kitty
+    nvim
+    colors
   ];
 
   home.username = username;
