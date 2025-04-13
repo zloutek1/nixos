@@ -18,6 +18,10 @@
       window_padding_width = 10;
       background_opacity = "0.9";
       background_blur = 5;
+
+      # required to dynamically modify paddings, etc.
+      allow_remote_control = "yes";
+      listen_on = "unix:/tmp/kitty-rc";
     };
     extraConfig = ''
       include ./theme.conf
