@@ -8,6 +8,7 @@
 {
 
   imports = with self.homeModules; [
+    common
     cursor
     dark-theme
     xdg
@@ -22,14 +23,6 @@
   home.username = username;
   home.homeDirectory = self.lib.getHomeDirectory { inherit pkgs username; };
   home.stateVersion = "24.11";
-
-  programs.nvchad.enable = true;
-  
-  # Let Home Manager manage itself
-  programs.home-manager.enable = true;
-
-  # Enable numlock
-  xsession.numlock.enable = true;
 
   home.packages = with pkgs; [
     # Applications
