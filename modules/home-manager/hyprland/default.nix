@@ -4,6 +4,10 @@
     ./input.nix
     ./keybinds.nix
     ./workspaces.nix
+    ./laptop.nix
+    ./startup.nix
+    ./style.nix
+    ./theme.nix
   ];
 
   wayland.windowManager.hyprland = {
