@@ -1,9 +1,9 @@
 { pkgs, ... }:
 {
 
-  xdg.configFile."kitty/theme.conf" = {
-    source = ./theme.conf;
-  };
+  #xdg.configFile."kitty/theme.conf" = {
+  #  source = ./theme.conf;
+  #};
 
   programs.kitty = {
     enable = true;

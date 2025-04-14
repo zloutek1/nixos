@@ -16,7 +16,7 @@
     git
     kitty
     nvim
-    colors
+    mutagen
   ];
 
   home.username = username;
