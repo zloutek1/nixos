@@ -21,7 +21,7 @@
 
       # required to dynamically modify paddings, etc.
       allow_remote_control = "yes";
-      listen_on = "unix:/tmp/kitty-rc";
+      listen_on = "unix:/tmp/kitty.sock";
     };
     extraConfig = ''
       include ./theme.conf

@@ -11,6 +11,7 @@
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-std.url = "github:chessai/nix-std";
   };
 
   outputs = { self, ... }@inputs:
