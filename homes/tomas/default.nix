@@ -18,6 +18,7 @@
     kitty
     nvim
     mutagen
+    hyprland
   ];
 
   home.username = username;

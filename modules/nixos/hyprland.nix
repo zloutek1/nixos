@@ -21,19 +21,7 @@
       ];
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    waybar # navbar
-    swww # wallpaper app
-    kitty # terminal
-    wofi # app launcher
-    hyprcursor # custor theme
-
-    # Notifications
-    dunst
-    libnotify
-  ];
-
+  
   environment.sessionVariables = {
     # Force Firefox to use Wayland
     MOZ_ENABLE_WAYLAND = "1";
