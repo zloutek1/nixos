@@ -36,19 +36,7 @@ let
     '';
   };
 
-  matugenConfig = {
-    config = {
-      version_check = true;
-    };
-
-    templates = {
-      kitty = {
-        input_path = "${config.xdg.configHome}/matugen/templates/kitty.conf";
-        output_path = "${config.xdg.configHome}/kitty/theme.conf";
-        post_hook = "${pkgs.kitty}/bin/kitty @ set-colors --all --configured ${config.xdg.configHome}/kitty/theme.conf";
-      };
-    };
-  };
+  matugenConfig = import ./config.nix { inherit config pkgs; };
 
 in
 {
