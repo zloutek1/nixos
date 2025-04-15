@@ -22,7 +22,7 @@
       "$mainMod" = "SUPER";
       
       "$terminal" = "kitty";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "nautilus";
       "$menu" = "wofi --conf \"$HOME/.config/hypr/wofi/config\" --style \"$HOME/.config/hypr/wofi/style.css\" -show drun";
       "$browser" = "chromium";
       
@@ -30,7 +30,7 @@
       
       "$screenshot" = "$HYPRSHOT_DIR hyprshot -m output";
       "$screenshotRegion" = "$HYPRSHOT_DIR hyprshot -m region";
-      
+
       source = "./theme.conf";
     };
   };
