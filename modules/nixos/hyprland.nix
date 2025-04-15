@@ -27,6 +27,8 @@
     MOZ_ENABLE_WAYLAND = "1";
     # Force Qt apps to use Wayland
     QT_QPA_PLATFORM = "wayland";
+
+    NIXOS_OZONE_WL = "1";
   };
 
 }

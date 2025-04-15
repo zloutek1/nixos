@@ -23,14 +23,7 @@
     }@inputs:
     let
 
-      lib = nixpkgs.lib.extend (
-        final: prev:
-        (import ./lib/default.nix {
-          lib = final;
-          inherit inputs self;
-        })
-        // home-manager.lib
-      );
+      lib = import ./lib/default.nix { inherit inputs; };
       nixosModules = lib.discoverModules { path = ./modules/nixos; };
       homeModules = lib.discoverModules { path = ./modules/home-manager; };
 

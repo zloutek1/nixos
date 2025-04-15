@@ -1,4 +1,4 @@
-{ inputs, self, lib }:
+{ inputs, lib, self }:
 
 # Function to generate a NixOS system configuration.
 # Arguments:
@@ -13,7 +13,7 @@
   extraModules ? [ ],
 }:
 
-inputs.nixpkgs.lib.nixosSystem {
+lib.nixosSystem {
   specialArgs = { inherit inputs self lib username; };
   modules = [
     # Host-specific variables
