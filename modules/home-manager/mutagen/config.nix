@@ -15,7 +15,7 @@
       input_path = "${config.xdg.configHome}/matugen/templates/hyprland.conf";
       output_path = "${config.xdg.configHome}/hypr/theme.conf";
       post_hook = "hyprctl reload";
-    }
+    };
   };
 
 }

@@ -11,7 +11,7 @@
       #allow_tearing = false;
       #layout = "dwindle";
 
-      "col.active_border" = "$primary";
+      "col.active_border" = "$primary $secondary 45deg";
       "col.inactive_border" = "$on_surface";
     };
 
@@ -22,7 +22,7 @@
       inactive_opacity = 1.0;
       fullscreen_opacity = 1.0;
 
-      shadow {
+      shadow = {
         enabled = true;
         range = 30;
         render_power = 10;
@@ -39,14 +39,6 @@
         new_optimizations = true;
         special = true;
         popups = true;
-      };
-    };
-
-    group = {
-      "col.border_active" = "$tertiary";
-
-      groupbar = {
-        "col.active" = "$surface";
       };
     };
 

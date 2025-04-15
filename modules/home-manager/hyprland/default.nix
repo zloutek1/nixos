@@ -25,11 +25,8 @@
       "$browser" = "chromium";
       "$screenshot" = "$HYPRSHOT_DIR hyprshot -m output";
       "$screenshotRegion" = "$HYPRSHOT_DIR hyprshot -m region";
+      source = "./theme.conf";
     };
-
-    extraConfig = ''
-      source = ./theme.conf
-    '';
   };
 
   home.activation.writeHyprTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
