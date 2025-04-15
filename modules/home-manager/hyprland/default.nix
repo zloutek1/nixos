@@ -4,6 +4,7 @@
     ./misc.nix
     ./input.nix
     ./nvidia.nix
+    ./monitor.nix
     
     ./startup.nix
     
