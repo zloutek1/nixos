@@ -1,27 +1,43 @@
 { config, pkgs, ... }:
-let 
 
-  mainMod = config.wayland.windowManager.hyprland.settings.mainMod or "SUPER";
-
-in
 {
   wayland.windowManager.hyprland.settings = {
     bind = [
-      "${mainMod}, Return, exec, $terminal"
-      "${mainMod} SHIFT, Q, killactive,"
-      "${mainMod}, L, exec, hyprlock"
-      "${mainMod}, E, exec, $fileManager"
-      "${mainMod}, Space, togglefloating,"
-      "${mainMod}, D, exec, $menu"
-      "${mainMod}, P, pseudo, # dwindle"
-      "${mainMod}, T, togglesplit, # dwindle"
-      "${mainMod}, F, fullscreen, 1"
-      "${mainMod}, F2, exec, $browser"
+      #---------------application & run launcher----------------------------------------#
+      #---------------------------------------------------------------------------------#
+      "$mainMod, Return, exec, $terminal"
+      "$mainMod, F2, exec, $browser"
+      "$mainMod, E, exec, $fileManager"
+      "$mainMod, D, exec, $menu"
+      "$mainMod, L, exec, hyprlock"
       
-      "${mainMod}, I, exec, notify-send \"Active Window Info\" \"$(hyprctl activewindow -j | jq -r '\"Class: \\(.class)\\nInitial Class: \\(.initialClass)\\nTitle: \\(.title)\"'\""
+      #---------------taking screenshot-------------------------------------------------#
+      #---------------------------------------------------------------------------------#
+      ", PRINT, exec, $screenshot"
+      "$mainMod, PRINT, exec, $screenshotRegion"
+
+      #--------------------window management-------------------------------------------#
+      #--------------------------------------------------------------------------------#
+      "$mainMod SHIFT, Q, killactive,"
+      "$mainMod, F, fullscreen, 1"
       
-      ", PRINT, exec, $HYPRSHOT_DIR hyprshot -m output"
-      "${mainMod}, PRINT, exec, $HYPRSHOT_DIR hyprshot -m region"
+      #------------------layout management--------------------------------------------#
+      #-------------------------------------------------------------------------------#
+      
+      # floating layout
+      "$mainMod, Space, togglefloating,"
+      
+      # switch between master and dwindle layout
+      "$mainMod, TAB, exec, hyprctl keyword general:layout \"dwindle\""      # switch to dwindle layout
+      "$mainMod SHIFT, TAB, exec, hyprctl keyword general:layout \"master\"" # switch to master layout
+
+      # Dwindle Layout
+      "$mainMod SHIFT, T, togglesplit" # only works on dwindle layout
+      "$mainMod, P, pseudo," # dwindle
+
+      #--------------------exit hyprland-----------------------------------------------#
+      #--------------------------------------------------------------------------------#
+      "CTRL ALT, Delete, exec, hyprctl dispatch exit 0"
     ];
   };
 }
