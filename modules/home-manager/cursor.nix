@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
 
   home.pointerCursor = {
@@ -11,7 +11,7 @@
 
   home.sessionVariables = {
     HYPRCURSOR_THEME = "Nordzy-hyprcursors";
-    HYPRCURSOR_SIZE = "24";
+    HYPRCURSOR_SIZE = "${toString config.home.pointerCursor.size}";
   };
 
 }

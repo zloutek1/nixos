@@ -16,7 +16,7 @@
     # toolkit-specific scale
     env = [
       "GDK_SCALE,2"
-      "XCURSOR_SIZE,24"
+      "XCURSOR_SIZE,${toString config.home.pointerCursor.size}"
     ];
   };
 }
