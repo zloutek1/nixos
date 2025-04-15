@@ -11,7 +11,7 @@
       #allow_tearing = false;
       #layout = "dwindle";
 
-      "col.active_border" = "$primary $secondary 45deg";
+      "col.active_border" = "$primary $primary_container 45deg";
       "col.inactive_border" = "$on_surface";
     };
 

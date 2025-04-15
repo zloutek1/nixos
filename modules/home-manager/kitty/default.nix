@@ -1,9 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-
-  #xdg.configFile."kitty/theme.conf" = {
-  #  source = ./theme.conf;
-  #};
 
   programs.kitty = {
     enable = true;
@@ -27,4 +23,10 @@
       include ./theme.conf
     '';
   };
+
+  home.activation.writeKittyTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -f $HOME/.config/kitty/theme.conf ]; then
+      cat "${./theme.conf}" > "$HOME/.config/kitty/theme.conf"
+    fi
+  '';
 }

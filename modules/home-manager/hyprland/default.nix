@@ -30,7 +30,9 @@
   };
 
   home.activation.writeHyprTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    cat "${./theme.conf}" > "$HOME/.config/hypr/theme.conf"
+    if [ ! -f $HOME/.config/hypr/theme.conf ]; then
+      cat "${./theme.conf}" > "$HOME/.config/hypr/theme.conf"
+    fi
   '';
   
   home.packages = with pkgs; [
@@ -39,6 +41,7 @@
     kitty         # terminal
     wofi          # app launcher
     hyprcursor    # custor theme
+    wl-clipboard  # clipboard
 
     # Notifications
     dunst
