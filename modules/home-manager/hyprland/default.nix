@@ -20,12 +20,17 @@
 
     settings = {
       "$mainMod" = "SUPER";
+      
       "$terminal" = "kitty";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --conf \"$HOME/.config/hypr/wofi/config\" --style \"$HOME/.config/hypr/wofi/style.css\" -show drun";
       "$browser" = "chromium";
+      
+      "$lock" = "hyprlock";
+      
       "$screenshot" = "$HYPRSHOT_DIR hyprshot -m output";
       "$screenshotRegion" = "$HYPRSHOT_DIR hyprshot -m region";
+      
       source = "./theme.conf";
     };
   };

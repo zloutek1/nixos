@@ -9,9 +9,9 @@
     
     #-------------bar, wallpaper & notification daemon--------------#
     #---------------------------------------------------------------#
-    "killall -q swww;sleep .5 && swww-daemon"
-    "killall -q waybar;sleep .5 && waybar"
-    "killall -q swaync;sleep .5 && swaync"
+    "swww-daemon"
+    "waybar"
+    "swaync"
 
     #--------------applets---------------#
     #------------------------------------#

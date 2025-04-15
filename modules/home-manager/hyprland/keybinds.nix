@@ -9,7 +9,7 @@
       "$mainMod, F2, exec, $browser"
       "$mainMod, E, exec, $fileManager"
       "$mainMod, D, exec, $menu"
-      "$mainMod, L, exec, hyprlock"
+      "$mainMod, L, exec, $lock"
       
       #---------------taking screenshot-------------------------------------------------#
       #---------------------------------------------------------------------------------#
