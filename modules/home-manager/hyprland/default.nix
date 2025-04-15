@@ -1,13 +1,17 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
 
   imports = [
+    ./misc.nix
     ./input.nix
-    ./keybinds.nix
-    ./workspaces.nix
-    ./laptop.nix
+    ./nvidia.nix
+    
     ./startup.nix
+    
+    ./keybinds.nix
+    ./laptop.nix
+    ./workspaces.nix
+    
     ./style.nix
-    ./theme.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -19,29 +23,23 @@
       "$fileManager" = "dolphin";
       "$menu" = "wofi --conf \"$HOME/.config/hypr/wofi/config\" --style \"$HOME/.config/hypr/wofi/style.css\" -show drun";
       "$browser" = "chromium";
-      
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
-      
-      master = {
-        new_status = "master";
-      };
-      
-      misc = {
-        force_default_wallpaper = -1;
-        disable_hyprland_logo = false;
-      };
     };
+
+    extraConfig = ''
+      source = ./theme.conf
+    '';
   };
 
+  home.activation.writeHyprTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    cat "${./theme.conf}" > "$HOME/.config/hypr/theme.conf"
+  '';
+  
   home.packages = with pkgs; [
-    waybar # navbar
-    swww # wallpaper app
-    kitty # terminal
-    wofi # app launcher
-    hyprcursor # custor theme
+    waybar        # navbar
+    swww          # wallpaper app
+    kitty         # terminal
+    wofi          # app launcher
+    hyprcursor    # custor theme
 
     # Notifications
     dunst
