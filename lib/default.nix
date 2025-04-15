@@ -1,7 +1,7 @@
-{ inputs, self }:
+{ inputs, self, lib }:
 
 {
-  mkNixosSystem = import ./mkNixosSystem.nix { inherit inputs self; };
+  mkNixosSystem = import ./mkNixosSystem.nix { inherit inputs self lib; };
   getHomeDirectory = import ./getHomeDirectory.nix;
-  discoverModules = import ./discoverModules.nix { lib = inputs.nixpkgs.lib; };
+  discoverModules = import ./discoverModules.nix { inherit lib; };
 }

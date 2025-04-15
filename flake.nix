@@ -14,10 +14,23 @@
     nix-std.url = "github:chessai/nix-std";
   };
 
-  outputs = { self, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
 
-      lib = import ./lib/default.nix { inherit inputs self; };
+      lib = nixpkgs.lib.extend (
+        final: prev:
+        (import ./lib/default.nix {
+          lib = final;
+          inherit inputs self;
+        })
+        // home-manager.lib
+      );
       nixosModules = lib.discoverModules { path = ./modules/nixos; };
       homeModules = lib.discoverModules { path = ./modules/home-manager; };
 

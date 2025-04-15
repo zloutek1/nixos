@@ -1,4 +1,4 @@
-{ inputs, self }:
+{ inputs, self, lib }:
 
 # Function to generate a NixOS system configuration.
 # Arguments:
@@ -14,7 +14,7 @@
 }:
 
 inputs.nixpkgs.lib.nixosSystem {
-  specialArgs = { inherit inputs self username; };
+  specialArgs = { inherit inputs self lib username; };
   modules = [
     # Host-specific variables
     {
@@ -33,7 +33,7 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "hm-backup";
-      home-manager.extraSpecialArgs = { inherit inputs self username; };
+      home-manager.extraSpecialArgs = { inherit inputs self lib username; };
       home-manager.users.${username} = import ../homes/${username}/default.nix;
     }
 
