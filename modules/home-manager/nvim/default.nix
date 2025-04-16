@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, lib, ... }: {
 
   imports = [
     inputs.nvchad4nix.homeManagerModule
@@ -16,17 +16,26 @@
     extraConfig = ''
       require('custom.kitty_padding')
     '';
+
+    chadrcConfig = ''
+      local M = {}
+      
+      M.base46 = {
+        theme = "custom",
+      }
+      
+      return M
+    '';
   };
+
+  home.activation.writeNvimTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -f $HOME/.config/nvim/lua/themes/custom.lua ]; then
+      mkdir -p "$HOME/.config/nvim/lua/themes"
+      cat "${./theme.lua}" > "$HOME/.config/nvim/lua/themes/custom.lua"
+    fi
+  '';
 
   # IMPORTANT: Ensure standard neovim module is disabled
   programs.neovim.enable = false;
-
-  #environment.systemPackages = with pkgs; [
-  #  # clangd (c, c++, etc lang server)
-  #  # and other cli tools
-  #  clang-tools clang-manpages
-  #  cmake-language-server
-  #];
-
 
 }

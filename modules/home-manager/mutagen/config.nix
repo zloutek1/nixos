@@ -16,6 +16,11 @@
       output_path = "${config.xdg.configHome}/hypr/theme.conf";
       post_hook = "hyprctl reload";
     };
+
+    nvim = { 
+      input_path = "${config.xdg.configHome}/matugen/templates/nvim.lua";
+      output_path = "${config.xdg.configHome}/nvim/lua/themes/custom.lua";
+    };
   };
 
 }
