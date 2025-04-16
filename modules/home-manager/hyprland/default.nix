@@ -1,18 +1,18 @@
 { pkgs, lib, ... }: {
 
   imports = [
-    ./misc.nix
-    ./input.nix
-    ./nvidia.nix
-    ./monitor.nix
+    ./modules/misc.nix
+    ./modules/input.nix
+    ./modules/nvidia.nix
+    ./modules/monitor.nix
     
-    ./startup.nix
+    ./modules/startup.nix
     
-    ./keybinds.nix
-    ./laptop.nix
-    ./workspaces.nix
+    ./modules/keybinds.nix
+    ./modules/laptop.nix
+    ./modules/workspaces.nix
     
-    ./style.nix
+    ./modules/style.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -42,10 +42,7 @@
   '';
   
   home.packages = with pkgs; [
-    waybar        # navbar
     swww          # wallpaper app
-    kitty         # terminal
-    wofi          # app launcher
     hyprcursor    # custor theme
     wl-clipboard  # clipboard
 

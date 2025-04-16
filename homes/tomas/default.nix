@@ -21,6 +21,7 @@
     mutagen
     hyprland
     wofi
+    waybar
   ];
 
   home.username = username;
