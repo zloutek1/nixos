@@ -23,7 +23,7 @@
       
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
-      "$menu" = "wofi --conf \"$HOME/.config/hypr/wofi/config\" --style \"$HOME/.config/hypr/wofi/style.css\" -show drun";
+      "$menu" = "wofi";
       "$browser" = "chromium";
       
       "$lock" = "hyprlock";
