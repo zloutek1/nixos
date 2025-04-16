@@ -1,64 +1,51 @@
 @import "./colors.css";
 
-* {
-  border: none;
-  box-shadow: none;
-  outline: none;
-}
-
 window {
-  font-size: 14px;
-  font-family: "JetBrains Mono";
-  background-color: var(--background);
-  border-radius: 8px;
-  opacity: 0.90;
-}
-
-#outer-box {
-  margin: 10px 10px 20px 10px;
-  background-color: var(--background);
-  opacity: 0.90;
-}
-
-#inner-box {
-  margin: 10px;
-  background-color: var(--background);
-  opacity: 0.90;
-}
-
-#entry {
-  padding: 5px 10px;
-  border-radius: 20px;
-}
-
-#entry #text {
-  padding: 0px 0px 0px 10px;
-  font-weight: normal;
-  color: var(--color7);
-}
-
-#entry:selected {
-  background-color: var(--color4);
-}
-
-#entry:selected #text {
-  padding: 0px 0px 0px 10px;
-  font-weight: normal;
-  color: var(--color0);
+  opacity: 1;
+  border:  0px;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 18px;
 }
 
 #input {
-  background: transparent;
-  margin: 0px 5px 0px 20px;
-  color: var(--color7);
-  padding: 5px;
+  border-radius: 10px 10px 0px 0px;
+  border:  0px;
+  padding: 10px;
+  margin: 0px;
+  font-size: 28px;
+  color: @primary;
+  background-color: @ternary;
 }
 
-#image {
-  margin-left: 20px;
-  margin-right: 20px;
+#inner-box {
+  margin: 0px;
+  color: @primary;
+  background-color: @ternary;
+}
+
+#outer-box {
+  margin: 0px;
+  background-color: @ternary;
+  border-radius: 10px;
+}
+
+#selected {
+  background-color: @secondary;
+}
+
+#entry {
+  padding: 0px;
+  margin: 0px;
+  background-color: @ternary;
 }
 
 #scroll {
+  margin: 5px;
+  background-color: @ternary;
+}
+
+#text {
   margin: 0px;
+  padding: 2px 2px 2px 10px;
 }
