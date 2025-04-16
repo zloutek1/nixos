@@ -4,7 +4,7 @@
     enable = true;
 
     settings = {
-      mode = "run";
+      mode = "drun";
       prompt = "Search...";
       
       width = "40%";
@@ -13,6 +13,7 @@
       yoffset = 300;
       
       hide_scroll = true;
+      no_actions = true;
       insensitive = true;
       matching = "fuzzy";
       term = "kitty";

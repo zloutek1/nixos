@@ -1,38 +1,4 @@
-@define-color fg                    {{colors.on_surface.dark.hex}};
-@define-color bg                    {{colors.surface.dark.hex}};
-@define-color selection_fg          {{colors.on_secondary_container.dark.hex}};
-@define-color selection_bg          {{colors.secondary_container.dark.hex}};
-@define-color cursor                {{colors.primary.dark.hex}};
-@define-color cursor_text_color     {{colors.surface.dark.hex}};
-
-/* Black */
-@define-color color0                {{colors.surface_variant.dark.hex}};
-@define-color color8                {{colors.on_surface_variant.dark.hex}};
-
-/* Red */
-@define-color color1                {{colors.error.dark.hex}};
-@define-color color9                {{colors.error_container.dark.hex}};
-
-/* Green */
-@define-color color2                {{colors.tertiary.dark.hex}};
-@define-color color10               {{colors.tertiary_container.dark.hex}};
-
-/* Yellow */
-@define-color color3                {{colors.secondary.dark.hex}};
-@define-color color11               {{colors.secondary_container.dark.hex}};
-
-/* Blue */
-@define-color color4                {{colors.primary.dark.hex}};
-@define-color color12               {{colors.primary_container.dark.hex}};
-
-/* Magenta */
-@define-color color5                {{colors.primary_fixed_dim.dark.hex}};
-@define-color color13               {{colors.primary_fixed.dark.hex}};
-
-/* Cyan */
-@define-color color6                {{colors.secondary_fixed_dim.dark.hex}};
-@define-color color14               {{colors.secondary_fixed.dark.hex}};
-
-/* White */
-@define-color color7                {{colors.on_surface.dark.hex}};
-@define-color color15               {{colors.surface_bright.dark.hex}};
+@define-color accent    {{colors.on_secondary_container.dark.hex}};
+@define-color txt       {{colors.on_surface.dark.hex}};
+@define-color bg        {{colors.surface.dark.hex}};
+@define-color bg2       {{colors.secondary_container.dark.hex}};

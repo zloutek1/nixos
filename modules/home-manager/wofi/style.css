@@ -1,54 +1,70 @@
 @import ".config/wofi/colors.css";
 
+* {
+  font-family: 'CaskaydiaCove Nerd Font mono';
+  font-size: 14px;
+}
+
+/* Window */
 window {
   margin: 0px;
-  border: 3px solid @fg;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: @bg;
+}
+
+/* Inner Box */
+#inner-box {
+  margin: 5px;
+  padding: 10px;
+  border: none;
   border-radius: 5px;
   background-color: @bg;
 }
-  
-#input {
-  margin: 5px;
-  border: none;
-  color: @selection_fg;
-  background-color: @selection_bg;
-}
-  
-#inner-box {
-  margin: 5px;
-  border: none;
-  background-color: @bg;
-}
-  
+
+/* Outer Box */
 #outer-box {
   margin: 5px;
+  padding: 10px;
   border: none;
   background-color: @bg;
+  border-radius: 5px;
 }
-  
+
+/* Scroll */
 #scroll {
   margin: 0px;
+  padding: 10px;
   border: none;
 }
-  
+
+/* Input */
+#input {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  color: @accent;
+  background-color: @bg;
+  border: 2px solid @accent;
+}
+
+/* Text */
 #text {
   margin: 5px;
+  padding: 10px;
   border: none;
-  color: @fg;
-} 
-  
-#entry.activatable #text {
-  color: @bg;
+  color: @txt;
 }
-  
-#entry > * {
-  color: @fg;
-}
-  
+
+/* Selected Entry */
 #entry:selected {
-  background-color: @selection_bg;
+ background-color: @bg;
+ outline: 1px solid @accent;
 }
-  
+
 #entry:selected #text {
-  font-weight: bold;
+  color: @txt;
+}
+image {
+ margin-left: 10px;
 }
