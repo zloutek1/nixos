@@ -9,16 +9,14 @@
       
       width = "40%";
       height = "40%";
-      location = 2;
-      yoffset = 300;
+      # yoffset = 300;
       
+      matching = "fuzzy";
+      insensitive = true;
+      
+      term = "kitty";
       hide_scroll = true;
       no_actions = true;
-      insensitive = true;
-      matching = "fuzzy";
-      term = "kitty";
-      line_wrap = "word";
-      signle_click = true;
       allow_images = true;
     };
 
