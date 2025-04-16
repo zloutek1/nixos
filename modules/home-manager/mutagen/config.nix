@@ -21,6 +21,11 @@
       input_path = "${config.xdg.configHome}/matugen/templates/nvim.lua";
       output_path = "${config.xdg.configHome}/nvim/lua/themes/custom.lua";
     };
+
+    wofi = {
+      input_path = "${config.xdg.configHome}/matugen/templates/wofi.css";
+      output_path = "${config.xdg.configHome}/wofi/colors.css";
+    };
   };
 
 }

@@ -20,6 +20,7 @@
     nvim
     mutagen
     hyprland
+    wofi
   ];
 
   home.username = username;
