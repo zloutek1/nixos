@@ -1,0 +1,4 @@
+@define-color accent    {{colors.on_secondary_container.dark.hex}};
+@define-color txt       {{colors.on_surface.dark.hex}};
+@define-color bg        {{colors.surface.dark.hex}};
+@define-color bg2       {{colors.secondary_container.dark.hex}};

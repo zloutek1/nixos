@@ -26,6 +26,11 @@
       input_path = "${config.xdg.configHome}/matugen/templates/wofi.css";
       output_path = "${config.xdg.configHome}/wofi/colors.css";
     };
+
+    waybar = {
+      input_path = "${config.xdg.configHome}/matugen/templates/waybar.css";
+      output_path = "${config.xdg.configHome}/waybar/colors.css";
+    };
   };
 
 }
