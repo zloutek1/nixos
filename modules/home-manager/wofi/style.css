@@ -1,51 +1,54 @@
 @import ".config/wofi/colors.css";
 
 window {
-  opacity: 1;
-  border:  0px;
-  border-radius: 10px;
-  font-family: monospace;
-  font-size: 18px;
+  margin: 0px;
+  border: 3px solid @fg;
+  border-radius: 5px;
+  background-color: @bg;
 }
-
+  
 #input {
-  border-radius: 10px 10px 0px 0px;
-  border:  0px;
-  padding: 10px;
-  margin: 0px;
-  font-size: 28px;
-  color: @primary;
-  background-color: @ternary;
-}
-
-#inner-box {
-  margin: 0px;
-  color: @primary;
-  background-color: @ternary;
-}
-
-#outer-box {
-  margin: 0px;
-  background-color: @ternary;
-  border-radius: 10px;
-}
-
-#selected {
-  background-color: @secondary;
-}
-
-#entry {
-  padding: 0px;
-  margin: 0px;
-  background-color: @ternary;
-}
-
-#scroll {
   margin: 5px;
-  background-color: @ternary;
+  border: none;
+  color: @selection_fg;
+  background-color: @selection_bg;
 }
-
-#text {
+  
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: @bg;
+}
+  
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: @bg;
+}
+  
+#scroll {
   margin: 0px;
-  padding: 2px 2px 2px 10px;
+  border: none;
+}
+  
+#text {
+  margin: 5px;
+  border: none;
+  color: @fg;
+} 
+  
+#entry.activatable #text {
+  color: @bg;
+}
+  
+#entry > * {
+  color: @fg;
+}
+  
+#entry:selected {
+  background-color: @selection_bg;
+}
+  
+#entry:selected #text {
+  font-weight: bold;
 }
