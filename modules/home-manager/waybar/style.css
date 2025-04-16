@@ -1,0 +1,109 @@
+* {
+    border: none;
+    font-size: 14px;
+    font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF" ;
+    min-height: 25px;
+}
+
+window#waybar {
+  background: transparent;
+  margin: 5px;
+}
+
+.modules-right {
+  padding-left: 5px;
+  border-radius: 15px 0 0 15px;
+  margin-top: 2px;
+  background: #000000;
+  color: white;
+}
+
+.modules-center {
+  padding: 0 5px;
+  margin-top: 2px;
+  border-radius: 15px 15px 15px 15px;
+  background: #000000;
+}
+
+.modules-left {
+  border-radius: 0 15px 15px 0;
+  margin-top: 2px;
+  background: #000000;
+  color: white;
+}
+
+
+#workspaces button {
+    transition: none;
+    color: #7c818c;
+    background: transparent;
+    padding: 5px;
+    font-size: 18px;
+}
+
+#workspaces button.active {
+    color: #dfdfdf;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    transition: none;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    color: #383c4a;
+}
+
+
+#battery,
+#custom-clipboard,
+#custom-colorpicker,
+#custom-powerDraw,
+#bluetooth,
+#pulseaudio,
+#network,
+#disk,
+#memory,
+#backlight,
+#cpu,
+#temperature,
+#custom-weather,
+#idle_inhibitor,
+#jack,
+#tray,
+#window,
+#workspaces,
+#clock {
+  padding: 0 5px;
+}
+
+#pulseaudio {
+  padding-top: 3px;
+}
+
+#network, #battery {
+  padding-right: 10px;
+}
+
+#battery.charging {
+    color: #26A65B;
+}
+
+#battery.warning:not(.charging) {
+    color: #ffbe61;
+}
+
+#battery.critical:not(.charging) {
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+@keyframes blink {
+    to {
+        color: #ffffff;
+    }
+}
