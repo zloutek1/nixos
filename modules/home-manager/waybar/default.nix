@@ -9,27 +9,14 @@
         position = "top";
         spacing = 4;
 
-        modules-left = [  ];
+        modules-left = [ "custom/power" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "clock" ];
+        modules-right = [ "tray" "clock" ];
 
-        "hyprland/workspaces" = {
-          format = "{icon}";
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl disppatch workspace e-1";
-          format-icons = {
-		        "active" = "";
-		        "default" = "";
-	        };
-          persistent-workspaces = {
-            "*" = [ 1 2 3 4 5 6 ];
-          };
-        };
-
-        "clock" = {
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "{:%d.%m.%Y %H:%M}";
-        };
+        "custom/power" = import ./modules/power.nix;
+        "hyprland/workspaces" = import ./modules/workspaces.nix;
+        "clock" = import ./modules/clock.nix;
+        "tray" = { "spacing" = 10; };
       };
     };
 
