@@ -1,4 +1,4 @@
-@import "./colors.css";
+@import "$XDG_CONFIG_HOME/wofi/colors.css";
 
 window {
   opacity: 1;
