@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, hostname, ... }:
 {
   "custom/power" = import ./power.nix { inherit pkgs; };
   "clock" = import ./clock.nix;
@@ -9,4 +9,5 @@
   "pulseaudio" = import ./pulseaudio.nix { inherit pkgs; };
   "battery" = import ./battery.nix;
   "backlight" = import ./backlight.nix;
+  "custom/nix-updates" = import ./nix-updates.nix { inherit pkgs lib hostname; };
 }
