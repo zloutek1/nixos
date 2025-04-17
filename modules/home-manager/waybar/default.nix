@@ -5,7 +5,7 @@ let
 
   modules-left = [ "custom/power" "clock" "tray" ];
   modules-center = [ "hyprland/workspaces" ];
-  modules-right = [ "bluetooth" "pulseaudio" "network" "battery" ];
+  modules-right = [ "pulseaudio" "network" "bluetooth" "battery" ];
 
   allModuleNames = modules-left ++ modules-center ++ modules-right;
   modules = lib.genAttrs allModuleNames (name: available-modules.${name});
