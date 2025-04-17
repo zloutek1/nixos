@@ -9,42 +9,45 @@
 
 window#waybar {
   background: transparent;
-  margin: 5px;
 }
 
 .modules-right {
-  padding-left: 5px;
-  border-radius: 15px 0 0 15px;
-  margin-top: 2px;
-  background: @bg;
-  color: @txt;
+  padding: 5px 3px;
+  margin-top: 5px;
+  margin-right: 5px;
+  border-radius: 8px;
+  opacity: 0.75;
+  background: #000;
+  color: #fff;
 }
 
 .modules-center {
-  padding: 0 5px;
-  margin-top: 2px;
-  border-radius: 15px 15px 15px 15px;
-  background: @bg;
+  padding: 0px;
+  margin-top: 5px;
+  border-radius: 8px;
+  opacity: 0.75;
+  background: #000;
 }
 
 .modules-left {
-  border-radius: 0 15px 15px 0;
-  margin-top: 2px;
-  background: @bg;
-  color: @txt;
+  padding: 5px 3px;
+  margin-top: 5px;
+  margin-left: 5px;
+  border-radius: 8px;
+  opacity: 0.75;
+  background: #000;
+  color: #fff;
 }
 
 
 #workspaces button {
     transition: none;
-    color: @txt;
+    color: #fff;
     background: transparent;
-    padding: 5px;
-    font-size: 18px;
 }
 
 #workspaces button.active {
-    color: @accent;
+    color: #00FF00;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -52,7 +55,7 @@ window#waybar {
     transition: none;
     box-shadow: inherit;
     text-shadow: inherit;
-    color: @accent;
+    color: #00FF00;
 }
 
 

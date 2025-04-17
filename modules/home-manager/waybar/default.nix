@@ -1,6 +1,15 @@
 { pkgs, lib, ... }: 
 let
-  modules = import ./modules { inherit pkgs; };
+
+  available-modules = import ./modules { inherit pkgs; };
+
+  modules-left = [ "custom/power" "clock" "tray" ];
+  modules-center = [ "hyprland/workspaces" ];
+  modules-right = [ "bluetooth" "pulseaudio" "network" "battery" ];
+
+  allModuleNames = modules-left ++ modules-center ++ modules-right;
+  modules = lib.genAttrs allModuleNames (name: available-modules.${name});
+
 in
 {
 
@@ -11,13 +20,11 @@ in
       mainBar = {
         position = "top";
         spacing = 4;
+        reload_style_on_change = true;
 
-        modules-left = [ "custom/power" "clock" "tray" ];
-        modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "bluetooth" "pulseaudio" "network" "battery" ];
-
-        inherit (modules) "custom/power" "clock" "tray" "hyprland/workspaces" "bluetooth" "network" "pulseaudio" "battery";
-      };
+        inherit modules-left modules-center modules-right;
+      } 
+      // modules;
     };
 
     style = builtins.readFile ./style.css;
