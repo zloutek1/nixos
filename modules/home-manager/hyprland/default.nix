@@ -45,10 +45,6 @@
     swww          # wallpaper app
     hyprcursor    # custor theme
     wl-clipboard  # clipboard
-
-    # Notifications
-    dunst
-    libnotify
   ];
 
 }

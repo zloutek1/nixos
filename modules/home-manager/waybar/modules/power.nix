@@ -1,5 +1,5 @@
-{
+{ pkgs, ... }: {
   "format" = "   ";
   "tooltip" = false;
-  "on-click" = "wlogout --protocol layer-shell";
+  "on-click" = "${pkgs.wlogout}/bin/wlogout --protocol layer-shell";
 }

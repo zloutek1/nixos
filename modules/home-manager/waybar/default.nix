@@ -9,14 +9,21 @@
         position = "top";
         spacing = 4;
 
-        modules-left = [ "custom/power" ];
+        modules-left = [ "custom/power" "custom/notification" "clock" "tray" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "tray" "clock" ];
+        modules-right = [ "bluetooth" "pulseaudio" "network" "battery" ];
 
-        "custom/power" = import ./modules/power.nix;
-        "hyprland/workspaces" = import ./modules/workspaces.nix;
+        "custom/power" = import ./modules/power.nix { inherit pkgs; };
+        "custom/notification" = import ./modules/notification.nix; 
         "clock" = import ./modules/clock.nix;
-        "tray" = { "spacing" = 10; };
+        "tray" = { "icon-size" = 14; "spacing" = 10; };
+
+        "hyprland/workspaces" = import ./modules/workspaces.nix;
+
+        "bluetooth" = import ./modules/bluetooth.nix;
+        "network" = import ./modules/wifi.nix { inherit pkgs; };
+        "pulseaudio" = import ./modules/pulseaudio.nix { inherit pkgs; };
+        "battery" = import ./modules/battery.nix;
       };
     };
 
@@ -29,9 +36,5 @@
   #    cat "${./theme.conf}" > "$HOME/.config/hypr/theme.conf"
   #  fi
   #'';
-
-  #home.packages = with pkgs; [
-  #  waybar
-  #];
 
 }

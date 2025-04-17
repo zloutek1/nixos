@@ -22,6 +22,8 @@
     hyprland
     wofi
     waybar
+    wlogout
+    mako
   ];
 
   home.username = username;
