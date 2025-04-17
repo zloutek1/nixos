@@ -8,7 +8,11 @@
     kitty = {
       input_path = "${config.xdg.configHome}/matugen/templates/kitty.conf";
       output_path = "${config.xdg.configHome}/kitty/theme.conf";
-      post_hook = "${pkgs.kitty}/bin/kitty @ set-colors --all --configured ${config.xdg.configHome}/kitty/theme.conf";
+      post_hook = ''
+        for sock in $(ls /tmp/kitty.sock-*); do 
+          ${pkgs.kitty}/bin/kitty @ --to "unix:$sock" set-colors ${config.xdg.configHome}/kitty/theme.conf; 
+        done
+      '';
     };
 
     hyprland = {
