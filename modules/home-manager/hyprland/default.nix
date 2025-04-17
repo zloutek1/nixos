@@ -46,6 +46,7 @@
     hyprcursor    # custor theme
     wl-clipboard  # clipboard
     hyprshot      # screenshots
+    brightnessctl
   ];
 
 }

@@ -8,4 +8,5 @@
   "network" = import ./wifi.nix { inherit pkgs; };
   "pulseaudio" = import ./pulseaudio.nix { inherit pkgs; };
   "battery" = import ./battery.nix;
+  "backlight" = import ./backlight.nix;
 }
