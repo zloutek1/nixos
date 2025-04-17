@@ -4,7 +4,7 @@
     enable = true; 
     enableCompletion = true;
     autosuggestion.enable = true;
-    dotDir = "${config.xdg.configHome}/zsh";
+    dotDir = ".config/zsh";
 
     shellAliases = {
       ls = "ls -a --color=auto";
