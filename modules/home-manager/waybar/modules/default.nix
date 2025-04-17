@@ -9,5 +9,4 @@
   "pulseaudio" = import ./pulseaudio.nix { inherit pkgs; };
   "battery" = import ./battery.nix;
   "backlight" = import ./backlight.nix;
-  "custom/nix-updates" = import ./nix-updates.nix { inherit pkgs lib hostname; };
 }
