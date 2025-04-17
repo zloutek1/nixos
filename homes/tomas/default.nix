@@ -24,6 +24,7 @@
     waybar
     wlogout
     mako
+    wlsunset
   ];
 
   home.username = username;
