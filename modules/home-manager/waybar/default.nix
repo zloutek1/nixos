@@ -31,10 +31,10 @@ in
 
   };
 
-  #home.activation.writeHyprTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #  if [ ! -f $HOME/.config/hypr/theme.conf ]; then
-  #    cat "${./theme.conf}" > "$HOME/.config/hypr/theme.conf"
-  #  fi
-  #'';
+  home.activation.writeWaybarTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -f $HOME/.config/waybar/colors.css ]; then
+      cat "${./colors.css}" > "$HOME/.config/waybar/colors.css"
+    fi
+  '';
 
 }

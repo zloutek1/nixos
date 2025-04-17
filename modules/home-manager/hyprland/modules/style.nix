@@ -5,7 +5,7 @@
     general = {
       border_size = 2;
       gaps_in = 5;
-      gaps_out = 20;
+      gaps_out = 10;
 
       "col.active_border" = "$primary $primary_container 45deg";
       "col.inactive_border" = "$on_surface";
