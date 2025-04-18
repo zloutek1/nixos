@@ -42,7 +42,6 @@
   '';
   
   home.packages = with pkgs; [
-    swww          # wallpaper app
     hyprcursor    # custor theme
     wl-clipboard  # clipboard
     hyprshot      # screenshots
