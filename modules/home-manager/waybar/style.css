@@ -106,9 +106,12 @@ window#waybar {
     animation-direction: alternate;
 }
 
-
 @keyframes blink {
     to {
         color: #ffffff;
     }
+}
+
+#custom-wallchange {
+  padding-right: 10px;
 }

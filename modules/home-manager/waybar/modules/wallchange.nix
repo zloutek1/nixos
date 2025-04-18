@@ -1,5 +1,5 @@
 {
-  format = "{}";
+  format = "󰆊{}";
   exec = "echo ; echo 󰆊 switch wallpaper";
   on-click = "next-wallpaper";
   #on-click-right = "previous-wallpaper";
