@@ -18,7 +18,7 @@
     git
     kitty
     nvim
-    mutagen
+    wallpaper
     hyprland
     wofi
     waybar

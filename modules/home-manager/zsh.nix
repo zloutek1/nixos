@@ -10,12 +10,17 @@
       ls = "ls -a --color=auto";
       ll = "ls -lah";
       grep = "grep --color=auto";
+      
       cat = "bat";
       vim = "nvim";
+      sxiv = "nsxiv";
+      
       ".." = "cd ..";
       "..." = "cd ../..";
+      
       nix-switch = "sudo nixos-rebuild switch --flake ~/.config/nix";
       hm-switch = "home-manager switch --flake ~/.config/nix";
+      
       sudo = "nocorrect sudo ";         # Handle sudo + alias expansion + correction
     };
 

@@ -7,13 +7,13 @@
 }:
 let
 
-  rotate-wallpaper = import ./rotate-wallpaper.nix { inherit pkgs; };
-  matugenConfig = import ./config.nix { inherit config pkgs; };
+  rotate-wallpaper = import ./scripts/rotate-wallpaper.nix { inherit pkgs; };
+  matugenConfig = import ./matugen/config.nix { inherit config pkgs; };
 
 in
 {
   xdg.configFile."matugen/templates" = {
-    source = ./templates;
+    source = ./matugen/templates;
     recursive = true;
   };
 
