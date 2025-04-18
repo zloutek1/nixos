@@ -9,5 +9,5 @@
   "pulseaudio" = import ./pulseaudio.nix { inherit pkgs; };
   "battery" = import ./battery.nix;
   "backlight" = import ./backlight.nix;
-  "custom/wallchange" = import ./wallchange.nix { inherit pkgs; };
+  "custom/wallchange" = import ./wallchange.nix;
 }

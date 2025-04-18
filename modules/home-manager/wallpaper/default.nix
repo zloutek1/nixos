@@ -29,15 +29,15 @@ let
     text = builtins.readFile ./scripts/set-wallpaper.sh;
   };
 
-  next-wallpaper = pkgs.writeShellApplication {
-    name = "next-wallpaper";
+  get-next-wallpaper = pkgs.writeShellApplication {
+    name = "get-next-wallpaper";
     runtimeInputs = with pkgs; [
       swww
       coreutils
       findutils
       set-wallpaper
     ];
-    text = builtins.readFile ./scripts/next-wallpaper.sh;
+    text = builtins.readFile ./scripts/get-next-wallpaper.sh;
   };
 
   pick-wallpaper = pkgs.writeShellApplication {
@@ -53,14 +53,14 @@ let
     text = builtins.readFile ./scripts/pick-wallpaper.sh;
   };
 
-  cycle-wallpaper = pkgs.writeShellApplication {
-    name = "cycle-wallpaper";
+  next-wallpaper = pkgs.writeShellApplication {
+    name = "next-wallpaper";
     runtimeInputs = with pkgs; [
-      next-wallpaper
+      get-next-wallpaper
       update-colors
       coreutils
     ];
-    text = builtins.readFile ./scripts/cycle-wallpaper.sh;
+    text = builtins.readFile ./scripts/next-wallpaper.sh;
   };
 
 in
@@ -79,9 +79,9 @@ in
     pkgs.swww
     
     set-wallpaper
-    next-wallpaper
+    get-next-wallpaper
     update-colors
     pick-wallpaper
-    cycle-wallpaper
+    next-wallpaper
   ];
 }

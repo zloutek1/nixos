@@ -3,7 +3,7 @@ let
 
   available-modules = import ./modules { inherit pkgs lib hostname; };
 
-  modules-left = [ "custom/power" "clock" "tray" ];
+  modules-left = [ "custom/power" "clock" "custom/wallchange" "tray" ];
   modules-center = [ "hyprland/workspaces" ];
   modules-right = [ "pulseaudio" "backlight" "network" "bluetooth" "battery" ];
 

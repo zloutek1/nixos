@@ -3,17 +3,27 @@ set -euo pipefail
 
 # Help function
 function show_help() {
-  echo "Usage: next-wallpaper [OPTIONS]"
+  echo "Usage: cycle-wallpaper [OPTIONS]"
   echo ""
-  echo "Finds the next wallpaper in the directory and prints its path"
+  echo "Cycles to the next wallpaper and sets it"
   echo ""
   echo "Options:"
   echo "  -d, --dir DIRECTORY       Wallpaper directory (default: \$XDG_PICTURES_DIR/wallpapers)"
+  echo "  -t, --transition TYPE     Transition type (default: wipe)"
+  echo "  -u, --duration SECONDS    Transition duration (default: 2)"
+  echo "  -c, --config FILE         Matugen config file (default: ~/.config/matugen/config.toml)"
+  echo "  -m, --mode MODE           Color mode (default: dark)"
+  echo "  -n, --no-colors           Don't update color scheme"
   echo "  -h, --help                Display this help message"
 }
 
 # Default values
 WALLPAPER_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}/wallpapers"
+TRANSITION_TYPE="wipe"
+TRANSITION_DURATION=2
+CONFIG_FILE="$HOME/.config/matugen/config.toml"
+COLOR_MODE="dark"
+UPDATE_COLORS=true
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -21,6 +31,26 @@ while [[ $# -gt 0 ]]; do
     -d|--dir)
       WALLPAPER_DIR="$2"
       shift 2
+      ;;
+    -t|--transition)
+      TRANSITION_TYPE="$2"
+      shift 2
+      ;;
+    -u|--duration)
+      TRANSITION_DURATION="$2"
+      shift 2
+      ;;
+    -c|--config)
+      CONFIG_FILE="$2"
+      shift 2
+      ;;
+    -m|--mode)
+      COLOR_MODE="$2"
+      shift 2
+      ;;
+    -n|--no-colors)
+      UPDATE_COLORS=false
+      shift
       ;;
     -h|--help)
       show_help
@@ -34,39 +64,19 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Check if directory exists
-if [[ ! -d "$WALLPAPER_DIR" ]]; then
-  echo "Error: Wallpaper directory not found: $WALLPAPER_DIR" >&2
-  exit 1
+# Find next wallpaper
+NEXT_WALLPAPER=$(get-next-wallpaper --dir "$WALLPAPER_DIR")
+
+# Set the next wallpaper using set-wallpaper
+COLORS_FLAG=""
+if [[ "$UPDATE_COLORS" = false ]]; then
+  COLORS_FLAG="--no-colors"
 fi
 
-# Find all wallpapers
-mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) | sort)
-if [[ ${#WALLPAPERS[@]} -eq 0 ]]; then
-  echo "No wallpapers found in $WALLPAPER_DIR" >&2
-  exit 1
-fi
-
-# Get current wallpaper
-CURRENT_WALLPAPER=$(swww query | grep -o 'image: .*' | sed 's/image: //')
-
-# Find current index
-CURRENT_INDEX=-1
-for i in "${!WALLPAPERS[@]}"; do
-  if [[ "${WALLPAPERS[$i]}" == "$CURRENT_WALLPAPER" ]]; then
-    CURRENT_INDEX=$i
-    break
-  fi
-done
-
-# Determine next wallpaper
-if [[ $CURRENT_INDEX -eq -1 || $CURRENT_INDEX -eq $((${#WALLPAPERS[@]} - 1)) ]]; then
-  NEXT_INDEX=0
-else
-  NEXT_INDEX=$((CURRENT_INDEX + 1))
-fi
-
-NEXT_WALLPAPER="${WALLPAPERS[$NEXT_INDEX]}"
-
-# Output the next wallpaper path (to be captured by calling scripts)
-echo "$NEXT_WALLPAPER"
+set-wallpaper \
+  --transition "$TRANSITION_TYPE" \
+  --duration "$TRANSITION_DURATION" \
+  --config "$CONFIG_FILE" \
+  --mode "$COLOR_MODE" \
+  $COLORS_FLAG \
+  "$NEXT_WALLPAPER"
