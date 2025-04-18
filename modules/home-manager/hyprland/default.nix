@@ -13,6 +13,7 @@
     ./modules/workspaces.nix
     
     ./modules/style.nix
+    ./modules/windowrules.nix
   ];
 
   wayland.windowManager.hyprland = {
