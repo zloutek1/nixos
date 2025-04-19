@@ -129,4 +129,6 @@ The configuration includes specific optimizations for the Lenovo Yoga 16IMH9:
 - [NixOS](https://nixos.org/) for the amazing Linux distribution
 - [Home Manager](https://github.com/nix-community/home-manager) for user environment management
 - [Hyprland](https://hyprland.org/) for the excellent Wayland compositor
+- [JaKooLit Hyprland Dots](https://github.com/JaKooLit/Hyprland-Dots/releases) for wallpaper select rofi theme
+- [Adi1090x Rofi Dots](https://github.com/adi1090x/rofi) for Rofi launcher theme
 - Various open-source project contributors that made this configuration possible
