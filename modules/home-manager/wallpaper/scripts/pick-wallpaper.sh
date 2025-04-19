@@ -24,6 +24,7 @@ TRANSITION_DURATION=2
 CONFIG_FILE="$HOME/.config/matugen/config.toml"
 COLOR_MODE="dark"
 UPDATE_COLORS=true
+ROFI_COMMAND="rofi -show -dmenu -theme $XDG_CONFIG_HOME/rofi/wallpaper-select.rasi"
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -64,6 +65,18 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+menu() {
+  for i in "${!WALLPAPERS[@]}"; do
+    # Use icon display for compatible images
+    if ! echo "${WALLPAPERS[$i]}" | grep -q -E '\.gif$'; then
+      printf "%s\x00icon\x1f%s\n" "$(basename "${WALLPAPERS[$i]}")" "${WALLPAPERS[$i]}"
+    else
+      # Display filename for GIFs
+      printf "%s\n" "$(basename "${WALLPAPERS[$i]}")"
+    fi
+  done
+}
+
 # Check if directory exists
 if [[ ! -d "$WALLPAPER_DIR" ]]; then
   echo "Error: Wallpaper directory not found: $WALLPAPER_DIR" >&2
@@ -78,7 +91,7 @@ if [[ ${#WALLPAPERS[@]} -eq 0 ]]; then
 fi
 
 # Launch nsxiv in thumbnail mode
-SELECTED_WALLPAPER=$(nsxiv -t -o "${WALLPAPERS[@]}" | head -n 1)
+SELECTED_WALLPAPER="$WALLPAPER_DIR/$(menu | ${ROFI_COMMAND})"
 
 # Set the selected wallpaper using set-wallpaper
 COLORS_FLAG=""

@@ -44,7 +44,7 @@ let
     name = "pick-wallpaper";
     runtimeInputs = with pkgs; [
       swww
-      nsxiv
+      rofi
       coreutils
       findutils
       set-wallpaper
