@@ -17,40 +17,41 @@ configuration {
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
+    font:                       "JetBrains Mono Nerd Font 16";
 }
 
 /*****----- Global Properties -----*****/
 * {
-    background:                    @surface-dim;
-    background-alt:                @surface-container-low;
-    foreground:                    @on-surface;
-    selected:                      @primary;
-    active:                        @secondary;
-    urgent:                        @error;
+    background:                     @surface-dim;
+    background-alt:                 @surface-container-low;
+    foreground:                     @on-surface;
+    selected:                       @primary;
+    active:                         @secondary;
+    urgent:                         @error;
     
-    border-color:                @primary;
-    handle-color:                @selected;
-    background-color:            @background;
-    foreground-color:            @foreground;
-    alternate-background:        @background-alt;
-    normal-background:           @background;
-    normal-foreground:           @foreground;
-    urgent-background:           @urgent;
-    urgent-foreground:           @background;
-    active-background:           @active;
-    active-foreground:           @background;
-    selected-normal-background:  @selected;
-    selected-normal-foreground:  @background;
-    selected-urgent-background:  @active;
-    selected-urgent-foreground:  @background;
-    selected-active-background:  @urgent;
-    selected-active-foreground:  @secondary;
-    alternate-normal-background: @background;
-    alternate-normal-foreground: @foreground;
-    alternate-urgent-background: @urgent;
-    alternate-urgent-foreground: @background;
-    alternate-active-background: @active;
-    alternate-active-foreground: @background;
+    border-color:                   @primary;
+    handle-color:                   @selected;
+    background-color:               @background;
+    foreground-color:               @foreground;
+    alternate-background:           @background-alt;
+    normal-background:              @background;
+    normal-foreground:              @foreground;
+    urgent-background:              @urgent;
+    urgent-foreground:              @background;
+    active-background:              @active;
+    active-foreground:              @background;
+    selected-normal-background:     @selected;
+    selected-normal-foreground:     @background;
+    selected-urgent-background:     @active;
+    selected-urgent-foreground:     @background;
+    selected-active-background:     @urgent;
+    selected-active-foreground:     @secondary;
+    alternate-normal-background:    @background;
+    alternate-normal-foreground:    @foreground;
+    alternate-urgent-background:    @urgent;
+    alternate-urgent-foreground:    @background;
+    alternate-active-background:    @active;
+    alternate-active-foreground:    @background;
     
 
 }
@@ -63,7 +64,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       35%;
+    width:                       45%;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -377,7 +378,7 @@ element selected.normal {
 
 element-icon {
     text-color:                  inherit;
-    size:                        10%;
+    size:                        15%;
     margin:                      -30px;
     cursor:                      inherit;
 }
