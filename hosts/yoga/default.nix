@@ -15,16 +15,11 @@
     bluetooth
     hyprland
     users
+    network
   ];
 
   networking.hostName = "yoga";
   system.stateVersion = "24.11";
-
-  networking.networkmanager.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    networkmanagerapplet
-  ];
 
   # since laptop has dualboot with windows
   time.hardwareClockInLocalTime = true;
