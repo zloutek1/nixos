@@ -42,13 +42,13 @@ let
     text = builtins.readFile ./scripts/pick-wallpaper.sh;
   };
 
-  next-wallpaper = pkgs.writeShellApplication {
-    name = "next-wallpaper";
+  wallchange = pkgs.writeShellApplication {
+    name = "wallchange";
     runtimeInputs = with pkgs; [
       update-colors
       coreutils
     ];
-    text = builtins.readFile ./scripts/next-wallpaper.sh;
+    text = builtins.readFile ./scripts/wallchange.sh;
   };
 
 in
@@ -69,6 +69,6 @@ in
     set-wallpaper
     update-colors
     pick-wallpaper
-    next-wallpaper
+    wallchange
   ];
 }
