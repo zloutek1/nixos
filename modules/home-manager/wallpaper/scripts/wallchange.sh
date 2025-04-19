@@ -21,7 +21,7 @@ Options:
   --matugen-mode MODE              Color mode for matugen (default: dark)
   --no-matugen-colors              Don't update color scheme via matugen
   --output-only                    Only output the path of the wallpaper without setting it
-  --help                           Display this help message
+  -h, --help                       Display this help message
 EOF
 }
 
@@ -88,10 +88,10 @@ function select_wallpaper() {
 function main() {
   # Default values
   local wallpaper_dir="${XDG_PICTURES_DIR:-$HOME/Pictures}/wallpapers"
-  local transition_type="wipe"
-  local transition_duration=2
-  local config_file="$HOME/.config/matugen/config.toml"
-  local color_mode="dark"
+  local swww_transition="wipe"
+  local swww_duration=2
+  local matugen_config="$HOME/.config/matugen/config.toml"
+  local matugen_mode="dark"
   local update_colors="true"
   local output_only="false"
   local action="" # To store the required action (next, previous, or random)
@@ -108,7 +108,7 @@ function main() {
       action="$1"
       shift # Consume the required argument
       ;;
-    --help)
+    -h|--help)
       show_help
       exit 0
       ;;
@@ -135,7 +135,7 @@ function main() {
           echo "Error: --swww-transition requires a transition type." >&2
           exit 1
         fi
-        transition_type="$2"
+        swww_transition="$2"
         shift 2
         ;;
       --swww-duration)
@@ -143,7 +143,7 @@ function main() {
           echo "Error: --swww-duration requires a duration in seconds." >&2
           exit 1
         fi
-        transition_duration="$2"
+        swww_duration="$2"
         shift 2
         ;;
       --matugen-config)
@@ -151,7 +151,7 @@ function main() {
           echo "Error: --matugen-config requires a file path." >&2
           exit 1
         fi
-        config_file="$2"
+        matugen_config="$2"
         shift 2
         ;;
       --matugen-mode)
@@ -159,7 +159,7 @@ function main() {
           echo "Error: --matugen-mode requires a mode." >&2
           exit 1
         fi
-        color_mode="$2"
+        matugen_mode="$2"
         shift 2
         ;;
       --no-matugen-colors)
@@ -170,7 +170,7 @@ function main() {
         output_only="true"
         shift
         ;;
-      --help) # Handle --help again in case it's after the required arg
+      -h|--help) # Handle --help again in case it's after the required arg
         show_help
         exit 0
         ;;
@@ -211,10 +211,10 @@ function main() {
   
   # Set the wallpaper
   set-wallpaper \
-    --transition "$transition_type" \
-    --duration "$transition_duration" \
-    --config "$config_file" \
-    --mode "$color_mode" \
+    --transition "$swww_transition" \
+    --duration "$swww_duration" \
+    --config "$matugen_config" \
+    --mode "$matugen_mode" \
     "$( [[ "$update_colors" = false ]] && echo "--no-colors" )" \
     "$selected_wallpaper"
 }
