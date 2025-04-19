@@ -24,7 +24,7 @@
       
       "$terminal" = "kitty";
       "$fileManager" = "nautilus";
-      "$menu" = "wofi";
+      "$menu" = "rofi -show drun";
       "$browser" = "chromium";
       
       "$lock" = "hyprlock";

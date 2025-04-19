@@ -20,7 +20,8 @@
     nvim
     wallpaper
     hyprland
-    wofi
+    #wofi
+    rofi
     waybar
     wlogout
     mako

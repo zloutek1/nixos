@@ -1,0 +1,10 @@
+/*****----- Global Properties -----*****/
+* {
+    background:                  #101010;
+    background-alt:              #252525;
+    foreground:                  #FFFFFF;
+    selected:                    #505050;
+    active:                      #909090;
+    urgent:                      #707070;
+    img:                           url("~/.config/rofi/images/g.png", both);
+}

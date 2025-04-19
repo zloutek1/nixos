@@ -35,6 +35,11 @@
       input_path = "${config.xdg.configHome}/matugen/templates/waybar.css";
       output_path = "${config.xdg.configHome}/waybar/colors.css";
     };
+
+    rofi = {
+      input_path = "${config.xdg.configHome}/matugen/templates/rofi.rasi";
+      output_path = "${config.xdg.configHome}/rofi/colors.rasi";
+    };
   };
 
 }
