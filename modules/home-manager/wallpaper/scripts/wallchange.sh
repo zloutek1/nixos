@@ -33,7 +33,7 @@ function find_wallpapers() {
 
 # Function to get the current wallpaper
 function get_current_wallpaper() {
-  swww query | grep -o 'image: .*' | sed 's/image: //'
+  swww query | grep -o 'image: .*' | sed 's/image: //' | head -n 1
 }
 
 # Function to select the next wallpaper based on the action
@@ -64,7 +64,7 @@ function select_wallpaper() {
       break
     fi
   done
-  
+
   # Determine next/previous wallpaper
   local next_index
   if [[ "$action" == "next" ]]; then
