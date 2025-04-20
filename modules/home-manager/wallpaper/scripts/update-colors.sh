@@ -69,3 +69,7 @@ else
 fi
 
 echo "Color scheme updated based on: $WALLPAPER" >&2
+
+if command -v "hyprshade" >/dev/null 2>&1; then
+  hyprshade auto
+fi
