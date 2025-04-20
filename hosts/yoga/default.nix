@@ -16,6 +16,7 @@
     hyprland
     users
     network
+    syncthing
   ];
 
   networking.hostName = "yoga";
