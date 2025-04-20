@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, inputs, ... }: {
 
   imports = [
+    ./hyprshade.nix
+
     ./modules/misc.nix
     ./modules/input.nix
     ./modules/nvidia.nix
