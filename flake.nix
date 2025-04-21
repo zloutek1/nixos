@@ -35,7 +35,7 @@
         yoga = lib.mkNixosSystem {
           system = "x86_64-linux";
           hostname = "yoga";
-          username = "tomas";
+          users = [ "tomas" ];
         };
       };
 

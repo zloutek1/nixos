@@ -3,18 +3,17 @@
 # Function to generate a NixOS system configuration.
 # Arguments:
 #   - system: The os architecture (such as x86_64-linux)
-#   - username: The name of the user
 #   - hostname: The name of the machine
+#   - users: The names of the users on the machine
 #   - extraModules: defining extra machine specific modules
 {
   system,
-  username,
   hostname,
+  users,
   extraModules ? [ ],
 }:
 
-lib.nixosSystem {
-  specialArgs = { inherit inputs self lib username hostname; };
+let 
   modules = [
     # Host-specific variables
     {
@@ -33,10 +32,16 @@ lib.nixosSystem {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "hm-backup";
-      home-manager.extraSpecialArgs = { inherit inputs self lib username hostname; };
-      home-manager.users.${username} = import ../homes/${username}/default.nix;
+      home-manager.extraSpecialArgs = { inherit inputs self lib hostname; };
+      home-manager.users = lib.listToAttrs (map (username: {
+        name = username;
+        value = import ../homes/${username}/default.nix;
+      }) users);
     }
+  ];
+in
 
-    # Additional modules if needed
-  ] ++ extraModules;
+lib.nixosSystem {
+  specialArgs = { inherit inputs self lib users hostname; };
+  modules = modules ++ extraModules;
 }

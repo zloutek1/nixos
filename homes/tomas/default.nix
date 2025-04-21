@@ -1,9 +1,8 @@
 {
+  config,
   pkgs,
   self,
   lib,
-  username,
-  inputs,
   ...
 }:
 {
@@ -27,8 +26,8 @@
     mako
   ];
 
-  home.username = username;
-  home.homeDirectory = lib.getHomeDirectory { inherit pkgs username; };
+  home.username = "tomas";
+  home.homeDirectory = lib.getHomeDirectory { inherit pkgs; username = config.home.username; };
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [

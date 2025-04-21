@@ -1,4 +1,4 @@
-{ username, host, ... }: {
+{ host, ... }: {
 
   # TODO: move to a home manager module
   services.syncthing = {
@@ -7,7 +7,7 @@
 
     settings = {
       gui = {
-        user = username;
+        user = "tomas";
         password = "pass123";
       };
     };
