@@ -18,7 +18,7 @@ let
   #                Expected structure: { modules-left = [..], modules-center = [..], modules-right = [..], ... }
   # Returns: list of strings, the concatenated list of module names requested in the bar's layout sections.
   getRequestedModuleNames = barConfig:
-    concatLists [
+    builtins.concatLists [
       (barConfig.modules-left or [])
       (barConfig.modules-center or [])
       (barConfig.modules-right or [])
