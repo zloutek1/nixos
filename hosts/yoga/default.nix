@@ -32,4 +32,6 @@
     options = "compose:ralt";
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
 }
