@@ -18,9 +18,11 @@ let
   #                Expected structure: { modules-left = [..], modules-center = [..], modules-right = [..], ... }
   # Returns: list of strings, the concatenated list of module names requested in the bar's layout sections.
   getRequestedModuleNames = barConfig:
-    # Consider adding `or []` to each access if robustness against missing sections is needed, e.g.,
-    # (barConfig.modules-left or []) ++ (barConfig.modules-center or []) ++ (barConfig.modules-right or []);
-    barConfig.modules-left ++ barConfig.modules-center ++ barConfig.modules-right;
+    concatLists [
+      (barConfig.modules-left or [])
+      (barConfig.modules-center or [])
+      (barConfig.modules-right or [])
+    ];
 
   # Checks if a generated module configuration fragment is needed for a bar,
   # by determining if it defines at least one module requested by the user for that bar.
@@ -49,8 +51,6 @@ let
   # Throws: Error string with details if any requested modules are not defined by any factory.
   processBar = config: moduleFactories: barName:
     let
-      # If moduleFactories is an attrset { name = factory; ... } instead of a list, use:
-      # allGeneratedConfigs = builtins.map (factory: factory barName) (lib.attrValues moduleFactories);
       allGeneratedConfigs = moduleFactories
         |> builtins.map (factory: factory barName);
 
