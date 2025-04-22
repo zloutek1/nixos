@@ -1,22 +1,41 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, ... }:
+let 
 
+  hypr-volume-control = pkgs.writeShellApplication {
+    name = "hypr-volume-control";
+    runtimeInputs = [ pkgs.wireplumber ];
+    text = builtins.readFile ../scripts/hypr-volume-control.sh;
+  };
+
+  hypr-brightness-control = pkgs.writeShellApplication {
+    name = "hypr-brightness-control";
+    runtimeInputs = [ pkgs.brightnessctl ];
+    text = builtins.readFile ../scripts/hypr-brightness-control.sh;
+  };
+  
+in
 {
+  home.packages = [
+    hypr-volume-control
+    hypr-brightness-control
+  ];
+
   wayland.windowManager.hyprland.settings = {
     bind = [
       #---------------volume management-------------------------------------------------#
       #---------------------------------------------------------------------------------#
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioMute, exec, ${lib.getExe hypr-volume-control} toggle"
     ];
     binde = [ # e = repeat, will repeat when held.
       #---------------volume management-------------------------------------------------#
       #---------------------------------------------------------------------------------#
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86AudioRaiseVolume, exec, ${lib.getExe hypr-volume-control} up"
+      ", XF86AudioLowerVolume, exec, ${lib.getExe hypr-volume-control} down"
       
       #---------------backlight management----------------------------------------------#
       #---------------------------------------------------------------------------------#
-      ", XF86MonBrightnessUp, exec, brightnessctl set +10%"
-      ", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+      ", XF86MonBrightnessUp, exec, ${lib.getExe hypr-brightness-control} up"
+      ", XF86MonBrightnessDown, exec, ${lib.getExe hypr-brightness-control} down"
     ];
   };
 }
