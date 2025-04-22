@@ -1,5 +1,13 @@
+{ ... }: barName: 
+
 {
-  #device = "acpi_video1";
-  format = "{icon} {percent}%";
-  format-icons = [ "" "" "" "" "" "" "" "" "" ];
+
+  programs.waybar.settings.${barName} = {
+    "backlight" = {
+      #device = "acpi_video1";
+      format = "{icon} {percent}%";
+      format-icons = [ "" "" "" "" "" "" "" "" "" ];
+    };
+  };
+
 }
