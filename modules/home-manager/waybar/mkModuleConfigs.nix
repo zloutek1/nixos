@@ -1,67 +1,96 @@
-{ lib,... }:
+{ lib, ... }:
+
 let
-  ### Helper Functions for Waybar Module Configuration Processing ###
-
-  generateAllModuleConfigs = moduleFactories: barName:
-    moduleFactories 
-    |> builtins.map (factory: factory barName);
-
+  # Extracts module names defined within a single generated config fragment for a specific bar.
+  # Arguments:
+  #   - barName: string, the name of the Waybar bar instance (e.g., "main-bar").
+  #   - moduleConfig: attrset, a NixOS module configuration fragment,
+  #                   typically the output of a module factory function.
+  #                   Expected structure: { programs.waybar.settings.<barName> = { ... }; }
+  # Returns: list of strings, the module names defined as keys within the settings for the given barName.
   getModuleNamesFromConfig = barName: moduleConfig:
     builtins.attrNames moduleConfig.programs.waybar.settings.${barName};
 
-  getAvailableModuleNames = barName: allGeneratedModuleConfigs:
-    allGeneratedModuleConfigs 
-    |> builtins.concatMap (getModuleNamesFromConfig barName);
-
+  # Gets all module names requested by the user across modules-{left,center,right} for a specific bar config.
+  # Arguments:
+  #   - barConfig: attrset, the user's configuration for a specific bar,
+  #                typically found at `config.programs.waybar.settings.<barName>`.
+  #                Expected structure: { modules-left = [..], modules-center = [..], modules-right = [..], ... }
+  # Returns: list of strings, the concatenated list of module names requested in the bar's layout sections.
   getRequestedModuleNames = barConfig:
+    # Consider adding `or []` to each access if robustness against missing sections is needed, e.g.,
+    # (barConfig.modules-left or []) ++ (barConfig.modules-center or []) ++ (barConfig.modules-right or []);
     barConfig.modules-left ++ barConfig.modules-center ++ barConfig.modules-right;
 
-  findMissingModules = requestedNames: availableNames:
-    requestedNames 
-    |> builtins.filter (name: !(builtins.elem name availableNames));
-
+  # Checks if a generated module configuration fragment is needed for a bar,
+  # by determining if it defines at least one module requested by the user for that bar.
+  # Arguments:
+  #   - moduleConfig: attrset, a generated NixOS module config fragment (output of a factory).
+  #   - requestedNames: list of strings, the list of module names requested by the user for the bar.
+  #   - barName: string, the name of the Waybar bar instance.
+  # Returns: boolean, true if this moduleConfig defines at least one module listed in requestedNames.
   isModuleNeeded = moduleConfig: requestedNames: barName:
-    getModuleNamesFromConfig barName moduleConfig              # definedNames
-    |> builtins.any (name: builtins.elem name requestedNames); # isNeeded
-
-  filterModuleConfigs = allConfigs: requestedNames: barName:
-    allConfigs 
-    |> builtins.filter (moduleConfig: isModuleNeeded moduleConfig requestedNames barName);
-
-  ### Main functions
-  
-  validateAndFilterBarConfigs = config: moduleFactories: barName:
     let
-      # Step 1: Generate all possible module configs for this bar
-      allGeneratedConfigs = generateAllModuleConfigs moduleFactories barName;
+      definedNames = getModuleNamesFromConfig barName moduleConfig;
+    in
+      builtins.any (name: builtins.elem name requestedNames) definedNames;
 
-      # Step 2: Extract names of all modules for which configs were generated (across all configs)
-      availableNames = getAvailableModuleNames barName allGeneratedConfigs;
+  # Processes configurations for a single Waybar bar instance.
+  # It generates all possible module configurations from the provided factories for the specific bar,
+  # validates that all modules requested by the user in the bar's config are available from the factories,
+  # and filters the generated configurations to include only those that provide needed modules.
+  # Arguments:
+  #   - config: attrset, the overall NixOS configuration (`config`).
+  #   - moduleFactories: list of functions, where each function is a module factory.
+  #                    Each factory function should accept `barName` (string) and return an attrset
+  #                    representing a NixOS module configuration fragment.
+  #   - barName: string, the name of the specific Waybar bar instance being processed (e.g., "main-bar").
+  # Returns: list of attrsets, containing only the necessary module configuration fragments for this bar.
+  # Throws: Error string with details if any requested modules are not defined by any factory.
+  processBar = config: moduleFactories: barName:
+    let
+      # If moduleFactories is an attrset { name = factory; ... } instead of a list, use:
+      # allGeneratedConfigs = builtins.map (factory: factory barName) (lib.attrValues moduleFactories);
+      allGeneratedConfigs = moduleFactories
+        |> builtins.map (factory: factory barName);
 
-      # Step 3: Get the specific configuration for this bar instance
+      availableNames = allGeneratedConfigs
+        |> builtins.concatMap (getModuleNamesFromConfig barName);
+
       barConfig = config.programs.waybar.settings.${barName};
 
-      # Step 4: Extract the names of modules requested by this bar
       requestedNames = getRequestedModuleNames barConfig;
 
-      # Step 5: Validate - find any requested modules that are not available
-      missing = findMissingModules requestedNames availableNames;
+      missing = builtins.filter (name: !(builtins.elem name availableNames)) requestedNames;
 
-      # Step 6: Filter - select configurations where at least one defined module is requested
-      filteredConfigs = filterModuleConfigs allGeneratedConfigs requestedNames barName;
+      neededConfigs = builtins.filter (moduleConfig: isModuleNeeded moduleConfig requestedNames barName) allGeneratedConfigs;
 
     in
-      # Step 7: Return filtered configs or throw error if validation failed
       if (missing != []) then
-        throw "Waybar Config Error: For bar '${barName}', requested modules not available: ${toString missing}\nAvailable modules (from all factories): ${toString availableNames}"
+        throw ''
+          Waybar Config Error for bar '${barName}':
+            Requested module(s) not available: ${toString missing}
+            Available modules (provided by all factories): ${toString availableNames}
+        ''
       else
-        filteredConfigs;
+        neededConfigs;
 
+  # Main entry point to generate the final list of Waybar module configurations for NixOS.
+  # It iterates through all bars defined in `config.programs.waybar.settings`,
+  # processes each bar using `processBar` to validate and filter module configurations,
+  # and finally concatenates the resulting lists of needed configurations from all bars.
+  # Arguments:
+  #   - config: attrset, the overall NixOS configuration, containing `programs.waybar.settings`.
+  #   - moduleFactories: list of functions (module factories), passed through to `processBar`.
+  #                    Each factory takes `barName` (string) and returns an attrset module config fragment.
+  # Returns: list of attrsets, representing all necessary module configuration fragments merged from all bars.
   mkModuleConfigs = config: moduleFactories:
-    builtins.attrNames config.programs.waybar.settings                                    # barNames
-    |> builtins.map (barName: validateAndFilterBarConfigs config moduleFactories barName) # moduleConfigs
-    |> builtins.concatLists;
+    let
+      barNames = builtins.attrNames config.programs.waybar.settings;
+      configsPerBar = builtins.map (barName: processBar config moduleFactories barName) barNames;
+      allNeededConfigs = builtins.concatLists configsPerBar;
+    in
+      allNeededConfigs;
 
 in
-  # Export the main orchestrating function
   mkModuleConfigs
