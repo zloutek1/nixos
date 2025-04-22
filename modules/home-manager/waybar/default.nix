@@ -2,29 +2,7 @@
 let
 
   modules = import ./modules { inherit pkgs; };
-
-  # Helper function to process a single bar
-  processBar = config: allModules: barName:
-    let 
-      allModules = builtins.map (module: module barName) modules;
-      allModuleNames = builtins.concatMap (config: builtins.attrNames config.programs.waybar.settings.${barName}) allModules;
-      
-      barConfig = config.programs.waybar.settings.${barName};
-      moduleNames = barConfig.modules-left ++ barConfig.modules-center ++ barConfig.modules-right;
-    
-      missingModules = builtins.filter (name: !(builtins.elem name allModuleNames)) moduleNames;
-    in
-      if (missingModules == []) then 
-        allModules 
-      else 
-        throw "Error: The following modules were requested but are not available: ${toString missingModules}";
-
-  # Main function to create module configurations
-  mkModuleConfigs = config: allModules:
-    config.programs.waybar.settings
-    |> builtins.attrNames
-    |> map (processBar config allModules)
-    |> builtins.concatLists;
+  mkModuleConfigs = import ./mkModuleConfigs.nix { inherit lib; };
 
   waybarConfig = {
     programs.waybar = {
