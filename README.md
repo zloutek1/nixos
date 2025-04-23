@@ -1,16 +1,43 @@
 # ❄️ Zloutek1's NixOS & Home-Manager Configuration
 
-A modern, modular NixOS configuration.
+Minimal. Modern. Personal.
 
-## ✨ Features
+![Banner](./assets/desktop.png)
 
-- **Declarative Configuration**: Everything defined as code using Nix flakes 
-- **Modular Design**: Clean separation between system and user configuration
-- **Hyprland Compositor**: Modern Wayland-based environment with custom theming
-- **Dynamic Theming**: Auto-generated themes based on wallpaper using Matugen
-- **Hardware Optimizations**: Specific configurations for Lenovo Yoga 16IMH9
+# Hosts
 
-## 🏗️ Structure
+## **Lenovo Yoga Pro 9 16IMH9**
+
+- **CPU:** Intel Core i9-13905H (14-core)
+- **GPU:** NVIDIA GeForce RTX 4050 (dGPU) + Intel Iris Xe (iGPU)
+- **Display:** 3.2K 165Hz IPS (4096x2560)
+- **WM:** Hyprland (Wayland)
+- **DE:** None (minimal)
+- **Boot:** GRUB
+- **Usage:** Primary workstation for dev, writing, and experiments
+
+
+# Users
+
+### tomas
+- **Shell:** `zsh`
+- **Editor:** `neovim`
+- **Terminal:** `kitty`
+- **Theme:** Dynamic (from wallpaper with `matguen`)
+- **Fonts:** JetBrainsMono Nerd Font
+- **Browser:** Chromium
+- **Bar:** `watbar`
+- **Launcher:** `rofi`
+
+# Features
+
+- Declarative NixOS configuration using flakes
+- Home Manager integration with modular setup
+- Hyprland on Wayland with dynamic theming
+- Dynamic theming based on wallpaper using Matugen
+- Hardware Optimizations for Lenovo Yoga 16IMH9
+
+## Structure
 
 ```bash
 .
@@ -25,104 +52,32 @@ A modern, modular NixOS configuration.
 └── pkgs/             # Custom packages
 ```
 
-## 📦 Main Components
+## Theming
 
-### System Configuration
+Wallpapers are managed with a custom `wallchange` script that integrates with [matguen](https://github.com/matguen/matguen) to generate a dynamic GTK and terminal color scheme on each wallpaper change.
 
-- **Audio**: PipeWire
-- **Graphics**: Wayland
-- **Fonts**: Modern font selection
-- **Bootloader**: GRUB with Matrix theme
-
-### User Environment
-
-- **Window Manager**: Hyprland
-- **Terminal**: Kitty
-- **Editor**: Neovim
-- **Bar**: Waybar
-- **Notification**: Mako notification daemon
-- **App Launcher**: Wofi
-- **Dynamic Wallpapers**: Script-based wallpaper management with theme generation
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- NixOS installation
-- Git
-
-### Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/zloutek1/nixos.git ~/.config/nix
-   cd ~/.config/nix
-   ```
-
-2. Apply the configuration (replace 'yoga' with your hostname if different):
-   ```bash
-   sudo nixos-rebuild switch --flake .#yoga
-   ```
-
-## 🔧 Customization
-
-### Adding a New Host
-
-1. Create a new directory under `hosts/`:
-   ```bash
-   mkdir -p hosts/new-machine
-   ```
-
-2. Create `default.nix` and `hardware.nix` files in the new directory.
-
-3. Update the `flake.nix` to include your new machine:
-   ```nix
-   nixosConfigurations = {
-     yoga = lib.mkNixosSystem {...};
-     new-machine = lib.mkNixosSystem {...};
-   };
-   ```
-
-### Adding a New User
-
-1. Create a new directory under `homes/`:
-   ```bash
-   mkdir -p homes/newuser
-   ```
-
-2. Create a `default.nix` file in the new directory with your user configuration.
-
-3. Update the `flake.nix` and point your machine to have the new user:
-   ```nix
-   nixosConfigurations = {
-     yoga = lib.mkNixosSystem {...};
-     new-machine = lib.mkNixosSystem {
-        user = "newuser";
-        ...
-     };
-   };
-   ```
-
-## 🎨 Theming
-
-The configuration uses a dynamic theming system based on your wallpaper. The `wallpaper` module in home-manager handles:
-
-- Wallpaper cycling
-- Theme generation using Matugen
-- Applying themes to all components (Hyprland, Kitty, Waybar, etc.)
-
-Commands:
-- `next-wallpaper`: Switch to the next wallpaper and update themes
+Scripts available:
+- `wallchange`: Switch to the previous/next/random wallpaper and update themes
 - `pick-wallpaper`: Open a selector to choose a specific wallpaper
 - `update-colors`: Regenerate theme colors from the current wallpaper
 
-## 🛠️ Hardware-Specific Optimizations
+## Keyboard Shortcuts
 
-The configuration includes specific optimizations for the Lenovo Yoga 16IMH9:
-- Audio fixes with custom script
-- Graphics optimizations 
-- Power management settings
-- Touchscreen and tablet mode configuration
+The following are the shortucts used in my system. (Super is windows key)
+
+| Keybind | Action |
+|--------|--------|
+| <kbd>Super</kbd> + <kbd>Return</kbd> | Launch terminal (`kitty`) |
+| <kbd>Super</kbd> + <kbd>F2</kbd> | Launch browser (`chromium`) |
+| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>Q</kbd> | Close focused window |
+| <kbd>Super</kbd> + <kbd>D</kbd> | Show app launcher (`rofi`) |
+| <kbd>Super</kbd> + <kbd>E</kbd> | Launch file manager (`nautilus`) |
+| <kbd>Super</kbd> + <kbd>Space</kbd> | Switch keyboard layout |
+| <kbd>Print</kbd> | Screenshot (full) via `hyprshot` |
+| <kbd>Super</kbd> + <kbd>Print</kbd> | Screenshot (area) via `hyprshot` |
+| <kbd>Super</kbd> + <kbd>F</kbd> | Toggle fullscreen |
+| <kbd>Super</kbd> + <kbd>[1-9]</kbd> | Switch workspace |
+| <kbd>Super</kbd> + <kbd>Shift</kbd> + <kbd>[1-9]</kbd> | Move window to workspace |
 
 ## 🙏 Acknowledgments
 
@@ -131,4 +86,6 @@ The configuration includes specific optimizations for the Lenovo Yoga 16IMH9:
 - [Hyprland](https://hyprland.org/) for the excellent Wayland compositor
 - [JaKooLit Hyprland Dots](https://github.com/JaKooLit/Hyprland-Dots/releases) for wallpaper select rofi theme
 - [Adi1090x Rofi Dots](https://github.com/adi1090x/rofi) for Rofi launcher theme
+- [maximmaxim345's Scripts](https://github.com/maximmaxim345/yoga_pro_9i_gen9_linux) for Lenovo Yoga 9i linux fixes
+- [alyraffauf's Nix Dots](https://github.com/alyraffauf/nixcfg/tree/master) for Lenovo Yoga 9i fixes.
 - Various open-source project contributors that made this configuration possible
