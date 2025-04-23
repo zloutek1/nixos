@@ -1,11 +1,34 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let 
 
-  mainMod = config.wayland.windowManager.hyprland.settings.mainMod or "SUPER";
+  switchOrBackScript = pkgs.writeShellScriptBin "switch-or-back" ''
+    #!/bin/sh
+
+    # Get the target workspace number from the command line argument
+    TARGET_WS="$1"
+
+    # Check if a target was provided
+    if [ -z "$TARGET_WS" ]; then
+        echo "Error: No target workspace provided."
+        exit 1
+    fi
+
+   CURRENT_WS=$(${pkgs.hyprland}/bin/hyprctl activeworkspace -j | ${lib.getExe pkgs.jq} '.id')
+
+   if [ "$CURRENT_WS" = "$TARGET_WS" ]; then
+        ${pkgs.hyprland}/bin/hyprctl dispatch workspace previous
+    else
+        ${pkgs.hyprland}/bin/hyprctl dispatch workspace "$TARGET_WS"
+    fi
+  '';
 
 in
 {
   wayland.windowManager.hyprland.settings = {
+    binds = {
+      allow_workspace_cycles = true;
+    };
+
     bind = [
       #---------------move focus with mainMod + arrow keys (layout agnostic)------------------------------#
       #---------------------------------------------------------------------------------------------------#
@@ -23,16 +46,16 @@ in
       
       #---------------switch workspaces with mainMod + [0-9]----------------------------#
       #---------------------------------------------------------------------------------#
-      "$mainMod, 1, workspace, 1"
-      "$mainMod, 2, workspace, 2"
-      "$mainMod, 3, workspace, 3"
-      "$mainMod, 4, workspace, 4"
-      "$mainMod, 5, workspace, 5"
-      "$mainMod, 6, workspace, 6"
-      "$mainMod, 7, workspace, 7"
-      "$mainMod, 8, workspace, 8"
-      "$mainMod, 9, workspace, 9"
-      "$mainMod, 0, workspace, 10"
+      "$mainMod, 1, exec, ${lib.getExe switchOrBackScript} 1"
+      "$mainMod, 2, exec, ${lib.getExe switchOrBackScript} 2"
+      "$mainMod, 3, exec, ${lib.getExe switchOrBackScript} 3"
+      "$mainMod, 4, exec, ${lib.getExe switchOrBackScript} 4"
+      "$mainMod, 5, exec, ${lib.getExe switchOrBackScript} 5"
+      "$mainMod, 6, exec, ${lib.getExe switchOrBackScript} 6"
+      "$mainMod, 7, exec, ${lib.getExe switchOrBackScript} 7"
+      "$mainMod, 8, exec, ${lib.getExe switchOrBackScript} 8"
+      "$mainMod, 9, exec, ${lib.getExe switchOrBackScript} 9"
+      "$mainMod, 0, exec, ${lib.getExe switchOrBackScript} 10"
       
       #---------------move active window to a workspace with mainMod + SHIFT + [0-9]-------------------#
       #------------------------------------------------------------------------------------------------#
