@@ -24,6 +24,7 @@
     waybar
     wlogout
     mako
+    batsignal
   ];
 
   home.username = "tomas";
