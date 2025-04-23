@@ -4,9 +4,9 @@
   
   programs.waybar.settings.${barName} = {
     "custom/wallchange" = {
-      format = "󰆊{}";
+      format = "󰆊 {}";
       
-      exec = "wallchange next";
+      exec = "echo; echo 󰆊 switch wallpaper; wallchange next";
       interval = 900; # once 15min
 
       on-click = "wallchange next";
