@@ -3,6 +3,7 @@
   pkgs,
   self,
   lib,
+  username,
   ...
 }:
 {
@@ -27,8 +28,8 @@
     batsignal
   ];
 
-  home.username = "tomas";
-  home.homeDirectory = lib.getHomeDirectory { inherit pkgs; username = config.home.username; };
+  home.username = username;
+  home.homeDirectory = lib.getHomeDirectory { inherit pkgs username; };
   home.stateVersion = "24.11";
 
   preferences = {

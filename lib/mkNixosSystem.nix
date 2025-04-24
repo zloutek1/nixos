@@ -38,9 +38,10 @@ let
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "hm-backup";
       home-manager.extraSpecialArgs = { inherit inputs self lib hostname; };
-      home-manager.users = lib.genAttrs users (username: 
-        import ../users/${username}/home.nix 
-      );
+      home-manager.users = lib.genAttrs users (username: {
+        imports = [ ../users/${username}/home.nix  ];
+        _module.args = { inherit username; };
+      });
     }
   ];
 in
