@@ -13,7 +13,6 @@
     pipewire
     bluetooth
     hyprland
-    users
     network
     syncthing
   ];

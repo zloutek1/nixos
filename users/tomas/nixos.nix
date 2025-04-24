@@ -1,11 +1,11 @@
-{ pkgs, lib, users, ... }: {
+{ pkgs, lib, username, ... }: {
 
-  users.users = lib.genAttrs users (username: {
+  users.users.${username} = {
     isNormalUser = true;
     description = username;
     extraGroups = [ "wheel" "networkmanager" "video" ];
     shell = pkgs.zsh;
-  });
+  };
   
   environment.shells = with pkgs; [
     bash

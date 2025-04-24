@@ -13,19 +13,24 @@
   extraModules ? [ ],
 }:
 
-let 
+let
+  userModules = map (username: {
+    imports = [ ../users/${username}/nixos.nix ];
+    _module.args = { inherit username; };
+  }) users;
+
   modules = [
     # Host-specific variables
     {
       nixpkgs.hostPlatform = system;
     }
 
-    # Common configuration
+    # Common nix modules
     self.nixosModules.common
-
-    # Host-specific configuration
+    
+    # Host-specific modules
     ../hosts/${hostname}/default.nix
-
+    
     # Home Manager setup
     inputs.home-manager.nixosModules.home-manager
     {
@@ -33,15 +38,14 @@ let
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "hm-backup";
       home-manager.extraSpecialArgs = { inherit inputs self lib hostname; };
-      home-manager.users = lib.listToAttrs (map (username: {
-        name = username;
-        value = import ../homes/${username}/default.nix;
-      }) users);
+      home-manager.users = lib.genAttrs users (username: 
+        import ../users/${username}/home.nix 
+      );
     }
   ];
 in
 
 lib.nixosSystem {
   specialArgs = { inherit inputs self lib users hostname; };
-  modules = modules ++ extraModules;
+  modules = modules ++ userModules ++ extraModules;
 }
