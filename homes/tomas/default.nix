@@ -25,11 +25,16 @@
     wlogout
     mako
     batsignal
+    preferences
   ];
 
   home.username = "tomas";
   home.homeDirectory = lib.getHomeDirectory { inherit pkgs; username = config.home.username; };
   home.stateVersion = "24.11";
+
+  preferences = {
+    shells = [ "zsh" "bash" ];
+  };
 
   home.packages = with pkgs; [
     # Applications
