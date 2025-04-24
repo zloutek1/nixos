@@ -88,5 +88,5 @@ The following are the shortucts used in my system. (Super is windows key)
 - [Adi1090x Rofi Dots](https://github.com/adi1090x/rofi) for Rofi launcher theme
 - [maximmaxim345's Scripts](https://github.com/maximmaxim345/yoga_pro_9i_gen9_linux) for Lenovo Yoga 9i linux fixes
 - [alyraffauf's Nix Dots](https://github.com/alyraffauf/nixcfg/tree/master) for Lenovo Yoga 9i fixes.
-- https://discourse.nixos.org/t/nvidia-dgpu-prime-offload-mode-amd-igpu-wayland/63194/4
+- [Nix Discourse: Nvidia dgpu prime offload mode + amd igpu + wayland?](https://discourse.nixos.org/t/nvidia-dgpu-prime-offload-mode-amd-igpu-wayland/63194/4)
 - Various open-source project contributors that made this configuration possible
