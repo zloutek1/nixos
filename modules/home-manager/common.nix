@@ -1,7 +1,7 @@
 { self, ... }: {
 
   imports = [
-    self.commonModules.preferences
+    self.homeModules.preferences
   ];
 
   # Let Home Manager manage itself

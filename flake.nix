@@ -24,13 +24,12 @@
     let
 
       lib = import ./lib/default.nix { inherit inputs; };
-      commonModules = lib.discoverModules { path = ./modules/common; };
       nixosModules = lib.discoverModules { path = ./modules/nixos; };
       homeModules = lib.discoverModules { path = ./modules/home-manager; };
 
     in
     {
-      inherit lib commonModules nixosModules homeModules;
+      inherit lib nixosModules homeModules;
 
       nixosConfigurations = {
         yoga = lib.mkNixosSystem {
