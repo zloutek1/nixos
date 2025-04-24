@@ -25,7 +25,6 @@
     wlogout
     mako
     batsignal
-    preferences
   ];
 
   home.username = "tomas";

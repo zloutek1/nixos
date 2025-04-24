@@ -1,10 +1,11 @@
-{ config, pkgs, inputs, ... }:
+{ self, pkgs, ... }:
 
 {
     imports = [
         ./nix.nix
         ./locale.nix
         ./fonts.nix
+        self.commonModules.preferences
     ];
 
     nixpkgs.config.allowUnfree = true;
