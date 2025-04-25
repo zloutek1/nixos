@@ -41,7 +41,8 @@
 
       lib = import ./lib/default.nix { inherit inputs; };
       nixosModules = lib.discoverModules { path = ./modules/nixos; };
-      homeModules = lib.discoverModules { path = ./modules/home-manager; } // { unstable = lib.discoverModules { path = ./modules/home-manager/unstable; }; };
+      homeModules = lib.discoverModules { path = ./modules/home-manager; } 
+        // { unstable = lib.discoverModules { path = ./modules/home-manager/unstable; }; };
 
     in
     {
