@@ -28,6 +28,7 @@
     batsignal
     vscode
     unstable.syncthing
+    unstable.keepassxc
   ];
 
   home.username = username;
