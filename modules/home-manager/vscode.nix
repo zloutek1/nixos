@@ -4,13 +4,13 @@
     enable = true;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    mutableExtensionsDir = true;
+    mutableExtensionsDir = false;
 
     userSettings = {
     #  "workbench.colorTheme" = "Dracula Theme";
     };
 
-    extensions = with pkgs.vscode-extensions.vscode-marketplace; [
+    extensions = with pkgs.vscode-marketplace; [
 
     ];
   };

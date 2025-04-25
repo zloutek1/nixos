@@ -11,7 +11,6 @@
 
     nix-std = {
       url = "github:chessai/nix-std";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nvchad4nix = {
