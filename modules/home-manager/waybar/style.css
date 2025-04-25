@@ -77,6 +77,7 @@ window#waybar {
 #tray,
 #window,
 #workspaces,
+#custom-power,
 #custom-wallchange,
 #clock {
   padding: 0 5px;
@@ -113,6 +114,7 @@ window#waybar {
     }
 }
 
+#custom-power,
 #custom-wallchange {
-  padding-right: 10px;
+  padding-right: 8px;
 }
