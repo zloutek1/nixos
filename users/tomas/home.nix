@@ -26,6 +26,7 @@
     wlogout
     mako
     batsignal
+    vscode
   ];
 
   home.username = username;
@@ -40,9 +41,6 @@
     # Applications
     chromium
     obsidian
-
-    # Coding
-    vscode
   ];
 
 }
