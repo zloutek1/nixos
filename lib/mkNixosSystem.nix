@@ -25,10 +25,11 @@ let
       nixpkgs.hostPlatform = system;
     }
 
-    # Common nix modules
-    self.nixosModules.common
-    
+    # Overlays
+    ../overlays
+
     # Host-specific modules
+    self.nixosModules.common
     ../hosts/${hostname}/default.nix
     
     # Home Manager setup

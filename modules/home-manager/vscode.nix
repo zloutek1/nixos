@@ -9,6 +9,10 @@
     userSettings = {
     #  "workbench.colorTheme" = "Dracula Theme";
     };
+
+    extensions = with pkgs.vscode-extensions.vscode-marketplace; [
+
+    ];
   };
 
 }
