@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     nix-std = {
       url = "github:chessai/nix-std";
@@ -37,7 +41,7 @@
 
       lib = import ./lib/default.nix { inherit inputs; };
       nixosModules = lib.discoverModules { path = ./modules/nixos; };
-      homeModules = lib.discoverModules { path = ./modules/home-manager; };
+      homeModules = lib.discoverModules { path = ./modules/home-manager; } // { unstable = lib.discoverModules { path = ./modules/home-manager/unstable; }; };
 
     in
     {

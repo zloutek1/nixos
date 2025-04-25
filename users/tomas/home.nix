@@ -27,6 +27,7 @@
     mako
     batsignal
     vscode
+    unstable.syncthing
   ];
 
   home.username = username;

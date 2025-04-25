@@ -14,28 +14,32 @@
 { path }:
 
 let
-  allEntries = builtins.readDir path;
+  discoverModules = currentPath:
+    let
+      allEntries = builtins.readDir currentPath;
 
-  # Process each entry, creating a list of { name = ..., value = ... } attribute sets
-  # or null for entries that should be ignored.
-  processedEntries = lib.attrsets.mapAttrsToList (name: type:
-    if type == "regular" && lib.hasSuffix ".nix" name then
-      {
-        name = lib.strings.removeSuffix ".nix" name;
-        value = import "${path}/${name}";
-      }
-    else if type == "directory" && builtins.pathExists "${path}/${name}/default.nix" then
-      {
-        name = name;
-        value = import "${path}/${name}/default.nix";
-      }
-    else
-      null
-  ) allEntries;
+      # Process each entry, creating a list of { name = ..., value = ... } attribute sets
+      # or null for entries that should be ignored.
+      processedEntries = lib.attrsets.mapAttrsToList (name: type:
+        if type == "regular" && lib.hasSuffix ".nix" name then
+          {
+            name = lib.strings.removeSuffix ".nix" name;
+            value = import "${currentPath}/${name}";
+          }
+        else if type == "directory" && builtins.pathExists "${currentPath}/${name}/default.nix" then
+          {
+            name = name;
+            value = import "${currentPath}/${name}/default.nix";
+          }
+        else
+          null
+      ) allEntries;
 
-  validEntries = lib.filter (entry: entry != null) processedEntries;
+      validEntries = lib.filter (entry: entry != null) processedEntries;
 
-  resultAttrs = lib.listToAttrs validEntries;
+      resultAttrs = lib.listToAttrs validEntries;
 
+    in
+      resultAttrs;
 in
-resultAttrs
+  discoverModules path
