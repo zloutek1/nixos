@@ -13,7 +13,11 @@ self: super:
 
         buildPhase = ''
             ls $src
-            bash $src/generate.sh --theme mountain --dest build
+            bash $src/generate.sh \
+                --dest build \
+                --theme mountain \
+                --side right \
+                --screen 4k
         '';
         
         installPhase = ''
