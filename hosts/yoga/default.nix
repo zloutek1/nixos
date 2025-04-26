@@ -14,6 +14,7 @@
     bluetooth
     hyprland
     network
+    syncthing
   ];
 
   networking.hostName = "yoga";
