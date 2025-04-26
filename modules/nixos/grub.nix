@@ -22,13 +22,7 @@
 
         useOSProber = true;
 
-        ## APPEARANCE OPTIONS
-        font = "${pkgs.hack-font}/share/fonts/truetype/Hack-Regular.ttf";
-        fontSize = 26;
-        gfxmodeEfi = "auto";
-        gfxmodeBios = "auto";
-
-        theme = import "${self}/pkgs/matrix-grub-theme.nix" { inherit pkgs; };
+        theme = pkgs.elegant-grub-theme;
 
         extraEntries = ''
           submenu "Power Options" {

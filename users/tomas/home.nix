@@ -43,6 +43,7 @@
     # Applications
     chromium
     obsidian
+    discord
   ];
 
 }

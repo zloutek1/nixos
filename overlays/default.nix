@@ -18,6 +18,7 @@ in {
     inputs.nix-vscode-extensions.overlays.default
     nixpkgs-unstable
     home-manager-unstable
+    (import ./elegant-grub-theme.nix)
   ];
 
 }
