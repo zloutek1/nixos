@@ -1,16 +1,25 @@
 { pkgs, lib, ... }:
+let
+  
+  sddm-astronaut = pkgs.sddm-astronaut.override {
+    themeConfig = {
+      AccentColor = "#FDFDFD";
+    };
+  };
+
+in
 {
 
   services.displayManager.sddm = {
     enable = true;
-    package = pkgs.kdePackages.sddm;
+    package = lib.mkForce pkgs.kdePackages.sddm;
     theme = "sddm-astronaut-theme";
-    extraPackages = [ pkgs.sddm-astronaut ];
+    extraPackages = [ sddm-astronaut ];
     wayland.enable = true;
     autoNumlock = true;
   };
 
-  environment.systemPackages = [ pkgs.sddm-astronaut ];
+  environment.systemPackages = [ sddm-astronaut ];
 
   systemd.services.numLockOnTty = {
     wantedBy = [ "multi-user.target" ];
