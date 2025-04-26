@@ -29,6 +29,7 @@
     vscode
     unstable.syncthing
     unstable.keepassxc
+    unstable.chromium
   ];
 
   home.username = username;
@@ -41,7 +42,6 @@
 
   home.packages = with pkgs; [
     # Applications
-    chromium
     obsidian
     discord
   ];
