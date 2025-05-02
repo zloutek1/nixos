@@ -15,7 +15,8 @@ self: super:
             ls $src
             bash $src/generate.sh \
                 --dest build \
-                --theme mountain \
+                --theme mojave \
+                --type window \
                 --side right \
                 --screen 4k
         '';
