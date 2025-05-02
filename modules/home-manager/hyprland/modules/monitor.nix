@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland.settings = {
@@ -16,7 +16,7 @@
     # toolkit-specific scale
     env = [
       "GDK_SCALE,2"
-      "XCURSOR_SIZE,${toString config.home.pointerCursor.size}"
+      (lib.mkIf config.theme.cursor.enable "XCURSOR_SIZE,${toString config.home.pointerCursor.size}")
     ];
   };
 }

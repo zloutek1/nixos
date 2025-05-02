@@ -1,7 +1,7 @@
 { ... }: {
 
   services.batsignal = {
-    enable = true;
+    # enable = true;
   };
 
 }

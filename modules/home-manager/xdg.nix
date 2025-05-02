@@ -2,7 +2,7 @@
 {
 
   xdg = {
-    enable = true;
+    # enable = true;
 
     userDirs = {
       enable = true;

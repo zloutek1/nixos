@@ -53,22 +53,29 @@ let
 
 in
 {
-  xdg.configFile."matugen/templates" = {
-    source = ./matugen/templates;
-    recursive = true;
+  options = {
+    programs.wallchange = {
+      enable = lib.mkEnableOption "wallchange program configuration";
+    };
   };
+  config = lib.mkIf config.programs.wallchange.enable {
+    xdg.configFile."matugen/templates" = {
+      source = ./matugen/templates;
+      recursive = true;
+    };
 
-  xdg.configFile."matugen/config.toml" = {
-    text = inputs.nix-std.lib.serde.toTOML matugenConfig;
+    xdg.configFile."matugen/config.toml" = {
+      text = inputs.nix-std.lib.serde.toTOML matugenConfig;
+    };
+
+    home.packages = [
+      pkgs.matugen
+      pkgs.swww
+      
+      set-wallpaper
+      update-colors
+      pick-wallpaper
+      wallchange
+    ];
   };
-
-  home.packages = [
-    pkgs.matugen
-    pkgs.swww
-    
-    set-wallpaper
-    update-colors
-    pick-wallpaper
-    wallchange
-  ];
 }

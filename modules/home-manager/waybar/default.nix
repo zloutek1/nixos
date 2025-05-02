@@ -1,12 +1,12 @@
-{ pkgs, lib, hostname, ... }: 
+{ config, pkgs, lib, hostname, ... }: 
 let
 
   modules = import ./modules { inherit pkgs; };
-  mkModuleConfigs = import ./mkModuleConfigs.nix { inherit lib; };
+  mkWaybarModule = import ./mkWaybarModule.nix { inherit lib; };
 
   waybarConfig = {
     programs.waybar = {
-      enable = true;
+      # enable = true;
 
       settings = {
         mainBar = {
@@ -32,4 +32,9 @@ let
   };
 
 in
-  lib.mkMerge ([waybarConfig] ++ (mkModuleConfigs waybarConfig modules))
+{ 
+  config = lib.mkIf config.programs.waybar.enable (lib.mkMerge (
+    [waybarConfig] ++ 
+    (mkWaybarModule waybarConfig modules)
+  ));
+}

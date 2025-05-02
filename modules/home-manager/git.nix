@@ -1,7 +1,7 @@
 { ... }: {
 
   programs.git = {
-    enable = true;
+    # enable = true;
     userName = "Tomáš Ljutenko";
     userEmail = "tomas.ljutenko@gmail.com";
     extraConfig = {
