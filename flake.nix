@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     
     nix-darwin = {
-    	url = "github:LnL7/nix-darwin";
+    	url = "github:nix-darwin/nix-darwin/nix-darwin-24.11";
 	    inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -56,7 +56,7 @@
 
     in
     {
-      inherit lib nixosModules homeModules;
+      inherit lib nixosModules darwinModules homeModules;
 
       nixosConfigurations = {
         yoga = lib.mkNixosSystem {

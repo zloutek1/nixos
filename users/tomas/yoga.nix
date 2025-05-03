@@ -36,7 +36,7 @@
     rofi.enable = true;
     wlogout.enable = true;
     waybar.enable = true;
-    keepassxc.enable = true;
+    #keepassxc.enable = true;
     chromium.enable = true;
   };
   services = {

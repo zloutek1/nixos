@@ -1,6 +1,6 @@
 { inputs, lib, self }:
 
-# Function to generate a NixOS system configuration.
+# Function to generate a Darwin system configuration.
 # Arguments:
 #   - system: The os architecture (such as x86_64-linux)
 #   - hostname: The name of the machine
@@ -16,6 +16,7 @@
 let
   commonArgs = {
     inherit inputs self lib hostname users;
+    isLinux = false; isDarwin = true;
   };
 
   mkUserModule = username: {
@@ -32,6 +33,9 @@ let
   };
 
   modules = [
+    # Host-specific variables
+    { nixpkgs.hostPlatform = system; }
+
     # Overlays
     ../overlays
 
@@ -50,15 +54,15 @@ let
     }
 
     # HomeBrew
-    inputs.nix-homebrew.darwinModules.nix-homebrew
-    {
-      nix-homebrew = {
-        enable = true;
-        enableRosetta = true;
-        user = "tomas";
-        autoMigrate = true;
-      };
-    }
+    #inputs.nix-homebrew.darwinModules.nix-homebrew
+    #{
+    #  nix-homebrew = {
+    #    enable = true;
+    #    enableRosetta = true;
+    #    user = "tomas";
+    #    autoMigrate = true;
+    #  };
+    #}
   ];
 in
 

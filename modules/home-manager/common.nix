@@ -1,26 +1,31 @@
-{ self, ... }: {
+{ self, pkgs, lib, isLinux, isDarwin, ... }: {
 
   imports = with self.homeModules; [
     cursor
     dark-theme
-    xdg
     zsh
     zoxide
     git
     kitty
+    rofi
     nvim
+    vscode
+    unstable.syncthing
+    unstable.chromium
+  ]
+  ++ lib.optionals isLinux [
+    xdg
     wallchange
     hyprland
     wofi
-    rofi
     waybar
     wlogout
     mako
     batsignal
-    vscode
-    unstable.syncthing
     unstable.keepassxc
-    unstable.chromium
+  ]
+  ++ lib.optionals isDarwin [
+
   ];
 
   # Let Home Manager manage itself

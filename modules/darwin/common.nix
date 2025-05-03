@@ -3,7 +3,8 @@
   imports = [
     ./nix.nix
     ./locale.nix
-    ./fonts.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
 }

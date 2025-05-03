@@ -8,14 +8,18 @@
 }:
 {
 
-  home.username = username;
-  home.homeDirectory = lib.getHomeDirectory { inherit pkgs username; };
-  home.stateVersion = "24.11";
+  home.packages = with pkgs; [
+    obsidian
+  ];
 
+  home.stateVersion = "24.11";
+  
   programs = {
     zsh.enable = true;
+    zoxide.enable = true;
     git.enable = true;
     kitty.enable = true;
+    nvchad.enable = true;
   };
-  
+
 }

@@ -58,7 +58,7 @@ in
       enable = lib.mkEnableOption "wallchange program configuration";
     };
   };
-  config = lib.mkIf config.programs.wallchange.enable {
+  config = lib.mkIf (config.wayland.windowManager.hyprland.enable && config.programs.wallchange.enable) {
     xdg.configFile."matugen/templates" = {
       source = ./matugen/templates;
       recursive = true;

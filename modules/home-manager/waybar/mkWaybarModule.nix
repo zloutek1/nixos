@@ -51,11 +51,9 @@ let
   # Throws: Error string with details if any requested modules are not defined by any factory.
   processBar = config: moduleFactories: barName:
     let
-      allGeneratedConfigs = moduleFactories
-        |> builtins.map (factory: factory barName);
+      allGeneratedConfigs = builtins.map (factory: factory barName) moduleFactories;
 
-      availableNames = allGeneratedConfigs
-        |> builtins.concatMap (getModuleNamesFromConfig barName);
+      availableNames = builtins.concatMap (getModuleNamesFromConfig barName) allGeneratedConfigs;
 
       barConfig = config.programs.waybar.settings.${barName};
 

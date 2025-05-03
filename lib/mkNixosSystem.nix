@@ -16,6 +16,7 @@
 let
   commonArgs = {
     inherit inputs self lib hostname users;
+    isLinux = true; isDarwin = false;
   };
 
   mkUserModule = username: {

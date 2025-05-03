@@ -1,11 +1,13 @@
-{ ... }:
+{ config, pkgs, ... }:
 {
 
   xdg = {
     # enable = true;
 
     userDirs = {
-      enable = true;
+      # enable = true;
+      enable = config.xdg.enable && pkgs.stdenv.isLinux;
+      
       desktop = "$HOME/desktop";
       download = "$HOME/downloads";
       documents = "$HOME/docs";
