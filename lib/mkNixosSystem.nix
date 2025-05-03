@@ -21,18 +21,10 @@ let
   mkUserModule = username: {
     imports = [ ../users/${username}/nixos.nix ];
     _module.args = { inherit username; };
-  };
-
-  mkHomeManagerModule = {
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      backupFileExtension = "hm-backup";
-      extraSpecialArgs = commonArgs;
-      users = lib.genAttrs users (username: {
-        imports = [ ../users/${username}/${hostname}.nix ];
-        _module.args = { inherit username; };
-      });
+    
+    home-manager.users.${username} = {
+      imports = [ ../users/${username}/${hostname}.nix ];
+      _module.args = { inherit username; };
     };
   };
 
@@ -48,12 +40,18 @@ let
     ../hosts/${hostname}/default.nix
     
     # Home Manager setup
-    inputs.home-manager.nixosModules.home-manager 
-    mkHomeManagerModule
+    inputs.home-manager.nixosModules.home-manager {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        backupFileExtension = "hm-backup";
+        extraSpecialArgs = commonArgs;
+      };
+    }
   ];
 in
 
 lib.nixosSystem {
   specialArgs = commonArgs;
-  modules = modules ++ map mkUserModule users ++ extraModules;
+  modules = modules ++ (map mkUserModule users) ++ extraModules;
 }
