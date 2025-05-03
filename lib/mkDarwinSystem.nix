@@ -23,7 +23,10 @@ let
     _module.args = { inherit username; };
     
     home-manager.users.${username} = {
-      imports = [ ../users/${username}/${hostname}.nix ];
+      imports = [
+        self.homeModules.common
+        ../users/${username}/${hostname}.nix 
+      ];
       _module.args = { inherit username; };
     };
   };
