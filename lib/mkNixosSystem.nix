@@ -19,6 +19,22 @@ let
     _module.args = { inherit username; };
   }) users;
 
+  mkHomeManager = {
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.backupFileExtension = "hm-backup";
+    home-manager.extraSpecialArgs = { 
+      inherit inputs self lib hostname; 
+      isUnstable = false; 
+    };
+    home-manager.users = lib.genAttrs users (username: {
+      imports = [
+        ../users/${username}/${hostname}.nix  
+      ];
+      _module.args = { inherit username; };
+    });
+  };
+
   modules = [
     # Host-specific variables
     {
@@ -33,19 +49,8 @@ let
     ../hosts/${hostname}/default.nix
     
     # Home Manager setup
-    inputs.home-manager.nixosModules.home-manager {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = "hm-backup";
-      home-manager.extraSpecialArgs = { 
-        inherit inputs self lib hostname; 
-        isUnstable = false; 
-      };
-      home-manager.users = lib.genAttrs users (username: {
-        imports = [ ../users/${username}/home.nix  ];
-        _module.args = { inherit username; };
-      });
-    }
+    inputs.home-manager.nixosModules.home-manager 
+    mkHomeManager
   ];
 in
 
