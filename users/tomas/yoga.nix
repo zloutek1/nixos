@@ -8,30 +8,6 @@
 }:
 {
 
-  imports = with self.homeModules; [
-    common
-    cursor
-    dark-theme
-    xdg
-    zsh
-    zoxide
-    git
-    kitty
-    nvim
-    wallchange
-    hyprland
-    wofi
-    rofi
-    waybar
-    wlogout
-    mako
-    batsignal
-    vscode
-    unstable.syncthing
-    unstable.keepassxc
-    unstable.chromium
-  ];
-
   home.username = username;
   home.homeDirectory = lib.getHomeDirectory { inherit pkgs username; };
   home.stateVersion = "24.11";
