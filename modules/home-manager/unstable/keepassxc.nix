@@ -9,7 +9,7 @@
     "${inputs.home-manager-unstable}/modules/programs/chromium.nix"
   ];
 
-  config = lib.mkIf programs.keepassxc.enable {
+  config = lib.mkIf config.programs.keepassxc.enable {
     programs.keepassxc = {
       #enable = true;
       package = pkgs.unstable.keepassxc;
