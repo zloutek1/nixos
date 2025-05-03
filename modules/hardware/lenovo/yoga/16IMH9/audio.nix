@@ -6,6 +6,15 @@
 }:
 {
 
+  hardware.firmware = [
+    pkgs.sof-firmware
+  ];
+
+  boot.kernelParams = [
+    "snd-intel-dspcfg.dsp_driver=1"  # Force SOF driver
+    "snd_sof.enable_sof_firmware=1"
+  ];
+
   # --- Speaker Fix (Hardware Quirk for Yoga Pro 9i Gen 9 / 16IMH9) ---
 
   boot.kernelModules = [ "i2c-dev" ];
