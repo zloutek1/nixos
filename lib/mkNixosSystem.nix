@@ -25,8 +25,8 @@ let
     
     home-manager.users.${username} = {
       imports = [
-        self.homeModules.common
-        self.homeModules.nixos
+        self.homeModules.common.default
+        self.homeModules.nixos.default
         ../users/${username}/${hostname}.nix 
       ];
       _module.args = { inherit username; };

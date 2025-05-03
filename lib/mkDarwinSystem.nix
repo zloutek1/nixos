@@ -25,8 +25,8 @@ let
     
     home-manager.users.${username} = {
       imports = [
-        self.homeModules.common
-        self.homeModules.darwin
+        self.homeModules.common.default
+        self.homeModules.darwin.default
         ../users/${username}/${hostname}.nix 
       ];
       _module.args = { inherit username; };

@@ -49,9 +49,9 @@
     let
 
       lib = import ./lib/default.nix { inherit inputs; };
-      nixosModules = lib.discoverModules { path = ./modules/nixos; };
-      darwinModules = lib.discoverModules { path = ./modules/darwin; };
-      homeModules = lib.discoverModules { path = ./modules/home-manager; };
+      nixosModules = lib.discoverModules ./modules/nixos;
+      darwinModules = lib.discoverModules ./modules/darwin;
+      homeModules = lib.discoverModules ./modules/home-manager;
 
     in
     {

@@ -1,6 +1,4 @@
-{ config, lib, pkgs, inputs, ... }: 
-
-lib.mkIf pkgs.stdenv.isLinux {
+{ config, lib, pkgs, inputs, ... }: {
 
   disabledModules = [ 
     "${inputs.home-manager}/modules/programs/keepassxc.nix"
@@ -10,13 +8,7 @@ lib.mkIf pkgs.stdenv.isLinux {
     "${inputs.home-manager-unstable}/modules/programs/keepassxc.nix"
     "${inputs.home-manager-unstable}/modules/programs/chromium.nix"
   ];
-
-  options = {
-    programs.keepassxc = {
-      enable = lib.mkEnableOption "cursor theme configuration";
-    };
-  };
-
+  
   config = lib.mkIf config.programs.keepassxc.enable {
     programs.keepassxc = {
       #enable = true;

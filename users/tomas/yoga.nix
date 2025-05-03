@@ -18,31 +18,31 @@
     discord
   ];
 
-  #xdg.enable = true;
-  #wayland.windowManager = {
-  #  hyprland.enable = true;
-  #};
-  #theme = {
-  #  dark.enable = true;
-  #  cursor.enable = true;
-  #};
-  #programs = {
-  #  zsh.enable = true;
-  #  zoxide.enable = true;
-  #  git.enable = true;
-  #  kitty.enable = true;
-  #  nvchad.enable = true;
-  #  wallchange.enable = true;
-  #  rofi.enable = true;
-  #  wlogout.enable = true;
-  #  waybar.enable = true;
-  #  #keepassxc.enable = true;
-  #  chromium.enable = true;
-  #};
-  #services = {
-  #  mako.enable = true;
-  #  batsignal.enable = true;
-  #  syncthing.enable = true;
-  #};
+  xdg.enable = true;
+  wayland.windowManager = {
+    hyprland.enable = true;
+  };
+  theme = {
+    dark.enable = true;
+    cursor.enable = true;
+  };
+  programs = {
+    zsh.enable = true;
+    zoxide.enable = true;
+    git.enable = true;
+    kitty.enable = true;
+    nvchad.enable = true;
+    wallchange.enable = true;
+    rofi.enable = true;
+    wlogout.enable = true;
+    waybar.enable = true;
+    keepassxc.enable = true;
+    chromium.enable = true;
+  };
+  services = {
+    mako.enable = true;
+    batsignal.enable = true;
+    syncthing.enable = true;
+  };
 
 }
