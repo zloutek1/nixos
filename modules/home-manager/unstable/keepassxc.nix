@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
 
   disabledModules = [ 
     "${inputs.home-manager}/modules/programs/keepassxc.nix"
@@ -9,22 +9,24 @@
     "${inputs.home-manager-unstable}/modules/programs/chromium.nix"
   ];
 
-  programs.keepassxc = {
-    enable = true;
-    package = pkgs.unstable.keepassxc;
+  config = lib.mkIf programs.keepassxc.enable {
+    programs.keepassxc = {
+      #enable = true;
+      package = pkgs.unstable.keepassxc;
 
-    settings = {
-      Browser.Enabled = true;
+      settings = {
+        Browser.Enabled = true;
 
-      GUI = {
-        AdvancedSettings = true;
-        ApplicationTheme = "dark";
-        CompactMode = true;
-        HidePasswords = true;
+        GUI = {
+          AdvancedSettings = true;
+          ApplicationTheme = "dark";
+          CompactMode = true;
+          HidePasswords = true;
+        };
+
+        SSHAgent.Enabled = true;
       };
-
-      SSHAgent.Enabled = true;
     };
-  };
 
+  };
 }
