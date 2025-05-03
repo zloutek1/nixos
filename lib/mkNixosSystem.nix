@@ -14,32 +14,31 @@
 }:
 
 let
-  userModules = map (username: {
+  commonArgs = {
+    inherit inputs self lib hostname users;
+  };
+
+  mkUserModule = username: {
     imports = [ ../users/${username}/nixos.nix ];
     _module.args = { inherit username; };
-  }) users;
+  };
 
-  mkHomeManager = {
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.backupFileExtension = "hm-backup";
-    home-manager.extraSpecialArgs = { 
-      inherit inputs self lib hostname; 
-      isUnstable = false; 
+  mkHomeManagerModule = {
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      backupFileExtension = "hm-backup";
+      extraSpecialArgs = commonArgs;
+      users = lib.genAttrs users (username: {
+        imports = [ ../users/${username}/${hostname}.nix ];
+        _module.args = { inherit username; };
+      });
     };
-    home-manager.users = lib.genAttrs users (username: {
-      imports = [
-        ../users/${username}/${hostname}.nix  
-      ];
-      _module.args = { inherit username; };
-    });
   };
 
   modules = [
     # Host-specific variables
-    {
-      nixpkgs.hostPlatform = system;
-    }
+    { nixpkgs.hostPlatform = system; }
 
     # Overlays
     ../overlays
@@ -50,11 +49,11 @@ let
     
     # Home Manager setup
     inputs.home-manager.nixosModules.home-manager 
-    mkHomeManager
+    mkHomeManagerModule
   ];
 in
 
 lib.nixosSystem {
-  specialArgs = { inherit inputs self lib users hostname; };
-  modules = modules ++ userModules ++ extraModules;
+  specialArgs = commonArgs;
+  modules = modules ++ map mkUserModule users ++ extraModules;
 }
