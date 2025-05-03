@@ -19,6 +19,7 @@
       "..." = "cd ../..";
       
       nix-switch = "sudo nixos-rebuild switch --flake ~/.config/nix";
+      darwin-switch = "sudo darwin-rebuild switch --flake ~/.config/nix";
       hm-switch = "home-manager switch --flake ~/.config/nix";
       
       sudo = "nocorrect sudo ";         # Handle sudo + alias expansion + correction
