@@ -11,6 +11,7 @@
     persistent-apps = [
       "/System/Applications/Launchpad.app"
       "${pkgs.obsidian}/Applications/Obsidian.app"
+      "${pkgs.kitty}/Applications/Kitty.app"
     ];
   };
 
