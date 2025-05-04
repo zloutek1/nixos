@@ -18,7 +18,7 @@
       maxVisible = 3;
       padding = "10";
       width = 300;
-      extraConfig = "include=./colors";
+      extraConfig = "include=~/.config/mako/colors";
     };
 
     home.packages = with pkgs; [
