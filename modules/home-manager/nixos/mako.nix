@@ -5,6 +5,7 @@
 
     services.mako = {
       # enable = true;
+      package = pkgs.unstable.mako;
       actions = true;
       anchor = "top-right";
       borderRadius = 8;
@@ -17,6 +18,7 @@
       maxVisible = 3;
       padding = "10";
       width = 300;
+      extraConfig = "include=./colors";
     };
 
     home.packages = with pkgs; [

@@ -1,0 +1,8 @@
+# Colors
+background-color={{colors.surface.dark.hex}}
+text-color={{colors.on_surface.dark.hex}}
+border-color={{colors.on_surface.dark.hex}}
+progress-color=over {{colors.surface_variant.dark.hex}}
+
+[urgency=high]
+border-color={{colors.error.dark.hex}}
