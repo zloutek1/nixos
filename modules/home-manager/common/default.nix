@@ -9,7 +9,6 @@
     nvim.default
     vscode
     unstable.syncthing
-    unstable.chromium
   ];
 
 }

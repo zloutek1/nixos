@@ -12,6 +12,7 @@
     mako
     batsignal
     unstable.keepassxc
+    unstable.chromium
   ];
 
 }
