@@ -13,6 +13,9 @@
   boot.kernelParams = [
     "snd-intel-dspcfg.dsp_driver=1"  # Force SOF driver
     "snd_sof.enable_sof_firmware=1"
+    "threadirqs"                     # Use threaded IRQs for better audio
+    "usbcore.autosuspend=-1"         # Disable USB autosuspend
+    "intel_pstate=active"            # Better CPU power management
   ];
 
   # --- Speaker Fix (Hardware Quirk for Yoga Pro 9i Gen 9 / 16IMH9) ---
