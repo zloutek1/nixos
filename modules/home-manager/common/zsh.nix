@@ -25,7 +25,7 @@
       sudo = "nocorrect sudo ";         # Handle sudo + alias expansion + correction
     };
 
-    initExtra = ''
+    initContent = ''
       # Load promptinit functions (optional but good practice)
       autoload -U promptinit && promptinit
 

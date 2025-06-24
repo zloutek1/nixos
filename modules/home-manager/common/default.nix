@@ -9,6 +9,7 @@
     nvim.default
     vscode
     unstable.syncthing
+    development.default
   ];
 
 }

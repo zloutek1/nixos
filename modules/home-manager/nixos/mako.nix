@@ -6,19 +6,23 @@
     services.mako = {
       # enable = true;
       package = pkgs.unstable.mako;
-      actions = true;
-      anchor = "top-right";
-      borderRadius = 8;
-      borderSize = 1;
-      defaultTimeout = 10000;
-      #font = "${theme.fonts.default.name}";
-      #iconPath = "${theme.iconTheme.iconPath}";
-      icons = true;
-      layer = "overlay";
-      maxVisible = 3;
-      padding = "10";
-      width = 300;
-      extraConfig = "include=~/.config/mako/colors";
+      
+      settings = {
+        actions = true;
+        anchor = "top-right";
+        borderRadius = 8;
+        borderSize = 1;
+        defaultTimeout = 10000;
+        #font = "${theme.fonts.default.name}";
+        #iconPath = "${theme.iconTheme.iconPath}";
+        icons = true;
+        layer = "overlay";
+        maxVisible = 3;
+        padding = "10";
+        width = 300;
+
+        include = "~/.config/mako/colors";
+      };
     };
 
     home.packages = with pkgs; [

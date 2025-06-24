@@ -38,6 +38,12 @@
     waybar.enable = true;
     keepassxc.enable = true;
     chromium.enable = true;
+
+    development = {
+      java.enable = true;
+      web.enable = true;
+      godot.enable = true;
+    };
   };
   services = {
     mako.enable = true;
