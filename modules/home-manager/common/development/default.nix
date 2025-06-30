@@ -4,6 +4,7 @@
     godot
     java
     web
+    python
   ];
 
 }

@@ -43,6 +43,7 @@
       java.enable = true;
       web.enable = true;
       godot.enable = true;
+      python.enable = true;
     };
   };
   services = {
