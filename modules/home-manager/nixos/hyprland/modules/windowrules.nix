@@ -19,6 +19,9 @@
         "float,class:^(blueman-manager)$"
         "float,class:^(nm-applet)$"
         "float,class:^(nm-connection-editor)$"
+
+        "tile,initialTitle:^(Godot)$,initialClass:^(Godot)$"
+        "float,title:^((.*)(DEBUG)),initialClass:^(Godot)$,initialTitle:^(.*)(DEBUG)(.*)$,class:^(Godot)$"
       ];
     };
   };
