@@ -2,15 +2,11 @@
 
   programs.vscode = {
     enable = true;
-    mutableExtensionsDir = false;
+    mutableExtensionsDir = true;
 
     profiles.default = {
       enableUpdateCheck = false;
-      enableExtensionUpdateCheck = false;
-      
-      userSettings = {
-        #  "workbench.colorTheme" = "Dracula Theme";
-      };
+      enableExtensionUpdateCheck = true;
 
       extensions = with pkgs.vscode-marketplace; [
         bbenoist.nix

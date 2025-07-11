@@ -5,6 +5,7 @@
     ./nix.nix
     ./locale.nix
     ./fonts.nix
+    ./nix-ld.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
