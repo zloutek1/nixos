@@ -9,11 +9,5 @@
     home.packages = with pkgs; [
       jdk21_headless
     ];
-
-    programs.vscode.profiles.default.extensions = with pkgs.vscode-marketplace; [
-      vscjava.vscode-java-pack
-      oracle.oracle-java
-      redhat.java
-    ];
   };
 }

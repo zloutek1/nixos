@@ -10,10 +10,5 @@
       nodejs
       typescript
     ];
-
-    programs.vscode.profiles.default.extensions = with pkgs.vscode-marketplace; [
-      yoavbls.pretty-ts-errors
-      dbaeumer.vscode-eslint
-    ];
   };
 }
