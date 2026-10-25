@@ -9,6 +9,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    gh
     neovim
     htop
     jq
