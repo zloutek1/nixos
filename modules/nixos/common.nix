@@ -30,7 +30,7 @@
     fastfetch           # neofetch alternative
     nsxiv               # image viewer
     bat                 # better cat
-    nixfmt-rfc-style    # Nix formatter
+    nixfmt              # Nix formatter
   ];
 
   hardware.graphics.enable = true;

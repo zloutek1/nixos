@@ -25,7 +25,7 @@
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_6_14;
+    kernelPackages = pkgs.linuxPackages_latest; # was 6.14, removed (EOL) in 26.05
   };
 
   fileSystems."/" = {

@@ -1,31 +1,28 @@
 {
-  description = "A simple NixOS flake";
+  description = "zloutek1's hosts: yoga (NixOS) and mac-mini (nix-darwin home server)";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nix-darwin = {
-    	url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
-	    inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-unstable = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-    };
 
-    nix-std = {
-      url = "github:chessai/nix-std";
-    };
+    nix-std.url = "github:chessai/nix-std";
 
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
@@ -36,41 +33,22 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      ...
-    }@inputs:
-    let
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
-      lib = import ./lib/default.nix { inherit inputs; };
-      nixosModules = lib.discoverModules ./modules/nixos;
-      darwinModules = lib.discoverModules ./modules/darwin;
-      homeModules = lib.discoverModules ./modules/home-manager;
+      imports = [ ./hosts ];
 
-    in
-    {
-      inherit lib nixosModules darwinModules homeModules;
-
-      nixosConfigurations = {
-        yoga = lib.mkNixosSystem {
-          system = "x86_64-linux";
-          hostname = "yoga";
-          users = [ "tomas" ];
+      perSystem =
+        { pkgs, ... }:
+        {
+          formatter = pkgs.nixfmt;
         };
-      };
-      darwinConfigurations = {
-        mac-mini = lib.mkDarwinSystem {
-          system = "aarch64-darwin";
-          hostname = "mac-mini";
-          users = [ "tomas" ];
-        };
-      };
-
     };
 }

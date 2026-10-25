@@ -1,15 +1,15 @@
-{ self, ... }: {
+{
 
-  imports = with self.homeModules.common; [
-    zsh
-    zoxide
-    git
-    kitty.default
-    rofi.default
-    nvim.default
-    vscode
-    unstable.syncthing
-    development.default
+  imports = [
+    ./zsh.nix
+    ./zoxide.nix
+    ./git.nix
+    ./kitty
+    ./rofi
+    ./nvim
+    ./vscode.nix
+    ./unstable/syncthing.nix
+    ./development
   ];
 
 }
