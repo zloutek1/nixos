@@ -1,8 +1,8 @@
-{ pkgs, lib, username, ... }: {
+{ username, ... }: {
 
   users.users.${username} = {
     name = username;
-    home = lib.getHomeDirectory { inherit pkgs username; };
+    home = "/Users/${username}";
   };
 
 }
