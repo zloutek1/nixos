@@ -1,10 +1,10 @@
-{ self, ... }: {
+{
 
-  imports = with self.homeModules.common.development; [
-    godot
-    java
-    web
-    python
+  imports = [
+    ./godot.nix
+    ./java.nix
+    ./web.nix
+    ./python.nix
   ];
 
 }

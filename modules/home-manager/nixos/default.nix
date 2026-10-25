@@ -1,18 +1,18 @@
-{ self, ... }: {
+{
 
-  imports = with self.homeModules.nixos; [
-    cursor
-    dark-theme
-    xdg
-    wallchange.default
-    hyprland.default
-    wofi.default
-    waybar.default
-    wlogout
-    mako
-    batsignal
-    unstable.keepassxc
-    unstable.chromium
+  imports = [
+    ./cursor.nix
+    ./dark-theme.nix
+    ./xdg.nix
+    ./wallchange
+    ./hyprland
+    ./wofi
+    ./waybar
+    ./wlogout.nix
+    ./mako.nix
+    ./batsignal.nix
+    ./unstable/keepassxc.nix
+    ./unstable/chromium.nix
   ];
 
 }

@@ -48,7 +48,7 @@
   environment.systemPackages = with pkgs; [
     pavucontrol
     easyeffects    # Add this for additional audio control
-    helvum         # PipeWire patchbay
+    crosspipe      # PipeWire patchbay (helvum was removed)
   ];
 
 }
