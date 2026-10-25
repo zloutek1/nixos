@@ -12,6 +12,7 @@
     ./shell.nix
     ./updates.nix
     ./t7.nix
+    ./wifi.nix
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
