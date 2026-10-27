@@ -41,16 +41,30 @@ Minimal. Modern. Personal.
 
 ```bash
 .
-├── flake.nix         # Entry point for the configuration
-├── homes/            # Home-manager configurations
-├── hosts/            # Machine-specific configurations
-├── lib/              # Helper functions and utilities
-├── modules/          # Reusable configuration modules
-│   ├── hardware/     # Hardware-specific configurations
+├── flake.nix         # Entry point: inputs, and flake-parts wiring
+├── hosts/            # One dir per machine: which modules it uses + facts only it has
+├── modules/          # Reusable building blocks, no machine facts
+│   ├── darwin/       # nix-darwin system modules
+│   ├── hardware/     # Hardware support (Lenovo Yoga 16IMH9)
 │   ├── home-manager/ # User environment modules
-│   └── nixos/        # System-level modules
-└── pkgs/             # Custom packages
+│   └── nixos/        # NixOS system modules
+├── users/            # Per-person account, identity and program choices
+├── overlays/         # Changes to `pkgs` (pkgs.unstable, our own packages)
+├── pkgs/             # Custom packages, added to `pkgs` by overlays/
+└── tests/            # `nix flake check` invariants per host
 ```
+
+## Testing
+
+```bash
+nix flake check --no-build   # evaluate every host and run the invariants (fast)
+nix flake check              # also build the hosts this machine's platform can build
+```
+
+Each `tests/<host>.nix` lists things that host must keep doing (key-only SSH on
+the mac-mini, never sleeping, ...); a change that breaks one fails the check.
+CI (`.github/workflows/check.yml`) runs the eval-only check for every host and
+builds the mac-mini on an Apple Silicon runner, on every push to main and every PR.
 
 ## Theming
 
