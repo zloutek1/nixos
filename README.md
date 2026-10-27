@@ -63,6 +63,8 @@ nix flake check              # also build the hosts this machine's platform can 
 
 Each `tests/<host>.nix` lists things that host must keep doing (key-only SSH on
 the mac-mini, never sleeping, ...); a change that breaks one fails the check.
+CI (`.github/workflows/check.yml`) runs the eval-only check for every host and
+builds the mac-mini on an Apple Silicon runner, on every push to main and every PR.
 
 ## Theming
 
