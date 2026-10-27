@@ -1,4 +1,4 @@
-{ username, ... }:
+{ pkgs, username, ... }:
 let
   identity = import ./identity.nix;
 in
@@ -10,6 +10,9 @@ in
   };
 
   # No home-manager on darwin, so git config is system-wide.
+  # Nix's git reads the gitconfig in its own store path, not /etc/gitconfig.
+  environment.variables.GIT_CONFIG_SYSTEM = "/etc/gitconfig";
+
   environment.etc."gitconfig".text = ''
     [user]
       name = ${identity.name}
@@ -18,6 +21,9 @@ in
       defaultBranch = main
     [pull]
       rebase = true
+    [credential "https://github.com"]
+      helper =
+      helper = !${pkgs.gh}/bin/gh auth git-credential
   '';
 
 }
