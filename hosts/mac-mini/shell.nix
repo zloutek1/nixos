@@ -25,14 +25,4 @@
   environment.systemPackages = [ pkgs.zoxide ];
 
   environment.variables.EDITOR = "nvim";
-
-  environment.etc."gitconfig".text = ''
-    [user]
-      name = Tomáš Ljutenko
-      email = tomas.ljutenko@gmail.com
-    [init]
-      defaultBranch = main
-    [pull]
-      rebase = true
-  '';
 }

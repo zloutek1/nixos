@@ -1,24 +1,24 @@
-{ inputs, ... }: let 
-
-  nixpkgs-unstable = final: prev: {
-    unstable = import inputs.nixpkgs-unstable {
-      system = final.stdenv.hostPlatform.system;
-    };
-  };
-
-  home-manager-unstable = final: prev: {
-    hm.unstable = import inputs.home-manager-unstable {
-      system = final.stdenv.hostPlatform.system;
-    };
-  };
-
-in {
+# Every overlay, applied on every host. Overlays are lazy, so a package that
+# only one host uses costs the others nothing.
+{ inputs, ... }:
+{
 
   nixpkgs.overlays = [
+    # pkgs.vscode-marketplace.* and pkgs.open-vsx.*
     inputs.nix-vscode-extensions.overlays.default
-    nixpkgs-unstable
-    home-manager-unstable
-    (import ./elegant-grub-theme.nix)
+
+    # pkgs.unstable.<name> for single packages from nixos-unstable.
+    (final: prev: {
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (final.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+      };
+    })
+
+    # Our own packages from pkgs/.
+    (final: prev: {
+      elegant-grub-theme = final.callPackage ../pkgs/elegant-grub-theme.nix { };
+    })
   ];
 
 }

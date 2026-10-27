@@ -6,6 +6,9 @@
   username,
   ...
 }:
+let
+  identity = import ./identity.nix;
+in
 {
 
   home.username = username;
@@ -29,7 +32,10 @@
   programs = {
     zsh.enable = true;
     zoxide.enable = true;
-    git.enable = true;
+    git = {
+      enable = true;
+      settings.user = { inherit (identity) name email; };
+    };
     kitty.enable = true;
     nvchad.enable = true;
     wallchange.enable = true;

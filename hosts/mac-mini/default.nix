@@ -3,7 +3,7 @@
 {
 
   imports = [
-    ../../overlays/unstable.nix
+    ../../overlays
     ../../modules/darwin/common.nix
     ../../users/tomas/darwin.nix
     ./power.nix
