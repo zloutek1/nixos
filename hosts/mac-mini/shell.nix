@@ -26,13 +26,19 @@
 
   environment.variables.EDITOR = "nvim";
 
+  # Nix's git reads the gitconfig in its own store path, not /etc/gitconfig.
+  environment.variables.GIT_CONFIG_SYSTEM = "/etc/gitconfig";
+
   environment.etc."gitconfig".text = ''
     [user]
       name = Tomáš Ljutenko
-      email = tomas.ljutenko@gmail.com
+      email = zloutek1@gmail.com
     [init]
       defaultBranch = main
     [pull]
       rebase = true
+    [credential "https://github.com"]
+      helper =
+      helper = !${pkgs.gh}/bin/gh auth git-credential
   '';
 }
