@@ -4,9 +4,6 @@
 {
 
   nixpkgs.overlays = [
-    # pkgs.vscode-marketplace.* and pkgs.open-vsx.*
-    inputs.nix-vscode-extensions.overlays.default
-
     # pkgs.unstable.<name> for single packages from nixos-unstable.
     (final: prev: {
       unstable = import inputs.nixpkgs-unstable {
