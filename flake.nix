@@ -25,9 +25,6 @@
     };
 
     # ── Extras used by single modules ──
-    # Serialisation helpers (TOML), used by wallchange.
-    nix-std.url = "github:chessai/nix-std";
-
     # NvChad neovim config, used by modules/home-manager/common/nvim.
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";

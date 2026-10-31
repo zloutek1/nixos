@@ -64,9 +64,8 @@ in
       recursive = true;
     };
 
-    xdg.configFile."matugen/config.toml" = {
-      text = inputs.nix-std.lib.serde.toTOML matugenConfig;
-    };
+    xdg.configFile."matugen/config.toml".source =
+      (pkgs.formats.toml { }).generate "matugen-config.toml" matugenConfig;
 
     home.packages = [
       pkgs.matugen
