@@ -23,16 +23,8 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Only for newer HM modules swapped in by hand (syncthing, keepassxc, chromium).
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
 
     # ── Extras used by single modules ──
-    # Serialisation helpers (TOML), used by wallchange.
-    nix-std.url = "github:chessai/nix-std";
-
     # NvChad neovim config, used by modules/home-manager/common/nvim.
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";

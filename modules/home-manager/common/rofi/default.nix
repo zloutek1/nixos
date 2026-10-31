@@ -1,11 +1,19 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   config = lib.mkIf config.programs.rofi.enable {
     programs.rofi = {
       # enable = true;
       package = pkgs.rofi;
-      plugins = with pkgs; [ rofi-calc rofi-emoji ];
+      plugins = with pkgs; [
+        rofi-calc
+        rofi-emoji
+      ];
       terminal = "${pkgs.kitty}/bin/kitty";
     };
 

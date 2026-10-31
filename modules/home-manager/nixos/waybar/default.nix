@@ -1,4 +1,9 @@
-{ config, pkgs, lib, hostname, ... }: 
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
 
   modules = import ./modules { inherit pkgs; };
@@ -14,9 +19,20 @@ let
           spacing = 4;
           reload_style_on_change = true;
 
-          modules-left = [ "custom/power" "clock" "custom/wallchange" "tray" ];
+          modules-left = [
+            "custom/power"
+            "clock"
+            "custom/wallchange"
+            "tray"
+          ];
           modules-center = [ "hyprland/workspaces" ];
-          modules-right = [ "pulseaudio" "backlight" "network" "bluetooth" "battery" ];
+          modules-right = [
+            "pulseaudio"
+            "backlight"
+            "network"
+            "bluetooth"
+            "battery"
+          ];
         };
       };
 
@@ -32,9 +48,8 @@ let
   };
 
 in
-{ 
-  config = lib.mkIf config.programs.waybar.enable (lib.mkMerge (
-    [waybarConfig] ++ 
-    (mkWaybarModule waybarConfig modules)
-  ));
+{
+  config = lib.mkIf config.programs.waybar.enable (
+    lib.mkMerge ([ waybarConfig ] ++ (mkWaybarModule waybarConfig modules))
+  );
 }

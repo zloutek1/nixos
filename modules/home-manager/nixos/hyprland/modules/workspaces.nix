@@ -1,25 +1,30 @@
-{ config, pkgs, lib, ... }:
-let 
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
 
   switchOrBackScript = pkgs.writeShellScriptBin "switch-or-back" ''
-    #!/bin/sh
+     #!/bin/sh
 
-    # Get the target workspace number from the command line argument
-    TARGET_WS="$1"
+     # Get the target workspace number from the command line argument
+     TARGET_WS="$1"
 
-    # Check if a target was provided
-    if [ -z "$TARGET_WS" ]; then
-        echo "Error: No target workspace provided."
-        exit 1
-    fi
+     # Check if a target was provided
+     if [ -z "$TARGET_WS" ]; then
+         echo "Error: No target workspace provided."
+         exit 1
+     fi
 
-   CURRENT_WS=$(${pkgs.hyprland}/bin/hyprctl activeworkspace -j | ${lib.getExe pkgs.jq} '.id')
+    CURRENT_WS=$(${pkgs.hyprland}/bin/hyprctl activeworkspace -j | ${lib.getExe pkgs.jq} '.id')
 
-   if [ "$CURRENT_WS" = "$TARGET_WS" ]; then
-        ${pkgs.hyprland}/bin/hyprctl dispatch workspace previous
-    else
-        ${pkgs.hyprland}/bin/hyprctl dispatch workspace "$TARGET_WS"
-    fi
+    if [ "$CURRENT_WS" = "$TARGET_WS" ]; then
+         ${pkgs.hyprland}/bin/hyprctl dispatch workspace previous
+     else
+         ${pkgs.hyprland}/bin/hyprctl dispatch workspace "$TARGET_WS"
+     fi
   '';
 
 in
@@ -37,14 +42,14 @@ in
         "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"
         "$mainMod, down, movefocus, d"
-        
+
         #---------------move/resize windows with mainMod + arrow keys-------------------------------#
         #-------------------------------------------------------------------------------------------#
         "$mainMod SHIFT, left, movewindow, l"
         "$mainMod SHIFT, right, movewindow, r"
         "$mainMod SHIFT, up, movewindow, u"
         "$mainMod SHIFT, down, movewindow, d"
-        
+
         #---------------switch workspaces with mainMod + [0-9]----------------------------#
         #---------------------------------------------------------------------------------#
         "$mainMod, 1, exec, ${lib.getExe switchOrBackScript} 1"
@@ -57,7 +62,7 @@ in
         "$mainMod, 8, exec, ${lib.getExe switchOrBackScript} 8"
         "$mainMod, 9, exec, ${lib.getExe switchOrBackScript} 9"
         "$mainMod, 0, exec, ${lib.getExe switchOrBackScript} 10"
-        
+
         #---------------move active window to a workspace with mainMod + SHIFT + [0-9]-------------------#
         #------------------------------------------------------------------------------------------------#
         "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
@@ -70,17 +75,17 @@ in
         "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
         "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-        
+
         "CTRL $mainMod, right, movecurrentworkspacetomonitor, r"
         "CTRL $mainMod, left, movecurrentworkspacetomonitor, l"
         "CTRL $mainMod, up, movecurrentworkspacetomonitor, u"
         "CTRL $mainMod, down, movecurrentworkspacetomonitor, d"
-        
+
         #------------------------special workspace (scratchpad)---------------------------#
         #---------------------------------------------------------------------------------#
         "$mainMod, S, togglespecialworkspace, magic"
         "$mainMod SHIFT, S, movetoworkspace, special:magic"
-        
+
         #---------------scroll through existing workspaces with mainMod + scroll-------------------#
         #------------------------------------------------------------------------------------------#
         "$mainMod, mouse_down, workspace, e+1"

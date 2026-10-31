@@ -1,4 +1,9 @@
-{ config, lib, pkgs, inputs, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   config = lib.mkIf config.wayland.windowManager.hyprland.enable {
 

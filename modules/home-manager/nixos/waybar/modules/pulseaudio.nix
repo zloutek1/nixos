@@ -1,4 +1,5 @@
-{ pkgs, ... }: barName:
+{ pkgs, ... }:
+barName:
 
 {
 
@@ -18,10 +19,14 @@
         phone = "";
         portable = "";
         car = "";
-        default = ["" "" ""];
+        default = [
+          ""
+          ""
+          ""
+        ];
       };
       on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
     };
   };
-  
+
 }

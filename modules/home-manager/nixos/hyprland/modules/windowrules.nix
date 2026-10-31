@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
   config = lib.mkIf config.wayland.windowManager.hyprland.enable {
@@ -8,7 +12,7 @@
         "opacity 0.80 0.80,class:^(Steam)$"
         "opacity 0.80 0.80,class:^(steam)$"
 
-        "opacity 0.80 0.80,class:^(discord)$" #Discord-Electron
+        "opacity 0.80 0.80,class:^(discord)$" # Discord-Electron
 
         "opacity 0.80 0.70,class:^(pavucontrol)$"
         "opacity 0.80 0.70,class:^(blueman-manager)$"

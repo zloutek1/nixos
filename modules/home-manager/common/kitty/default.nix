@@ -1,4 +1,8 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
   config = lib.mkIf config.programs.kitty.enable {

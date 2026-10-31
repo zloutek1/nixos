@@ -1,7 +1,7 @@
-{ config, lib, ... }: {
+{ config, ... }: {
 
   programs.zsh = {
-    # enable = true; 
+    # enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
@@ -10,19 +10,19 @@
       ls = "ls -a --color=auto";
       ll = "ls -lah";
       grep = "grep --color=auto";
-      
+
       cat = "bat";
       vim = "nvim";
       sxiv = "nsxiv";
-      
+
       ".." = "cd ..";
       "..." = "cd ../..";
-      
+
       nix-switch = "sudo nixos-rebuild switch --flake ~/.config/nix";
       darwin-switch = "darwin-rebuild switch --flake ~/.config/nix";
       hm-switch = "home-manager switch --flake ~/.config/nix";
-      
-      sudo = "nocorrect sudo ";         # Handle sudo + alias expansion + correction
+
+      sudo = "nocorrect sudo "; # Handle sudo + alias expansion + correction
     };
 
     initContent = ''
@@ -37,12 +37,12 @@
     '';
 
     history = {
-      size = 10000;                                 # Number of lines kept in memory
-      save = 10000;                                 # Number of lines saved to file
-      path = "${config.xdg.dataHome}/zsh/history";  # Store history in XDG compliant location
-      ignoreDups = true;                            # Don't store consecutive duplicate commands
-      share = true;                                 # Share history between sessions (requires append below)
-      append = true;                                # Append history instead of overwriting [10]
+      size = 10000; # Number of lines kept in memory
+      save = 10000; # Number of lines saved to file
+      path = "${config.xdg.dataHome}/zsh/history"; # Store history in XDG compliant location
+      ignoreDups = true; # Don't store consecutive duplicate commands
+      share = true; # Share history between sessions (requires append below)
+      append = true; # Append history instead of overwriting [10]
     };
   };
 

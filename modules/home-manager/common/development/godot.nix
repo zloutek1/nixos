@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options = {
     programs.development.godot = {
       enable = lib.mkEnableOption "enable godot development";

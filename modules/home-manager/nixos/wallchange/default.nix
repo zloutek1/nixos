@@ -2,13 +2,12 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
 
   matugenConfig = import ./matugen/config.nix { inherit config pkgs; };
-  
+
   update-colors = pkgs.writeShellApplication {
     name = "update-colors";
     runtimeInputs = with pkgs; [
@@ -58,24 +57,26 @@ in
       enable = lib.mkEnableOption "wallchange program configuration";
     };
   };
-  config = lib.mkIf (config.wayland.windowManager.hyprland.enable && config.programs.wallchange.enable) {
-    xdg.configFile."matugen/templates" = {
-      source = ./matugen/templates;
-      recursive = true;
-    };
+  config =
+    lib.mkIf (config.wayland.windowManager.hyprland.enable && config.programs.wallchange.enable)
+      {
+        xdg.configFile."matugen/templates" = {
+          source = ./matugen/templates;
+          recursive = true;
+        };
 
-    xdg.configFile."matugen/config.toml" = {
-      text = inputs.nix-std.lib.serde.toTOML matugenConfig;
-    };
+        xdg.configFile."matugen/config.toml".source =
+          (pkgs.formats.toml { }).generate "matugen-config.toml"
+            matugenConfig;
 
-    home.packages = [
-      pkgs.matugen
-      pkgs.swww
-      
-      set-wallpaper
-      update-colors
-      pick-wallpaper
-      wallchange
-    ];
-  };
+        home.packages = [
+          pkgs.matugen
+          pkgs.swww
+
+          set-wallpaper
+          update-colors
+          pick-wallpaper
+          wallchange
+        ];
+      };
 }

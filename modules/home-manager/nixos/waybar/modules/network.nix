@@ -1,11 +1,12 @@
-{ pkgs, ... }: barName: 
+{ pkgs, ... }:
+barName:
 
 {
 
   programs.waybar.settings.${barName} = {
     "network" = {
       format-wifi = "";
-      format-ethernet ="";
+      format-ethernet = "";
       format-disconnected = "";
       tooltip-format-disconnected = "Error";
       tooltip-format-wifi = "{essid} ({signalStrength}%) ";

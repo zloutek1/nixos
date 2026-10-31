@@ -5,7 +5,7 @@
 
   nixpkgs.overlays = [
     # pkgs.unstable.<name> for single packages from nixos-unstable.
-    (final: prev: {
+    (final: _prev: {
       unstable = import inputs.nixpkgs-unstable {
         inherit (final.stdenv.hostPlatform) system;
         config.allowUnfree = true;
@@ -13,7 +13,7 @@
     })
 
     # Our own packages from pkgs/.
-    (final: prev: {
+    (final: _prev: {
       elegant-grub-theme = final.callPackage ../pkgs/elegant-grub-theme.nix { };
     })
   ];

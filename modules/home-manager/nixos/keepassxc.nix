@@ -1,14 +1,11 @@
-{ config, lib, pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
-  disabledModules = [ 
-    "${inputs.home-manager}/modules/programs/keepassxc.nix"
-    "${inputs.home-manager}/modules/programs/chromium.nix"
-  ];
-  imports = [ 
-    "${inputs.home-manager-unstable}/modules/programs/keepassxc.nix"
-    "${inputs.home-manager-unstable}/modules/programs/chromium.nix"
-  ];
-  
   config = lib.mkIf config.programs.keepassxc.enable {
     programs.keepassxc = {
       #enable = true;

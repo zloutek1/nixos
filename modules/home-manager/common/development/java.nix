@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   options = {
     programs.development.java = {
       enable = lib.mkEnableOption "enable java development";

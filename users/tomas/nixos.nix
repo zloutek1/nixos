@@ -1,13 +1,19 @@
-{ pkgs, lib, username, ... }: {
+{ pkgs, ... }: {
 
-  users.users.${username} = {
+  users.users.tomas = {
     isNormalUser = true;
-    description = username;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    description = "tomas";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "realtime"
+      "audio"
+    ];
     shell = pkgs.zsh;
     hashedPassword = "$6$PdrZNYAaiJjGTBbJ$Gp2lZ6Vkh5GsYawp0nGtPxCeVu/wJLDjT2dH3O0kfI5mjpmrMtOmk.RgTcNjp/RHP3YsQDoz1TWUbYfZDLdMv1";
   };
-  
+
   environment.shells = with pkgs; [
     bash
     zsh

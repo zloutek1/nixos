@@ -1,4 +1,9 @@
-{ config, inputs, pkgs, lib, ... }: 
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.nvchad4nix.homeManagerModule
@@ -7,7 +12,7 @@
   config = lib.mkIf config.programs.nvchad.enable {
 
     home.file.".config/nvim/lua/custom/kitty_padding.lua" = {
-      source =./kitty_padding.lua;
+      source = ./kitty_padding.lua;
     };
 
     programs.nvchad = {
@@ -21,11 +26,11 @@
 
       chadrcConfig = ''
         local M = {}
-        
+
         M.base46 = {
           theme = "custom",
         }
-        
+
         return M
       '';
     };

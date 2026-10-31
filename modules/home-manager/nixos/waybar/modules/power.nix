@@ -1,7 +1,8 @@
-{ pkgs, ... }: barName:
+{ pkgs, ... }:
+barName:
 
 {
-  
+
   programs.waybar.settings.${barName} = {
     "custom/power" = {
       "format" = "";
@@ -9,5 +10,5 @@
       "on-click" = "${pkgs.wlogout}/bin/wlogout --protocol layer-shell";
     };
   };
-  
+
 }

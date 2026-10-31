@@ -3,6 +3,7 @@
 let
   identity = import ../users/tomas/identity.nix;
   sshd = config.services.openssh.extraConfig;
+  postActivation = config.system.activationScripts.postActivation.text;
 in
 {
   testSshKeyOnly = {
@@ -37,5 +38,35 @@ in
   testGitIdentity = {
     expr = lib.hasInfix "email = ${identity.email}" config.environment.etc."gitconfig".text;
     expected = true;
+  };
+  testGitUsesGhForGitHub = {
+    expr = lib.hasInfix "gh auth git-credential" config.environment.etc."gitconfig".text;
+    expected = true;
+  };
+  testPrimaryUserTomas = {
+    expr = config.system.primaryUser;
+    expected = "tomas";
+  };
+  # Without it, the T7 stays unmounted after a pre-boot SSH unlock.
+  testMountsT7 = {
+    expr = config.launchd.daemons ? mount-t7;
+    expected = true;
+  };
+  # The hand-written defaults that nix-darwin has no options for.
+  testPowerNapOff = {
+    expr = lib.hasInfix "pmset -a powernap 0" postActivation;
+    expected = true;
+  };
+  testAirPlayReceiverOff = {
+    expr = lib.hasInfix "AirplayReceiverEnabled -bool false" postActivation;
+    expected = true;
+  };
+  testWifiRealMac = {
+    expr = lib.hasInfix "PrivateMACAddressModeUserSetting" postActivation;
+    expected = true;
+  };
+  testNoHomeManager = {
+    expr = config ? home-manager;
+    expected = false;
   };
 }

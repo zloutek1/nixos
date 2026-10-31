@@ -1,4 +1,5 @@
-{ ... }: barName: 
+{ ... }:
+barName:
 
 {
 
@@ -6,7 +7,17 @@
     "backlight" = {
       #device = "acpi_video1";
       format = "{icon} {percent}%";
-      format-icons = [ "" "" "" "" "" "" "" "" "" ];
+      format-icons = [
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+        ""
+      ];
     };
   };
 

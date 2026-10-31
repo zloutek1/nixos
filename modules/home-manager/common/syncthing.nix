@@ -1,8 +1,5 @@
-{ config, lib, pkgs, inputs, ... }: 
+{ config, lib, ... }:
 {
-
-  disabledModules = [ "${inputs.home-manager}/modules/services/syncthing.nix" ];
-  imports = [ "${inputs.home-manager-unstable}/modules/services/syncthing.nix" ];
 
   config = lib.mkIf config.services.syncthing.enable {
     services.syncthing = {
@@ -18,7 +15,7 @@
         devices = {
           "mac-mini" = {
             id = "NHUD4JQ-L5TBR4T-HJGKWMF-2AICEWV-IE5U5I5-2VWSFEJ-7ROVVFH-55YTKQ7";
-          }; 
+          };
         };
 
         folders = {

@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
   config = lib.mkIf config.wayland.windowManager.hyprland.enable {
@@ -14,7 +18,7 @@
 
       decoration = {
         rounding = 10;
-        
+
         active_opacity = 1.0;
         inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
@@ -32,7 +36,7 @@
 
       animations = {
         enabled = true;
-        
+
         bezier = [
           "wind, 0.05, 0.9, 0.1, 1.05"
           "winIn, 0.1, 1.1, 0.1, 1.1"
@@ -42,7 +46,7 @@
           "smoothOut, 0.5, 0, 0.99, 0.99"
           "smoothIn, 0.5, -0.5, 0.68, 1.5"
         ];
-        
+
         animation = [
           "windows, 1, 7, wind"
           "windowsOut, 1, 7, default, popin 80%"

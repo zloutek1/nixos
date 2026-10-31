@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -13,11 +13,11 @@
 
   environment.systemPackages = with pkgs; [
     # Applications
-    nautilus            # file manager
+    nautilus # file manager
 
     # Development
     git
-    
+
     # Utilities
     neovim
     tree
@@ -26,12 +26,10 @@
     wget
     curl
     htop
-    jq                  # A lightweight and flexible command-line JSON processor
-    fastfetch           # neofetch alternative
-    nsxiv               # image viewer
-    bat                 # better cat
-    nixfmt              # Nix formatter
+    jq # A lightweight and flexible command-line JSON processor
+    fastfetch # neofetch alternative
+    nsxiv # image viewer
+    bat # better cat
+    nixfmt # Nix formatter
   ];
-
-  hardware.graphics.enable = true;
 }

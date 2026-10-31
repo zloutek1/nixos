@@ -1,17 +1,10 @@
-{ config, lib, inputs, ... }: {
+{ config, lib, ... }: {
 
-  disabledModules = [ 
-    "${inputs.home-manager}/modules/programs/chromium.nix"
-  ];
-  imports = [ 
-    "${inputs.home-manager-unstable}/modules/programs/chromium.nix"
-  ];
+  config = lib.mkIf config.programs.chromium.enable {
 
-  config = lib.mkIf config.programs.chromium.enable  {
-    
     programs.chromium = {
       # enable = true;
-      
+
       extensions = [
         { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; } # uBlock Origin Lite
         { id = "nffaoalbilbmmfgbnbgppjihopabppdk"; } # Video Speed Controller

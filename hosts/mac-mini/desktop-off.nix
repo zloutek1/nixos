@@ -5,8 +5,9 @@
 # often want. It and Handoff are per-host settings, which CustomUserPreferences
 # can't write, so set them as the user and restart Control Center on a change.
 # (macOS 27 spells the key "Receiver"; the older "Reciever" key is ignored.)
-{ username, ... }:
+{ config, ... }:
 let
+  username = config.system.primaryUser;
   asUser = "launchctl asuser \"$(id -u -- ${username})\" sudo --user=${username} --";
 in
 {

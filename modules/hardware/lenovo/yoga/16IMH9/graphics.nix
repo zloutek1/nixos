@@ -1,16 +1,10 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
 
 {
-  nixpkgs.config.allowUnfree = true; # Required for Nvidia proprietary drivers
-
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  boot.kernelModules = [ "kvm-intel" ]; # For virtualization
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true; # Needed for 32-bit apps like Steam
@@ -79,9 +73,4 @@
     "nvidia-drm.modeset=1" # Essential for Nvidia + Wayland
     # "nvidia-drm.fbdev=1" # Omit initially. Can cause TTY/boot issues. Add ONLY if Wayland shows black screen after verifying other settings.
   ];
-
-  environment.sessionVariables = {
-    # Fix Nvidia cursor rendering issues in wlroots compositors (like Hyprland)
-    WLR_NO_HARDWARE_CURSORS = "1";
-  };
 }

@@ -21,7 +21,7 @@
       post_hook = "hyprctl reload --quiet";
     };
 
-    nvim = { 
+    nvim = {
       input_path = "${config.xdg.configHome}/matugen/templates/nvim.lua";
       output_path = "${config.xdg.configHome}/nvim/lua/themes/custom.lua";
     };

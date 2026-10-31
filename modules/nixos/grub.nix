@@ -1,4 +1,4 @@
-{ self, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   # WHENEVER THIS FILE CHANGES, ADD THIS FLAG TO YOUR REBUILD COMMAND: --install-bootloader
