@@ -1,10 +1,10 @@
 { config, lib, ... }: {
 
-  config = lib.mkIf config.programs.chromium.enable  {
-    
+  config = lib.mkIf config.programs.chromium.enable {
+
     programs.chromium = {
       # enable = true;
-      
+
       extensions = [
         { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; } # uBlock Origin Lite
         { id = "nffaoalbilbmmfgbnbgppjihopabppdk"; } # Video Speed Controller

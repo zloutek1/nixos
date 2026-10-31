@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.wayland.windowManager.hyprland.enable {
@@ -7,7 +12,7 @@
         # --[ clipboard
         "wl-paste --type text --watch cliphist store" # Stores only text data
         "wl-paste --type image --watch cliphist store" # Stores only image data
-        
+
         # --[ wallpaper
         "swww-daemon"
 

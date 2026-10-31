@@ -21,7 +21,7 @@
       ];
     };
   };
-  
+
   environment.sessionVariables = {
     # Force Firefox to use Wayland
     MOZ_ENABLE_WAYLAND = "1";

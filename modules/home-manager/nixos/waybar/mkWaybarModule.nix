@@ -8,8 +8,8 @@ let
   #                   typically the output of a module factory function.
   #                   Expected structure: { programs.waybar.settings.<barName> = { ... }; }
   # Returns: list of strings, the module names defined as keys within the settings for the given barName.
-  getModuleNamesFromConfig = barName: moduleConfig:
-    builtins.attrNames moduleConfig.programs.waybar.settings.${barName};
+  getModuleNamesFromConfig =
+    barName: moduleConfig: builtins.attrNames moduleConfig.programs.waybar.settings.${barName};
 
   # Gets all module names requested by the user across modules-{left,center,right} for a specific bar config.
   # Arguments:
@@ -17,11 +17,12 @@ let
   #                typically found at `config.programs.waybar.settings.<barName>`.
   #                Expected structure: { modules-left = [..], modules-center = [..], modules-right = [..], ... }
   # Returns: list of strings, the concatenated list of module names requested in the bar's layout sections.
-  getRequestedModuleNames = barConfig:
+  getRequestedModuleNames =
+    barConfig:
     builtins.concatLists [
-      (barConfig.modules-left or [])
-      (barConfig.modules-center or [])
-      (barConfig.modules-right or [])
+      (barConfig.modules-left or [ ])
+      (barConfig.modules-center or [ ])
+      (barConfig.modules-right or [ ])
     ];
 
   # Checks if a generated module configuration fragment is needed for a bar,
@@ -31,11 +32,12 @@ let
   #   - requestedNames: list of strings, the list of module names requested by the user for the bar.
   #   - barName: string, the name of the Waybar bar instance.
   # Returns: boolean, true if this moduleConfig defines at least one module listed in requestedNames.
-  isModuleNeeded = moduleConfig: requestedNames: barName:
+  isModuleNeeded =
+    moduleConfig: requestedNames: barName:
     let
       definedNames = getModuleNamesFromConfig barName moduleConfig;
     in
-      builtins.any (name: builtins.elem name requestedNames) definedNames;
+    builtins.any (name: builtins.elem name requestedNames) definedNames;
 
   # Processes configurations for a single Waybar bar instance.
   # It generates all possible module configurations from the provided factories for the specific bar,
@@ -49,7 +51,8 @@ let
   #   - barName: string, the name of the specific Waybar bar instance being processed (e.g., "main-bar").
   # Returns: list of attrsets, containing only the necessary module configuration fragments for this bar.
   # Throws: Error string with details if any requested modules are not defined by any factory.
-  processBar = config: moduleFactories: barName:
+  processBar =
+    config: moduleFactories: barName:
     let
       allGeneratedConfigs = builtins.map (factory: factory barName) moduleFactories;
 
@@ -61,17 +64,19 @@ let
 
       missing = builtins.filter (name: !(builtins.elem name availableNames)) requestedNames;
 
-      neededConfigs = builtins.filter (moduleConfig: isModuleNeeded moduleConfig requestedNames barName) allGeneratedConfigs;
+      neededConfigs = builtins.filter (
+        moduleConfig: isModuleNeeded moduleConfig requestedNames barName
+      ) allGeneratedConfigs;
 
     in
-      if (missing != []) then
-        throw ''
-          Waybar Config Error for bar '${barName}':
-            Requested module(s) not available: ${toString missing}
-            Available modules (provided by all factories): ${toString availableNames}
-        ''
-      else
-        neededConfigs;
+    if (missing != [ ]) then
+      throw ''
+        Waybar Config Error for bar '${barName}':
+          Requested module(s) not available: ${toString missing}
+          Available modules (provided by all factories): ${toString availableNames}
+      ''
+    else
+      neededConfigs;
 
   # Main entry point to generate the final list of Waybar module configurations for NixOS.
   # It iterates through all bars defined in `config.programs.waybar.settings`,
@@ -82,13 +87,14 @@ let
   #   - moduleFactories: list of functions (module factories), passed through to `processBar`.
   #                    Each factory takes `barName` (string) and returns an attrset module config fragment.
   # Returns: list of attrsets, representing all necessary module configuration fragments merged from all bars.
-  mkModuleConfigs = config: moduleFactories:
+  mkModuleConfigs =
+    config: moduleFactories:
     let
       barNames = builtins.attrNames config.programs.waybar.settings;
       configsPerBar = builtins.map (barName: processBar config moduleFactories barName) barNames;
       allNeededConfigs = builtins.concatLists configsPerBar;
     in
-      allNeededConfigs;
+    allNeededConfigs;
 
 in
-  mkModuleConfigs
+mkModuleConfigs

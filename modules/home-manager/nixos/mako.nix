@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.services.mako.enable {
@@ -6,7 +11,7 @@
     services.mako = {
       # enable = true;
       package = pkgs.unstable.mako;
-      
+
       settings = {
         actions = true;
         anchor = "top-right";

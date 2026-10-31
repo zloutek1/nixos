@@ -11,7 +11,12 @@ let
   invariants =
     pkgs: name: host:
     let
-      failures = lib.runTests (import ./${name}.nix { inherit lib; inherit (host) config; });
+      failures = lib.runTests (
+        import ./${name}.nix {
+          inherit lib;
+          inherit (host) config;
+        }
+      );
     in
     if failures == [ ] then
       pkgs.runCommand "${name}-invariants" { } "touch $out"

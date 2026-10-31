@@ -1,4 +1,4 @@
-{ config, lib, ... }: 
+{ config, lib, ... }:
 
 {
   config = lib.mkIf config.programs.wofi.enable {
@@ -9,14 +9,14 @@
       settings = {
         mode = "drun";
         prompt = "Search...";
-        
+
         width = "40%";
         height = "40%";
         # yoffset = 300;
-        
+
         matching = "fuzzy";
         insensitive = true;
-        
+
         term = "kitty";
         hide_scroll = true;
         no_actions = true;

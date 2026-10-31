@@ -15,7 +15,7 @@
         devices = {
           "mac-mini" = {
             id = "NHUD4JQ-L5TBR4T-HJGKWMF-2AICEWV-IE5U5I5-2VWSFEJ-7ROVVFH-55YTKQ7";
-          }; 
+          };
         };
 
         folders = {

@@ -7,7 +7,7 @@
     userDirs = {
       # enable = true;
       enable = config.xdg.enable && pkgs.stdenv.isLinux;
-      
+
       desktop = "$HOME/desktop";
       download = "$HOME/downloads";
       documents = "$HOME/docs";

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
   config = lib.mkIf config.programs.keepassxc.enable {
     programs.keepassxc = {

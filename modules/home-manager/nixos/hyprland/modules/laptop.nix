@@ -1,5 +1,10 @@
-{ config, pkgs, lib, ... }:
-let 
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
 
   hypr-volume-control = pkgs.writeShellApplication {
     name = "hypr-volume-control";
@@ -12,7 +17,7 @@ let
     runtimeInputs = [ pkgs.brightnessctl ];
     text = builtins.readFile ../scripts/hypr-brightness-control.sh;
   };
-  
+
 in
 {
   config = lib.mkIf config.wayland.windowManager.hyprland.enable {
@@ -27,12 +32,13 @@ in
         #---------------------------------------------------------------------------------#
         ", XF86AudioMute, exec, ${lib.getExe hypr-volume-control} toggle"
       ];
-      binde = [ # e = repeat, will repeat when held.
+      binde = [
+        # e = repeat, will repeat when held.
         #---------------volume management-------------------------------------------------#
         #---------------------------------------------------------------------------------#
         ", XF86AudioRaiseVolume, exec, ${lib.getExe hypr-volume-control} up"
         ", XF86AudioLowerVolume, exec, ${lib.getExe hypr-volume-control} down"
-        
+
         #---------------backlight management----------------------------------------------#
         #---------------------------------------------------------------------------------#
         ", XF86MonBrightnessUp, exec, ${lib.getExe hypr-brightness-control} up"

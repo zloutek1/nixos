@@ -1,4 +1,4 @@
-{ config, lib, ... }: 
+{ config, lib, ... }:
 
 {
   config = lib.mkIf config.programs.wlogout.enable {
@@ -7,7 +7,7 @@
       # enable = true;
       layout = [
         {
-          "label"  = "lock";
+          "label" = "lock";
           "action" = "hyprlock";
           "text" = "Lock";
           "keybind" = "l";

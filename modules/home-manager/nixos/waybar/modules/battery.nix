@@ -1,10 +1,11 @@
-{ ... }: barName: 
+{ ... }:
+barName:
 
 {
 
   programs.waybar.settings.${barName} = {
     "battery" = {
-      interval =30;
+      interval = 30;
       states = {
         good = 95;
         warning = 30;
@@ -14,7 +15,14 @@
       format-charging = "{capacity}% 󰂄";
       format-plugged = "{capacity}% 󰂄 ";
       format-alt = "{time} {icon}";
-      format-icons = [ "󰁻" "󰁼" "󰁾" "󰂀" "󰂂" "󰁹" ];
+      format-icons = [
+        "󰁻"
+        "󰁼"
+        "󰁾"
+        "󰂀"
+        "󰂂"
+        "󰁹"
+      ];
     };
   };
 

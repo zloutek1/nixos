@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }: 
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   imports = [
     ./hyprshade.nix
@@ -7,13 +13,13 @@
     ./modules/input.nix
     ./modules/nvidia.nix
     ./modules/monitor.nix
-    
+
     ./modules/startup.nix
-    
+
     ./modules/keybinds.nix
     ./modules/laptop.nix
     ./modules/workspaces.nix
-    
+
     ./modules/style.nix
     ./modules/windowrules.nix
   ];
@@ -25,14 +31,14 @@
 
       settings = {
         "$mainMod" = "SUPER";
-        
+
         "$terminal" = "kitty";
         "$fileManager" = "nautilus";
         "$menu" = "rofi -show drun";
         "$browser" = "chromium";
-        
+
         "$lock" = "hyprlock";
-        
+
         "$screenshot" = "$HYPRSHOT_DIR hyprshot -m output";
         "$screenshotRegion" = "$HYPRSHOT_DIR hyprshot -m region";
 
@@ -45,11 +51,11 @@
         cat "${./theme.conf}" > "$HOME/.config/hypr/theme.conf"
       fi
     '';
-    
+
     home.packages = with pkgs; [
-      hyprcursor    # custor theme
-      wl-clipboard  # clipboard
-      hyprshot      # screenshots
+      hyprcursor # custor theme
+      wl-clipboard # clipboard
+      hyprshot # screenshots
       brightnessctl
     ];
 

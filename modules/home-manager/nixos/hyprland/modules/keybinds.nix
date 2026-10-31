@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.wayland.windowManager.hyprland.enable {
@@ -11,7 +16,7 @@
         "$mainMod, E, exec, $fileManager"
         "$mainMod, D, exec, $menu"
         "$mainMod, L, exec, $lock"
-        
+
         #---------------taking screenshot-------------------------------------------------#
         #---------------------------------------------------------------------------------#
         ", PRINT, exec, $screenshot"
@@ -21,15 +26,15 @@
         #--------------------------------------------------------------------------------#
         "$mainMod SHIFT, Q, killactive,"
         "$mainMod, F, fullscreen, 1"
-        
+
         #------------------layout management--------------------------------------------#
         #-------------------------------------------------------------------------------#
-        
+
         # floating layout
         "$mainMod, Space, togglefloating,"
-        
+
         # switch between master and dwindle layout
-        "$mainMod, TAB, exec, hyprctl keyword general:layout \"dwindle\""      # switch to dwindle layout
+        "$mainMod, TAB, exec, hyprctl keyword general:layout \"dwindle\"" # switch to dwindle layout
         "$mainMod SHIFT, TAB, exec, hyprctl keyword general:layout \"master\"" # switch to master layout
 
         # Dwindle Layout

@@ -1,7 +1,8 @@
-{ pkgs, ...}: barName: 
+{ pkgs, ... }:
+barName:
 
 {
-  
+
   programs.waybar.settings.${barName} = {
     "bluetooth" = {
       format-on = "󰂯";
