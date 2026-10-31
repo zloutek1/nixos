@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 
 let
   # Extracts module names defined within a single generated config fragment for a specific bar.

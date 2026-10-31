@@ -4,7 +4,7 @@
 #
 # Nothing searches the T7, so Spotlight indexing is kept off there; otherwise
 # it would index every photo and world file as they land.
-{ pkgs, ... }:
+{ ... }:
 let
   uuid = "3F3B75F7-CE57-4793-9D3F-BA70914D9410";
 in
