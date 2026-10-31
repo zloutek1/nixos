@@ -1,5 +1,5 @@
 # Runs the flake's checks (tests/) on every push and PR.
-#   eval:     every host evaluates, its invariants hold, every file is nixfmt-formatted.
+#   eval:     every host evaluates, its invariants hold, every file passes nixfmt and deadnix.
 #   mac-mini: builds the whole mac-mini system on an Apple Silicon runner.
 # yoga isn't built: its closure (Hyprland, NVIDIA, ...) is too big for CI.
 name: check
@@ -17,8 +17,8 @@ jobs:
       - uses: cachix/install-nix-action@v31
       # --all-systems so the darwin checks are evaluated on Linux too.
       - run: nix flake check --no-build --all-systems
-      # The one cheap check that needs a build: nixfmt over every file.
-      - run: nix build --print-build-logs .#checks.x86_64-linux.formatting
+      # The cheap checks that need a build: nixfmt and deadnix over every file.
+      - run: nix build --print-build-logs .#checks.x86_64-linux.formatting .#checks.x86_64-linux.deadnix
 
   mac-mini:
     runs-on: macos-latest

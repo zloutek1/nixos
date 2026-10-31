@@ -60,6 +60,7 @@ Minimal. Modern. Personal.
 nix flake check --no-build   # evaluate every host and run the invariants (fast)
 nix flake check              # also build the hosts this machine's platform can build
 nix fmt -- $(git ls-files "*.nix")  # fix formatting before the formatting check complains
+nix run nixpkgs#deadnix -- -e .     # remove unused arguments before the deadnix check complains
 ```
 
 `tests/common.nix` holds what every host must do (no module warnings, GC keeps

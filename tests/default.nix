@@ -4,6 +4,7 @@
 #     runs every host's, so the Mac checks yoga too.
 #   - <host>-build: builds the whole system, only on a machine of that platform.
 #   - formatting: every .nix file is formatted with nixfmt (`nix fmt` fixes it).
+#   - deadnix: no unused function arguments or let bindings (`deadnix -e` fixes it).
 # `nix flake check --no-build` evaluates everything without building.
 { self, lib, ... }:
 let
@@ -24,11 +25,12 @@ let
     else
       throw "${name}: failing invariants:\n${lib.generators.toPretty { } failures}";
 
-  formatting =
-    pkgs:
-    pkgs.runCommand "formatting"
+  # Runs a linter over every .nix file in the repo.
+  lint =
+    pkgs: name: tool: script:
+    pkgs.runCommand name
       {
-        nativeBuildInputs = [ pkgs.nixfmt ];
+        nativeBuildInputs = [ tool ];
         src = lib.fileset.toSource {
           root = ../.;
           fileset = lib.fileset.fileFilter (file: file.hasExt "nix") ../.;
@@ -36,7 +38,7 @@ let
       }
       ''
         cd $src
-        find . -name '*.nix' -print0 | xargs -0 nixfmt --check
+        ${script}
         touch $out
       '';
 in
@@ -50,7 +52,10 @@ in
           lib.filterAttrs (_: host: host.pkgs.stdenv.hostPlatform.system == system) hosts
         )
         // {
-          formatting = formatting pkgs;
+          formatting =
+            lint pkgs "formatting" pkgs.nixfmt
+              "find . -name '*.nix' -print0 | xargs -0 nixfmt --check";
+          deadnix = lint pkgs "deadnix" pkgs.deadnix "deadnix --fail .";
         };
     };
 }
