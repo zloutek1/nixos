@@ -59,9 +59,11 @@ Minimal. Modern. Personal.
 ```bash
 nix flake check --no-build   # evaluate every host and run the invariants (fast)
 nix flake check              # also build the hosts this machine's platform can build
+nix fmt -- $(git ls-files "*.nix")  # fix formatting before the formatting check complains
 ```
 
-Each `tests/<host>.nix` lists things that host must keep doing (key-only SSH on
+`tests/common.nix` holds what every host must do (no module warnings, GC keeps
+a month, ...) and each `tests/<host>.nix` lists things that host must keep doing (key-only SSH on
 the mac-mini, never sleeping, ...); a change that breaks one fails the check.
 CI (`.github/workflows/check.yml`) runs the eval-only check for every host and
 builds the mac-mini on an Apple Silicon runner, on every push to main and every PR.
