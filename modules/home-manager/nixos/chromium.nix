@@ -1,11 +1,4 @@
-{ config, lib, inputs, ... }: {
-
-  disabledModules = [ 
-    "${inputs.home-manager}/modules/programs/chromium.nix"
-  ];
-  imports = [ 
-    "${inputs.home-manager-unstable}/modules/programs/chromium.nix"
-  ];
+{ config, lib, ... }: {
 
   config = lib.mkIf config.programs.chromium.enable  {
     

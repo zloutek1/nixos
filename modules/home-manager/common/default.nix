@@ -8,7 +8,7 @@
     ./rofi
     ./nvim
     ./vscode.nix
-    ./unstable/syncthing.nix
+    ./syncthing.nix
     ./development
   ];
 

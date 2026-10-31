@@ -1,8 +1,5 @@
-{ config, lib, pkgs, inputs, ... }: 
+{ config, lib, ... }:
 {
-
-  disabledModules = [ "${inputs.home-manager}/modules/services/syncthing.nix" ];
-  imports = [ "${inputs.home-manager-unstable}/modules/services/syncthing.nix" ];
 
   config = lib.mkIf config.services.syncthing.enable {
     services.syncthing = {

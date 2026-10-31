@@ -11,8 +11,8 @@
     ./wlogout.nix
     ./mako.nix
     ./batsignal.nix
-    ./unstable/keepassxc.nix
-    ./unstable/chromium.nix
+    ./keepassxc.nix
+    ./chromium.nix
   ];
 
 }
