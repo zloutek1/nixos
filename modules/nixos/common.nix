@@ -32,6 +32,4 @@
     bat                 # better cat
     nixfmt              # Nix formatter
   ];
-
-  hardware.graphics.enable = true;
 }
