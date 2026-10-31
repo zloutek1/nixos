@@ -1,4 +1,4 @@
-{ pkgs, lib, users, ... }:
+{ pkgs, ... }:
 {
 
   security.rtkit.enable = true;
@@ -40,10 +40,6 @@
       };
     };
   };
-
-  users.users = lib.genAttrs users (username: {
-    extraGroups = [ "realtime" "audio" ];
-  });
 
   environment.systemPackages = with pkgs; [
     pavucontrol

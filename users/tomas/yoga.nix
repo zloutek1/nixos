@@ -1,9 +1,7 @@
 {
   config,
   pkgs,
-  self,
   lib,
-  username,
   ...
 }:
 let
@@ -11,8 +9,8 @@ let
 in
 {
 
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
+  home.username = "tomas";
+  home.homeDirectory = "/home/tomas";
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [

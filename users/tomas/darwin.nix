@@ -1,12 +1,12 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 let
   identity = import ./identity.nix;
 in
 {
 
-  users.users.${username} = {
-    name = username;
-    home = "/Users/${username}";
+  users.users.tomas = {
+    name = "tomas";
+    home = "/Users/tomas";
   };
 
   # No home-manager on darwin, so git config is system-wide.

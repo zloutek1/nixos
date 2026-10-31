@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hostname, ... }: 
+{ config, pkgs, lib, ... }: 
 let
 
   modules = import ./modules { inherit pkgs; };

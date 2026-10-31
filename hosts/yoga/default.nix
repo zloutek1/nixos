@@ -2,10 +2,6 @@
   config,
   pkgs,
   inputs,
-  username,
-  hostname,
-  users,
-  self,
   ...
 }:
 {
@@ -32,9 +28,9 @@
     useUserPackages = true;
     backupFileExtension = "hm-backup";
     extraSpecialArgs = {
-      inherit inputs self hostname username users;
+      inherit inputs;
     };
-    users.${username}.imports = [
+    users.tomas.imports = [
       ../../modules/home-manager/common
       ../../modules/home-manager/nixos
       ../../users/tomas/yoga.nix

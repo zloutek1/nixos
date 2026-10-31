@@ -1,5 +1,4 @@
 # Headless home server: Mac mini M1, macOS 27. No home-manager, no Homebrew.
-{ username, ... }:
 {
 
   imports = [
@@ -17,7 +16,7 @@
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
-  system.primaryUser = username;
+  system.primaryUser = "tomas";
 
   networking = {
     hostName = "mac-mini";
