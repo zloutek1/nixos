@@ -30,11 +30,7 @@
     extraSpecialArgs = {
       inherit inputs;
     };
-    users.tomas.imports = [
-      ../../modules/home-manager/common
-      ../../modules/home-manager/nixos
-      ../../users/tomas/yoga.nix
-    ];
+    users.tomas = ../../users/tomas/yoga.nix;
   };
 
   networking.hostName = "yoga";

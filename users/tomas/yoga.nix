@@ -9,6 +9,12 @@ let
 in
 {
 
+  # The shared home-manager modules; each does nothing until enabled below.
+  imports = [
+    ../../modules/home-manager/common
+    ../../modules/home-manager/nixos
+  ];
+
   home.username = "tomas";
   home.homeDirectory = "/home/tomas";
   home.stateVersion = "24.11";
