@@ -13,6 +13,12 @@ in
   home.homeDirectory = "/home/tomas";
   home.stateVersion = "24.11";
 
+  # Defaults that changed in home-manager 26.05, kept at their old values
+  # until yoga is in use again and the new ones can be tried on it.
+  xdg.userDirs.setSessionVariables = true;
+  gtk.gtk4.theme = config.gtk.theme;
+  wayland.windowManager.hyprland.configType = "hyprlang";
+
   home.packages = with pkgs; [
     # Applications
     obsidian
