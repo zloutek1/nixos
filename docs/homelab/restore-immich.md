@@ -75,9 +75,15 @@ This is written down, not drilled.
    export RESTIC_REST_USERNAME=homelab RESTIC_REST_PASSWORD=<rest password>
    restic -r rest:http://host.lima.internal:8000/homelab/ snapshots
    sudo -E restic -r rest:http://host.lima.internal:8000/homelab/ restore latest --target / \
-     --include /etc/ssh/ssh_host_ed25519_key --include /etc/ssh/ssh_host_ed25519_key.pub
+     --include /etc/ssh/ssh_host_ed25519_key --include /etc/ssh/ssh_host_ed25519_key.pub \
+     --include /var/lib/tailscale/tailscaled.state
    sudo systemctl restart sshd
    ```
+   The Tailscale state brings the guest back as the same tailnet node, with
+   the same `100.x` address, so the DNS record stays right. The auth key in
+   sops is single-use and long spent. Without the state, make a new tagged
+   key in the admin console, put it in `homelab.yaml`, and delete the old
+   `homelab` machine there.
    Then remove the old entry with `ssh-keygen -R homelab` on the Mac.
 4. Run `rebuild-homelab`.
 5. Follow scenario A from step 3 (there's nothing to move aside).

@@ -3,6 +3,9 @@
 # modules/nixos/{services,groups}; this file picks which groups run.
 #
 # Deploy from the Mac: `rebuild-homelab` (it builds here, on the guest).
+let
+  share = import ./share.nix;
+in
 {
   imports = [
     ./lima.nix
@@ -19,6 +22,15 @@
   homelab.groups.edge.enable = true;
   homelab.groups.photos.enable = true;
   homelab.services.backup.enable = true;
+
+  homelab.services.immich.domain = "photos.zloutek1.com";
+
+  # User files and DB dumps on the T7; databases, thumbnails and the OS stay
+  # on the VM disk. The marker is only there when the share really is.
+  homelab.storage = {
+    files = share.mountPoint;
+    marker = "${share.mountPoint}/.t7-marker";
+  };
 
   nix.gc.dates = "weekly";
   boot.loader.grub.configurationLimit = 10;

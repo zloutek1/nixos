@@ -15,7 +15,6 @@ in
 
   config = lib.mkIf cfg.enable {
     homelab.services.immich.enable = true;
-    homelab.services.caddy.hosts."photos.zloutek1.com" = "127.0.0.1:2283";
 
     systemd.targets.homelab-photos.wantedBy = [ "multi-user.target" ];
     systemd.slices.homelab-photos = { };

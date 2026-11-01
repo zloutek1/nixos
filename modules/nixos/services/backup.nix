@@ -10,7 +10,8 @@
 }:
 let
   cfg = config.homelab.services.backup;
-  t7 = "/mnt/t7";
+  inherit (config.homelab.storage) files marker;
+  dumps = "${files}/backups/db";
   secrets = config.sops.secrets;
 in
 {
@@ -24,7 +25,7 @@ in
       passwordFile = secrets."restic/password".path;
       initialize = true;
       paths = [
-        "${t7}/backups/db"
+        dumps
         # Its sops identity, so a rebuilt guest needs no re-keying.
         "/etc/ssh/ssh_host_ed25519_key"
         "/etc/ssh/ssh_host_ed25519_key.pub"
@@ -35,11 +36,14 @@ in
         Persistent = true;
       };
       # Fail loudly instead of backing up an empty mountpoint or a stale dump.
-      backupPrepareCommand = ''
-        test -e ${t7}/.t7-marker || { echo "no ${t7}/.t7-marker" >&2; exit 1; }
-        newest=$(find ${t7}/backups/db -type f -mmin -$((26 * 60)) | head -1)
-        test -n "$newest" || { echo "no DB dump under 26 h old in ${t7}/backups/db" >&2; exit 1; }
-      '';
+      backupPrepareCommand =
+        lib.optionalString (marker != null) ''
+          test -e ${marker} || { echo "no ${marker}" >&2; exit 1; }
+        ''
+        + ''
+          newest=$(find ${dumps} -type f -mmin -$((26 * 60)) | head -1)
+          test -n "$newest" || { echo "no DB dump under 26 h old in ${dumps}" >&2; exit 1; }
+        '';
     };
     sops.secrets."restic/password" = { };
     sops.secrets."restic/rest-password" = { };
@@ -48,8 +52,8 @@ in
       RESTIC_REST_PASSWORD=${config.sops.placeholder."restic/rest-password"}
     '';
 
-    homelab.t7.dirs = [ "backups/db" ];
-    homelab.t7.units = [ "restic-backups-homelab" ];
+    homelab.storage.dirs = [ "backups/db" ];
+    homelab.storage.units = [ "restic-backups-homelab" ];
 
     homelab.checks."restic snapshot under 36 h old" = ''
       latest=$(restic-homelab snapshots --latest 1 --json | ${pkgs.jq}/bin/jq -r '.[-1].time // empty')

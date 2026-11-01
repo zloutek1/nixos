@@ -164,16 +164,20 @@ needs no re-keying if the key is restored first.
    to that group's `units` list: that sets `wantedBy`, `partOf` and the slice.
 3. Data:
    - state goes in `/var/lib/<name>`, on the VM disk;
-   - user files go in `/mnt/t7/<name>/`: list them in `homelab.t7.dirs` and
-     the units in `homelab.t7.units`, so they wait for the share and its
-     marker;
-   - databases dump to `/mnt/t7/backups/db/<name>/`;
+   - user files go under `homelab.storage.files` (the host sets it to
+     `/mnt/t7`), in `<name>/`: list the folders in `homelab.storage.dirs` and
+     the units in `homelab.storage.units`, so they wait for the share and its
+     marker. Never hard-code `/mnt/t7` in a module;
+   - databases dump to `<storage.files>/backups/db/<name>/`;
    - add a budget line below.
-4. Add its user-file paths to `services.restic.backups.homelab.paths`.
+4. Add its user-file paths to `services.restic.backups.homelab.paths`, under
+   `lib.mkIf config.homelab.services.backup.enable`.
 5. Put its secrets in `homelab.yaml` in `nix-secrets`.
-6. Reach: add `homelab.services.caddy.hosts."<name>.zloutek1.com"`, a
-   DNS-only A record to the tailnet IP, and a policy rule in
-   `tailscale/policy.hujson`. Lima forwards nothing until phase 3.
+6. Reach: give the module a `domain` option that adds
+   `homelab.services.caddy.hosts.${domain}` (as Immich does), and set it
+   in `hosts/homelab/default.nix`. Then add a DNS-only A record to the
+   tailnet IP and a policy rule in `tailscale/policy.hujson`. Lima forwards
+   nothing until phase 3.
 7. Note its RAM against the 10 GiB.
 8. Run `rebuild-homelab`, then `homelab-check`.
 

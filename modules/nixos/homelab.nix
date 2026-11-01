@@ -9,8 +9,18 @@
 }:
 let
   cfg = config.homelab;
-  t7 = (import ../../hosts/homelab/share.nix).mountPoint;
-  marker = "${t7}/.t7-marker";
+  inherit (cfg.storage) files marker;
+
+  # Each probe is its own script, so shellcheck reads it at build time.
+  probes = lib.mapAttrs (
+    name: text:
+    lib.getExe (
+      pkgs.writeShellApplication {
+        name = "check-${lib.strings.sanitizeDerivationName name}";
+        inherit text;
+      }
+    )
+  ) cfg.checks;
 
   guestCheck = pkgs.writeShellApplication {
     name = "homelab-guest-check";
@@ -41,11 +51,11 @@ let
       }
 
       check "systemd running, no failed units" running
-      check "T7 share visible (${marker})" test -e ${marker}
+      ${lib.optionalString (
+        marker != null
+      ) "check \"storage marker visible (${marker})\" test -e ${marker}"}
       ${lib.concatStrings (
-        lib.mapAttrsToList (name: cmd: ''
-          check ${lib.escapeShellArg name} ${pkgs.writeShellScript "check-${lib.strings.sanitizeDerivationName name}" cmd}
-        '') cfg.checks
+        lib.mapAttrsToList (name: probe: "check ${lib.escapeShellArg name} ${probe}\n") probes
       )}
       exit "$failed"
     '';
@@ -63,24 +73,40 @@ in
         immich = "curl -fsS http://127.0.0.1:2283/api/server/ping";
       };
       description = ''
-        Per-service probes for homelab-guest-check, each run as root by bash.
+        Per-service probes for homelab-guest-check, each run as root as its
+        own shellchecked script.
         A probe passes when it exits 0; what it prints is shown next to it.
       '';
     };
-    t7 = {
+    # Where services keep user files (photos, saves) and DB dumps. A host can
+    # put them on an external volume; by default they stay on the system disk.
+    storage = {
+      files = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/homelab";
+        example = "/mnt/t7";
+        description = "Root of the services' user files and DB dumps (dumps under backups/db/<service>).";
+      };
+      marker = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "/mnt/t7/.t7-marker";
+        description = ''
+          A file that exists only when the volume behind `files` is mounted. If
+          set, storage units don't start without it, so an empty mountpoint is
+          never written to.
+        '';
+      };
       dirs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ ];
         example = [ "immich/library" ];
-        description = "Folders under the T7 share that services need, created at boot.";
+        description = "Folders under `files` that services need, created before each of their starts.";
       };
       units = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ ];
-        description = ''
-          Services that use the T7 share. They wait for it and its folders, and
-          don't start without the marker, so an empty mountpoint is never written to.
-        '';
+        description = "Services that use `files`. They wait for it, its folders and the marker.";
       };
     };
   };
@@ -88,29 +114,30 @@ in
   config = {
     environment.systemPackages = [ guestCheck ];
 
-    systemd.services = {
-      homelab-t7-dirs = {
-        description = "Create the services' folders on the T7 share";
-        unitConfig = {
-          RequiresMountsFor = t7;
-          ConditionPathExists = marker;
+    systemd.services =
+      let
+        gate = {
+          RequiresMountsFor = files;
+        }
+        // lib.optionalAttrs (marker != null) { ConditionPathExists = marker; };
+      in
+      {
+        homelab-storage-dirs = {
+          description = "Create the services' folders under ${files}";
+          unitConfig = gate;
+          # Not RemainAfterExit: it runs again before every start of a storage
+          # unit, so a folder a restore didn't bring back (one that isn't backed
+          # up) exists before systemd binds it into the unit.
+          serviceConfig.Type = "oneshot";
+          # On virtiofs, chown is ignored and every file looks owned by whoever
+          # asks, so a plain mkdir is enough there.
+          script = lib.concatMapStrings (dir: "mkdir -p ${files}/${dir}\n") cfg.storage.dirs;
         };
-        # Not RemainAfterExit: it runs again before every start of a T7 unit,
-        # so a folder a restore didn't bring back (one that isn't backed up)
-        # exists before systemd binds it into the unit.
-        serviceConfig.Type = "oneshot";
-        # virtiofs ignores chown and reports every file as owned by whoever
-        # asks, so a plain mkdir is enough.
-        script = lib.concatMapStrings (dir: "mkdir -p ${t7}/${dir}\n") cfg.t7.dirs;
-      };
-    }
-    // lib.genAttrs cfg.t7.units (_: {
-      after = [ "homelab-t7-dirs.service" ];
-      requires = [ "homelab-t7-dirs.service" ];
-      unitConfig = {
-        RequiresMountsFor = t7;
-        ConditionPathExists = marker;
-      };
-    });
+      }
+      // lib.genAttrs cfg.storage.units (_: {
+        after = [ "homelab-storage-dirs.service" ];
+        requires = [ "homelab-storage-dirs.service" ];
+        unitConfig = gate;
+      });
   };
 }

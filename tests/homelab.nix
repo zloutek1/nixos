@@ -37,6 +37,15 @@ in
     expr = builtins.elem "/mnt/t7/immich/library" config.services.restic.backups.homelab.paths;
     expected = true;
   };
+  testPhotosServedByCaddy = {
+    expr = config.services.caddy.virtualHosts ? "photos.zloutek1.com";
+    expected = true;
+  };
+  # A rebuilt guest rejoins the tailnet as the same node, without a new key.
+  testTailscaleStateBackedUp = {
+    expr = builtins.elem "/var/lib/tailscale/tailscaled.state" config.services.restic.backups.homelab.paths;
+    expected = true;
+  };
   # Tailnet only: 443 is open on tailscale0 and nowhere else.
   testHttpsOnlyOnTailnet = {
     expr = {
