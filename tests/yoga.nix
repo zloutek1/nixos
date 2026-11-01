@@ -4,6 +4,10 @@ let
   hm = config.home-manager.users.tomas;
 in
 {
+  testGcKeepsAMonth = {
+    expr = config.nix.gc.options;
+    expected = "--delete-older-than 30d";
+  };
   testNoHomeManagerWarnings = {
     expr = hm.warnings;
     expected = [ ];

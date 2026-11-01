@@ -69,4 +69,31 @@ in
     expr = config ? home-manager;
     expected = false;
   };
+  testGcKeepsTwoWeeks = {
+    expr = config.nix.gc.options;
+    expected = "--delete-older-than 14d";
+  };
+  # The limactl copy holds Full Disk Access; only root and homelab may run it.
+  testTomasNotInHomelab = {
+    expr = config.users.groups.homelab.members;
+    expected = [ "homelab" ];
+  };
+  testVmRunsAsHomelab = {
+    expr = config.launchd.daemons.homelab-vm.serviceConfig.UserName;
+    expected = "homelab";
+  };
+  # Lima's host agent outlives a dead VM, so launchd alone never restarts it.
+  testHasVmWatchdog = {
+    expr = config.launchd.daemons ? homelab-watchdog;
+    expected = true;
+  };
+  # A broken or compromised guest can add snapshots, never delete them.
+  testBackupRepoAppendOnly = {
+    expr = lib.elem "--append-only" config.launchd.daemons.rest-server.serviceConfig.ProgramArguments;
+    expected = true;
+  };
+  testRestServerLocalOnly = {
+    expr = lib.elem "127.0.0.1:8000" config.launchd.daemons.rest-server.serviceConfig.ProgramArguments;
+    expected = true;
+  };
 }

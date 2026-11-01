@@ -13,6 +13,8 @@
     ./t7.nix
     ./wifi.nix
     ./desktop-off.nix
+    ./secrets.nix
+    ./homelab
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";

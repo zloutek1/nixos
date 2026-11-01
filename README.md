@@ -16,6 +16,19 @@ Minimal. Modern. Personal.
 - **Boot:** GRUB
 - **Usage:** Primary workstation for dev, writing, and experiments
 
+## **Mac mini M1** (`mac-mini`, nix-darwin)
+
+- **OS:** macOS 27, headless; FileVault with pre-boot SSH unlock
+- **Role:** home server plumbing only: the `homelab` VM, the T7 mount, a
+  watchdog, the backup repo (append-only rest-server) and the operator's commands
+
+## **homelab** (NixOS guest on the Mac mini)
+
+- **VM:** Lima VZ, 10 GiB RAM, 4 CPUs, 80 GiB disk; the T7 shared in at `/mnt/t7`
+- **Runs:** every service as a NixOS module, in groups (`photos`: Immich; `edge`:
+  Tailscale and Caddy), reachable only over the tailnet
+- **Operating it:** [docs/homelab/operator.md](docs/homelab/operator.md)
+
 
 # Users
 
@@ -44,15 +57,22 @@ Minimal. Modern. Personal.
 ├── flake.nix         # Entry point: inputs, and flake-parts wiring
 ├── hosts/            # One dir per machine: which modules it uses + facts only it has
 ├── modules/          # Reusable building blocks, no machine facts
+│   ├── common/       # options both nix-darwin and NixOS have (the servers' Nix settings)
 │   ├── darwin/       # nix-darwin system modules
 │   ├── hardware/     # Hardware support (Lenovo Yoga 16IMH9)
 │   ├── home-manager/ # User environment modules
-│   └── nixos/        # NixOS system modules
+│   └── nixos/        # NixOS system modules; services/ and groups/ for the homelab
 ├── users/            # Per-person account, identity and program choices
 ├── overlays/         # Changes to `pkgs` (pkgs.unstable, our own packages)
 ├── pkgs/             # Custom packages, added to `pkgs` by overlays/
-└── tests/            # `nix flake check` invariants per host
+├── docs/homelab/     # operator's guide and restore runbooks
+├── tailscale/        # the tailnet policy, kept for the record
+└── tests/            # `nix flake check` invariants per host; secrets/ stubs for CI
 ```
+
+Secrets are sops-nix files in the private `zloutek1/nix-secrets` repo (the
+`secrets` input). Without access to it, add
+`--override-input secrets path:./tests/secrets` to any `nix` command.
 
 ## Testing
 
@@ -63,11 +83,12 @@ nix fmt -- $(git ls-files "*.nix")  # fix formatting before the formatting check
 nix run nixpkgs#deadnix -- -e .     # remove unused arguments before the deadnix check complains
 ```
 
-`tests/common.nix` holds what every host must do (no module warnings, GC keeps
-a month, ...) and each `tests/<host>.nix` lists things that host must keep doing (key-only SSH on
+`tests/common.nix` holds what every host must do (no module warnings, GC on,
+...) and each `tests/<host>.nix` lists things that host must keep doing (key-only SSH on
 the mac-mini, never sleeping, ...); a change that breaks one fails the check.
 CI (`.github/workflows/check.yml`) runs the eval-only check for every host and
-builds the mac-mini on an Apple Silicon runner, on every push to main and every PR.
+builds the mac-mini on an Apple Silicon runner, on every push to main and every PR,
+with the stub secrets.
 
 ## Theming
 
