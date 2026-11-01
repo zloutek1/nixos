@@ -7,6 +7,12 @@
     modules = [ ./yoga ];
   };
 
+  # The NixOS guest that runs every service, under Lima VZ on mac-mini.
+  flake.nixosConfigurations.homelab = inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = { inherit inputs; };
+    modules = [ ./homelab ];
+  };
+
   flake.darwinConfigurations.mac-mini = inputs.nix-darwin.lib.darwinSystem {
     specialArgs = { inherit inputs; };
     modules = [ ./mac-mini ];

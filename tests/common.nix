@@ -13,9 +13,10 @@
     ];
     expected = true;
   };
-  # Old generations are collected, but never so fast that there's nothing to roll back to.
-  testGcKeepsAMonth = {
-    expr = with config.nix.gc; automatic && options == "--delete-older-than 30d";
+  # Old generations are collected, but never so fast that there's nothing to
+  # roll back to. How long each host keeps them is in tests/<host>.nix.
+  testGcAutomatic = {
+    expr = config.nix.gc.automatic;
     expected = true;
   };
   testTimeZone = {

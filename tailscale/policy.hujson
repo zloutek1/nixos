@@ -1,0 +1,20 @@
+// The tailnet policy, kept here for the record. Tailscale doesn't read this
+// file: paste it into the admin console (Access controls) after each change.
+//
+// One node, homelab (tag:server). Both people reach only its HTTPS port. No
+// Tailscale SSH; admin is on the home LAN (docs/homelab/operator.md).
+{
+  "tagOwners": {
+    "tag:server": ["autogroup:admin"],
+  },
+
+  "grants": [
+    {
+      "src": ["autogroup:member"],
+      "dst": ["tag:server"],
+      "ip":  ["tcp:443", "icmp:*"],
+    },
+  ],
+
+  "ssh": [],
+}

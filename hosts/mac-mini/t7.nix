@@ -22,8 +22,8 @@ in
     serviceConfig = {
       RunAtLoad = true;
       StartInterval = 60;
-      StandardOutPath = "/var/log/mount-t7.log";
-      StandardErrorPath = "/var/log/mount-t7.log";
+      StandardOutPath = "/var/log/homelab/mount-t7.log";
+      StandardErrorPath = "/var/log/homelab/mount-t7.log";
     };
   };
 }

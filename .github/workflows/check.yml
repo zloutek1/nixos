@@ -2,6 +2,7 @@
 #   eval:     every host evaluates, its invariants hold, every file passes nixfmt and deadnix.
 #   mac-mini: builds the whole mac-mini system on an Apple Silicon runner.
 # yoga isn't built: its closure (Hyprland, NVIDIA, ...) is too big for CI.
+# The private nix-secrets input is swapped for the stubs in tests/secrets.
 name: check
 
 on:
@@ -16,13 +17,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
       # --all-systems so the darwin checks are evaluated on Linux too.
-      - run: nix flake check --no-build --all-systems
+      - run: nix flake check --no-build --all-systems --override-input secrets path:./tests/secrets
       # The cheap checks that need a build: nixfmt and deadnix over every file.
-      - run: nix build --print-build-logs .#checks.x86_64-linux.formatting .#checks.x86_64-linux.deadnix
+      - run: nix build --print-build-logs --override-input secrets path:./tests/secrets .#checks.x86_64-linux.formatting .#checks.x86_64-linux.deadnix
 
   mac-mini:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
-      - run: nix build --print-build-logs .#checks.aarch64-darwin.mac-mini-build
+      - run: nix build --print-build-logs --override-input secrets path:./tests/secrets .#checks.aarch64-darwin.mac-mini-build

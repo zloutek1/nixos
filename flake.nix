@@ -1,5 +1,5 @@
 {
-  description = "zloutek1's hosts: yoga (NixOS) and mac-mini (nix-darwin home server)";
+  description = "zloutek1's hosts: yoga (NixOS), mac-mini (nix-darwin home server) and its homelab guest (NixOS)";
 
   inputs = {
     # ── Package sets ──
@@ -22,6 +22,28 @@
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # ── The homelab guest (NixOS under Lima VZ on mac-mini) ──
+    # Lima itself, pinned on its own and bumped deliberately: its mount-tag
+    # formula changed in 2.2.0, and hosts/homelab/lima.nix depends on it.
+    nixpkgs-lima.url = "github:NixOS/nixpkgs/f05535a0efcb2134c478d1e88434fadf486d42b5";
+    # The NixOS module that makes a Lima guest boot (lima-init, guest agent).
+    nixos-lima = {
+      url = "github:nixos-lima/nixos-lima";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # ── Secrets ──
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # Private: .sops.yaml and one encrypted file per host. Not a flake, so the
+    # secret names stay out of this repo too. CI overrides it with tests/secrets.
+    secrets = {
+      url = "git+ssh://git@github.com/zloutek1/nix-secrets.git";
+      flake = false;
     };
 
     # ── Extras used by single modules ──
